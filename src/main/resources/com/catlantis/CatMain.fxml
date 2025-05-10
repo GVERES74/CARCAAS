@@ -136,12 +136,7 @@
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0">
                                                          <children>
-                                                            <TableView id="tableView_RescuedAnimals" fx:id="tableView_RescuedAnimals" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                              <columns>
-                                                                <TableColumn prefWidth="75.0" text="C1" />
-                                                                <TableColumn prefWidth="75.0" text="C2" />
-                                                              </columns>
-                                                            </TableView>
+                                                            <TableView id="tableView_RescuedAnimals" fx:id="tableView_RescuedAnimals" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                          </children>
                                                       </AnchorPane>
                                                 </content>
@@ -156,7 +151,7 @@
                                        </children></AnchorPane>
                                 </items>
                               </SplitPane>
-                              <TitledPane id="frmTitledPaneNewReceipt" fx:id="frmTitledPaneNewReceipt" animated="false" text="Új bekerülés" StackPane.alignment="TOP_CENTER">
+                              <TitledPane id="frmTitledPaneNewReceipt" fx:id="frmTitledPaneNewReceipt" animated="false" text="Új bekerülés" visible="false" StackPane.alignment="TOP_CENTER">
                                 <content>
                                   <AnchorPane minHeight="200.0" minWidth="200.0">
                                        <children>

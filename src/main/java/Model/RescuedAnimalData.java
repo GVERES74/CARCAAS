@@ -39,89 +39,57 @@ public class RescuedAnimalData {
         this.castredstatus = new SimpleStringProperty(castredStatus);
         this.healthstatus = new SimpleStringProperty(healthStatus);
         this.injurystatus = new SimpleStringProperty(injuryStatus);
+    }    
+    
+    
+    //Ha egy vagy több cella üresen jelenik meg, akkor ellenőrizni kell a getter-eket, vagy újra Insert Code -> Getter..
+    public String getAnimalid() {
+        return animalid.get();
     }
 
-    public SimpleStringProperty getAnimalID() {
-        return animalid;
+    public String getAnimalrace() {
+        return animalrace.get();
     }
 
-    public SimpleStringProperty getAnimalRace() {
-        return animalrace;
+    public String getAnimalspecies() {
+        return animalspecies.get();
     }
 
-    public SimpleStringProperty getAnimalSpecies() {
-        return animalspecies;
+    public String getAnimalsex() {
+        return animalsex.get();
     }
 
-    public SimpleStringProperty getAnimalSex() {
-        return animalsex;
+    public String getAnimalname() {
+        return animalname.get();
     }
 
-    public SimpleStringProperty getAnimalName() {
-        return animalname;
+    public String getAnimalcolor() {
+        return animalcolor.get();
     }
 
-    public SimpleStringProperty getAnimalColor() {
-        return animalcolor;
+    public String getAnimalbirthdate() {
+        return animalbirthdate.get();
     }
 
-    public SimpleStringProperty getAnimalbirthdate() {
-        return animalbirthdate;
+    public String getPhotoalbumid() {
+        return photoalbumid.get();
     }
 
-    public SimpleStringProperty getCastredstatus() {
-        return castredstatus;
+    public String getCastredstatus() {
+        return castredstatus.get();
     }
 
-    public SimpleStringProperty getHealthstatus() {
-        return healthstatus;
+    public String getHealthstatus() {
+        return healthstatus.get();
     }
 
-    public SimpleStringProperty getInjurystatus() {
-        return injurystatus;
+    public String getInjurystatus() {
+        return injurystatus.get();
     }
-
         
-    
-    public void setAnimalRace(String animalRace){
-        animalrace.set(animalRace);
-    }
-    
-    public void setAnimalSpecies(String animalSpecies){
-        animalspecies.set(animalSpecies);
-    }
-    
-    public void setAnimalSex(String animalSex){
-        animalsex.set(animalSex);
-    }
-    
-    public void setAnimalName(String animalName){
-        animalname.set(animalName);
-    }
-    
-    public void setAnimalColor(String animalColor){
-        animalcolor.set(animalColor);
-    }
-    
-    public void setAnimalbirthdate(String animalBirthdate){
-        animalbirthdate.set(animalBirthdate);
-    }
 
-    public void setPhotoalbumid(String photoAlbumId) {
-        photoalbumid.set(photoAlbumId);
-    }
 
-    public void setCastredstatus(String castredStatus) {
-        castredstatus.set(castredStatus);
-    }
-
-    public void setHealthstatus(String healthStatus) {
-        healthstatus.set(healthStatus);
-    }
-
-    public void setInjurystatus(String injuryStatus) {
-        injurystatus.set(injuryStatus);
-    }
+    
 
     
 }

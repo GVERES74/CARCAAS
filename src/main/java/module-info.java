@@ -8,4 +8,10 @@ module com.catlantis {
 
     opens com.catlantis to javafx.fxml;
     exports com.catlantis;
+    
+    opens Model to javafx.fxml;
+    exports Model;
+    
+    opens Utils to javafx.fxml;
+    exports Utils;
 }

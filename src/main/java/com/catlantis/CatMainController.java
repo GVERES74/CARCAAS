@@ -5,6 +5,7 @@
 package com.catlantis;
 
 import Model.CatDBConnection;
+import Model.PersonData;
 import Model.RescuedAnimalData;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -62,11 +63,7 @@ private Pane paneWebview;
 private ImageView splashImageView;
 private TreeMenuBuilder treeMenuBuilder = new TreeMenuBuilder();
 public CatDBConnection catlantisDBconnection;
-AnimalReceiptController receiptController = new AnimalReceiptController();
-
-private final ObservableList<RescuedAnimalData> rescuedAnimals = FXCollections.observableArrayList(
-    new RescuedAnimalData("1", "2023.04.14", "Macska", "Házimacska", "Taki", "Nőstény", "Fehér", "4 hét", "Ivartalanított", "Egészséges", "Sérülésmentes")
-);
+public AnimalReceiptController receiptController = new AnimalReceiptController();
 
 
 @FXML
@@ -80,21 +77,6 @@ private StackPane mainContentStackPane;
 
 @FXML
 private TreeView mainTreeViewAnimalCare, mainTreeViewFinancial, mainTreeViewDonations, mainTreeViewOrganization;
-
-@FXML
-private TableView tableView_RescuedAnimals;
-
-@FXML
-private DatePicker datePickerReceiptDate, datePickerBirthDate, datePickerRescueDate;
-
-@FXML
-private TitledPane frmTitledPaneNewReceipt;
-
-@FXML
-private SplitPane formReceiptViewSplitPane;
-
-@FXML
-private ComboBox comboBoxSelectRace, comboBoxSelectSpecies, comboBoxSelectGender, comboBoxSelectColor, comboBoxSelectAge, comboBoxSelectAgeYMW;
 
 @FXML
 private Label dateLabel, labelModulePath;
@@ -118,9 +100,30 @@ private RadioButton radioButtonNotCastred, radioButtonCastred, radioButtonInjure
 private TextArea textAreaInjuryDetails, textAreaSicknessDetails, textAreaAdditionalInfo;
 
 @FXML
+TitledPane frmTitledPaneNewReceipt;
+
+@FXML
+private SplitPane formReceiptViewSplitPane;
+
+@FXML
+private TableView tableView_RescuedAnimals;
+
+@FXML
+private ComboBox comboBoxSelectRace, comboBoxSelectSpecies, comboBoxSelectGender, comboBoxSelectColor, comboBoxSelectAge, comboBoxSelectAgeYMW;
+
+@FXML
+private DatePicker datePickerReceiptDate, datePickerBirthDate, datePickerRescueDate;
+
+@FXML
 private Button btnSaveNewReceipt;
 
+private final ObservableList<RescuedAnimalData> rescuedAnimals = FXCollections.observableArrayList(
+    new RescuedAnimalData("1", "Macska", "Main Coon", "Nőstény", "Tapi", "Barna", "2024.11.12.", "Photo1", "Ivartalan", "Egészséges", "Sérülésmentes")
+);
 
+private final ObservableList<PersonData> persons = FXCollections.observableArrayList(
+    new PersonData("1", "2", "3")
+);
 
 
 
@@ -212,7 +215,6 @@ private Button btnSaveNewReceipt;
         splashImageView.setPreserveRatio(true);
         splashImageView.setImage(new Image(getClass().getResourceAsStream("kitty.jpg")));
         mainContentStackPane.getChildren().add(splashPane);
-        frmTitledPaneNewReceipt.setVisible(false);
         splashPane.toFront();
     }
     
@@ -224,49 +226,7 @@ private Button btnSaveNewReceipt;
     
     }
     
-    
-     public void createNewReceipt(){
-        frmTitledPaneNewReceipt.toFront();
-        frmTitledPaneNewReceipt.setVisible(true);
-        
-       comboBoxSelectRace.getItems().addAll("Macska","Kutya","Hörcsög","Nyúl");
-       comboBoxSelectGender.getItems().addAll("Hím", "Nőstény", "Kandúr", "Kan", "Szuka");
-       comboBoxSelectAge.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12);
-       comboBoxSelectAge.setValue(comboBoxSelectAge.getItems().get(0));
-       comboBoxSelectAgeYMW.getItems().addAll("nap", "hét", "hónap", "év");
-       comboBoxSelectAgeYMW.setValue(comboBoxSelectAgeYMW.getItems().get(0));
-        
-        
-        comboBoxSelectAgeYMW.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            String selectedListItem = comboBoxSelectAgeYMW.getSelectionModel().getSelectedItem().toString();
-            switch (selectedListItem){
-                
-                case "nap": {datePickerBirthDate.setValue(LocalDate.now().minusDays(Integer.parseInt(comboBoxSelectAge.getSelectionModel().getSelectedItem().toString())));} break;
-                case "hét": {datePickerBirthDate.setValue(LocalDate.now().minusDays(7*Integer.parseInt(comboBoxSelectAge.getSelectionModel().getSelectedItem().toString())));} break;        
-                case "hónap": {datePickerBirthDate.setValue(LocalDate.now().minusDays(30*Integer.parseInt(comboBoxSelectAge.getSelectionModel().getSelectedItem().toString())));} break;    
-                case "év": {datePickerBirthDate.setValue(LocalDate.now().minusDays(365*Integer.parseInt(comboBoxSelectAge.getSelectionModel().getSelectedItem().toString())));} break;
-            
-            }
-            
-        });
-            
-        comboBoxSelectAge.setOnAction(e -> {
-            
-            datePickerBirthDate.setValue(LocalDate.now());
-           
-        });
-        
-             
-    }
-    
-    public void viewNewReceipt(){
-        formReceiptViewSplitPane.toFront();
-        formReceiptViewSplitPane.setVisible(true);
-        
-        
-    }
-    
-    
+   
     public void createListeners(){
         mainTreeViewAnimalCare.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             TreeItem<String> selectedItem = (TreeItem<String>)newValue;
@@ -316,6 +276,65 @@ private Button btnSaveNewReceipt;
                 }});
      }
     
+    
+    public void createNewReceipt() {
+                
+        frmTitledPaneNewReceipt.toFront();
+        frmTitledPaneNewReceipt.setVisible(true);
+        
+       comboBoxSelectRace.getItems().addAll("Macska","Kutya","Hörcsög","Nyúl");
+       comboBoxSelectGender.getItems().addAll("Hím", "Nőstény", "Kandúr", "Kan", "Szuka");
+       comboBoxSelectAge.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12);
+       comboBoxSelectAge.setValue(comboBoxSelectAge.getItems().get(0));
+       comboBoxSelectAgeYMW.getItems().addAll("nap", "hét", "hónap", "év");
+       comboBoxSelectAgeYMW.setValue(comboBoxSelectAgeYMW.getItems().get(0));
+        
+        
+        comboBoxSelectAgeYMW.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            String selectedListItem = comboBoxSelectAgeYMW.getSelectionModel().getSelectedItem().toString();
+            switch (selectedListItem){
+                
+                case "nap": {datePickerBirthDate.setValue(LocalDate.now().minusDays(Integer.parseInt(comboBoxSelectAge.getSelectionModel().getSelectedItem().toString())));} break;
+                case "hét": {datePickerBirthDate.setValue(LocalDate.now().minusDays(7*Integer.parseInt(comboBoxSelectAge.getSelectionModel().getSelectedItem().toString())));} break;        
+                case "hónap": {datePickerBirthDate.setValue(LocalDate.now().minusDays(30*Integer.parseInt(comboBoxSelectAge.getSelectionModel().getSelectedItem().toString())));} break;    
+                case "év": {datePickerBirthDate.setValue(LocalDate.now().minusDays(365*Integer.parseInt(comboBoxSelectAge.getSelectionModel().getSelectedItem().toString())));} break;
+            
+            }
+            
+        });
+    
+        comboBoxSelectAge.setOnAction(e -> {
+            
+            datePickerBirthDate.setValue(LocalDate.now());
+           
+        });
+   
+    }
+           
+    public void viewNewReceipt(){
+        formReceiptViewSplitPane.toFront();
+        formReceiptViewSplitPane.setVisible(true);
+                
+        TableColumn animalIdCol = createTableColumn("Azonosító", "animalid", 50);
+        TableColumn animalRaceCol = createTableColumn("Faj", "animalrace", 50);
+        TableColumn animalSpeciesCol = createTableColumn("Fajta", "animalspecies", 50);
+        TableColumn animalSexCol = createTableColumn("Neme", "animalsex", 50);
+        TableColumn animalNameCol = createTableColumn("Név", "animalname", 50);
+        TableColumn animalColorCol = createTableColumn("Szin", "animalcolor", 50);
+        TableColumn animalBirthdateCol = createTableColumn("Születési dátum", "animalbirthdate", 50);
+        TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 50);
+        TableColumn animalCastredstatusCol = createTableColumn("Nemzőképesség", "castredstatus", 50);
+        TableColumn animalHealthstatusCol = createTableColumn("Egészségi állapot", "healthstatus", 50);
+        TableColumn animalInjurystatusCol = createTableColumn("Sérülés", "injurystatus", 50);
+        
+        
+        tableView_RescuedAnimals.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol,animalCastredstatusCol,animalHealthstatusCol,animalInjurystatusCol);
+        tableView_RescuedAnimals.setItems(rescuedAnimals);
+        //Ha hibaüzenetet kapsz (Modul elérési hiba, pl. Model, akkor a module-info.java-ba fel kell venni: opens Model to javafx.fxml; és exports Model;   
+       
+        
+    }
+    
     public TableColumn createTableColumn (String columnDesc, String propertyName, int size){
         
         TableColumn columnName = new TableColumn(columnDesc);
@@ -333,12 +352,6 @@ private Button btnSaveNewReceipt;
         createListeners();
         startUpScreen();
         createCatlantisDataBaseConnection();
-        TableColumn animalIdCol = createTableColumn("Azonosító", "animalid", 50);
-        TableColumn animalRaceCol = createTableColumn("Faj", "animalrace", 50);
+        
     }
-
-    
-            
-
-}
-  
+}  

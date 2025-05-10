@@ -26,20 +26,20 @@ public class PersonData {
         
     }
 
-    public SimpleStringProperty getPersonid() {
-        return personid;
+    public String getPersonid() {
+        return personid.get();
     }
 
-    public SimpleStringProperty getPersonname() {
-        return personname;
+    public String getPersonname() {
+        return personname.get();
     }
 
-    public SimpleStringProperty getPersonphone() {
-        return personphone;
+    public String getPersonphone() {
+        return personphone.get();
     }
 
-    public SimpleStringProperty getPersonemail() {
-        return personemail;
+    public String getPersonemail() {
+        return personemail.get();
     }
     
     public void setPersonname(String personName){
