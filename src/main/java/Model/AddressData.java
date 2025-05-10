@@ -26,32 +26,32 @@ public class AddressData {
         this.addressnumber = new SimpleStringProperty(addressNumber);
     }
 
-    public SimpleStringProperty getAddressid() {
-        return addressid;
+    public String getAddressid() {
+        return addressid.get();
     }
 
-    public SimpleStringProperty getAddresscountry() {
-        return addresscountry;
+    public String getAddresscountry() {
+        return addresscountry.get();
     }
 
-    public SimpleStringProperty getAddresscounty() {
-        return addresscounty;
+    public String getAddresscounty() {
+        return addresscounty.get();
     }
 
-    public SimpleStringProperty getAddresszipcode() {
-        return addresszipcode;
+    public String getAddresszipcode() {
+        return addresszipcode.get();
     }
 
-    public SimpleStringProperty getAddresscity() {
-        return addresscity;
+    public String getAddresscity() {
+        return addresscity.get();
     }
 
-    public SimpleStringProperty getAddressstreet() {
-        return addressstreet;
+    public String getAddressstreet() {
+        return addressstreet.get();
     }
 
-    public SimpleStringProperty getAddressnumber() {
-        return addressnumber;
+    public String getAddressnumber() {
+        return addressnumber.get();
     }
 
     public void setAddresscountry(String addressCountry){

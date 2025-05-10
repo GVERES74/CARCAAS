@@ -43,52 +43,52 @@ public class ReceiptData {
         
     }
 
-    public SimpleStringProperty getReceiptid() {
-        return receiptid;
+    public String getReceiptid() {
+        return receiptid.get();
     }
 
-    public SimpleStringProperty getAnimalid() {
-        return animalid;
+    public String getAnimalid() {
+        return animalid.get();
     }
 
-    public SimpleStringProperty getPersonid() {
-        return personid;
+    public String getPersonid() {
+        return personid.get();
     }
 
-    public SimpleStringProperty getRescueaddressid() {
-        return rescueaddressid;
+    public String getRescueaddressid() {
+        return rescueaddressid.get();
     }
 
-    public SimpleStringProperty getCastredstatus() {
-        return castredstatus;
+    public String getCastredstatus() {
+        return castredstatus.get();
     }
 
-    public SimpleStringProperty getInjurystatus() {
-        return injurystatus;
+    public String getInjurystatus() {
+        return injurystatus.get();
     }
 
-    public SimpleStringProperty getInjurydesc() {
-        return injurydesc;
+    public String getInjurydesc() {
+        return injurydesc.get();
     }
 
-    public SimpleStringProperty getHealthstatus() {
-        return healthstatus;
+    public String getHealthstatus() {
+        return healthstatus.get();
     }
 
-    public SimpleStringProperty getSicknessdesc() {
-        return sicknessdesc;
+    public String getSicknessdesc() {
+        return sicknessdesc.get();
     }
 
-    public SimpleStringProperty getRemarks() {
-        return remarks;
+    public String getRemarks() {
+        return remarks.get();
     }
 
-    public SimpleStringProperty getReceiptdate() {
-        return receiptdate;
+    public String getReceiptdate() {
+        return receiptdate.get();
     }
 
-    public SimpleStringProperty getUserid() {
-        return userid;
+    public String getUserid() {
+        return userid.get();
     }
     
     

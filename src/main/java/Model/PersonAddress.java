@@ -25,20 +25,20 @@ public class PersonAddress {
                 
     }
 
-    public SimpleStringProperty getAssignid() {
-        return assignid;
+    public String getAssignid() {
+        return assignid.get();
     }
 
-    public SimpleStringProperty getPersonid() {
-        return personid;
+    public String getPersonid() {
+        return personid.get();
     }
 
-    public SimpleStringProperty getAddressid() {
-        return addressid;
+    public String getAddressid() {
+        return addressid.get();
     }
 
-    public SimpleStringProperty getRelationtype() {
-        return relationtype;
+    public String getRelationtype() {
+        return relationtype.get();
     }
     
     public void setPersonid(String personId) {
