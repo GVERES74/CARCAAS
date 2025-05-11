@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Model;
+package Model.DBFunctions;
 
 /**
  *
  * @author DjRed
  */
-public class RawSQL {
+public class CreateTables {
     
     static String CreateTableReceipts = "create table Receipts("
                                     + "ReceiptID INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
@@ -31,7 +31,7 @@ public class RawSQL {
                                     + "AddressID varchar(10) NOT NULL,"
                                     + "RelationType varchar(30) NOT NULL UNIQUE)";
     
-    static String CreateTableAddresses =     "create table Addresses("
+    static String CreateTableAddresses = "create table Addresses("
                                     + "AddressID varchar(10) NOT NULL PRIMARY KEY,"
                                     + "AddressCountry varchar(30) NOT NULL,"
                                     + "AddressCounty varchar(30) NOT NULL,"
@@ -48,7 +48,7 @@ public class RawSQL {
                                     + "PersonEmail varchar(50) NOT NULL, UNIQUE(PersonPhone, PersonEmail))";
     
     
-    static String CreateTableRescuedAnimals = "create table RescuedAnimals("
+    static String CreateTableAnimals = "create table Animals("
                                     + "AnimalID INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                                     + "AnimalRace varchar(30),"
                                     + "AnimalSpecies varchar(50),"
@@ -66,4 +66,7 @@ public class RawSQL {
                                     + "UserName varchar(30) NOT NULL,"
                                     + "UserCompany varchar(50) NOT NULL,"
                                     + "UserPassword varchar(20) NOT NULL, UNIQUE(UserName, UserPassword))";
+    
+   
+    
 }

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Model;
+package Model.Tables;
 
 import java.time.LocalDate;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author DjRed
  */
-public class RescuedAnimalData {
+public class AnimalData {
     
     private final SimpleStringProperty animalid; 
     private final SimpleStringProperty animalrace;
@@ -26,7 +26,7 @@ public class RescuedAnimalData {
     private final SimpleStringProperty injurystatus;
     
     
-    public RescuedAnimalData(String animalId, String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, String photoAlbumId, String castredStatus, String healthStatus, String injuryStatus){
+    public AnimalData(String animalId, String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, String photoAlbumId, String castredStatus, String healthStatus, String injuryStatus){
         
         this.animalid = new SimpleStringProperty(animalId);
         this.animalrace = new SimpleStringProperty(animalRace);

@@ -4,7 +4,7 @@
  */
 package com.catlantis;
 
-import Model.RescuedAnimalData;
+import Model.Tables.AnimalData;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -46,8 +46,7 @@ private DatePicker datePickerReceiptDate, datePickerBirthDate, datePickerRescueD
 @FXML
 private Button btnSaveNewReceipt;
 
-private final ObservableList<RescuedAnimalData> rescuedAnimals = FXCollections.observableArrayList(
-    new RescuedAnimalData("1", "2023.04.14", "Macska", "Házimacska", "Taki", "Nőstény", "Fehér", "4 hét", "Ivartalanított", "Egészséges", "Sérülésmentes")
+private final ObservableList<AnimalData> rescuedAnimals = FXCollections.observableArrayList(new AnimalData("1", "2023.04.14", "Macska", "Házimacska", "Taki", "Nőstény", "Fehér", "4 hét", "Ivartalanított", "Egészséges", "Sérülésmentes")
 );
 
 TitledPane ttlp = new TitledPane();
@@ -64,7 +63,7 @@ public TableColumn createTableColumn (String columnDesc, String propertyName, in
         TableColumn columnName = new TableColumn(columnDesc);
         columnName.setMinWidth(size);
         columnName.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnName.setCellValueFactory(new PropertyValueFactory<RescuedAnimalData, String>(propertyName));
+        columnName.setCellValueFactory(new PropertyValueFactory<AnimalData, String>(propertyName));
         return columnName;
     }
 

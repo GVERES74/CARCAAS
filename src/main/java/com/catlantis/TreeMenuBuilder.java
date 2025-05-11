@@ -66,7 +66,8 @@ public class TreeMenuBuilder {
    
     public  TreeItem treeItemRootDonations = new TreeItem("Adománykezelés");
             TreeItem treeItemDonations = new TreeItem("Adományozások");
-            TreeItem treeItemDonationsNewDonation = new TreeItem("Új adomány fogadása");
+            TreeItem treeItemDonationsNewIncomingDonation = new TreeItem("Új beérkező adomány");
+            TreeItem treeItemDonationsNewOutgoingDonation = new TreeItem("Új kimenő adomány");
             TreeItem treeItemDonationsEditDonation = new TreeItem("Adomány szerkesztése");
             TreeItem treeItemDonationsViewDonations = new TreeItem("Adományok megtekintése");
            
@@ -142,7 +143,8 @@ public class TreeMenuBuilder {
          
          
         treeItemDonations.getChildren().addAll(
-                treeItemDonationsNewDonation,
+                treeItemDonationsNewIncomingDonation,
+                treeItemDonationsNewOutgoingDonation,
                 treeItemDonationsEditDonation,
                 treeItemDonationsViewDonations); 
         treeItemRootDonations.getChildren().addAll(treeItemDonations);

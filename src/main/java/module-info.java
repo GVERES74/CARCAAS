@@ -9,9 +9,11 @@ module com.catlantis {
     opens com.catlantis to javafx.fxml;
     exports com.catlantis;
     
-    opens Model to javafx.fxml;
-    exports Model;
+    opens Model.DBFunctions to javafx.fxml;
+    exports Model.DBFunctions;
+    opens Model.Tables to javafx.fxml;
+    exports Model.Tables;
     
-    opens Utils to javafx.fxml;
+opens Utils to javafx.fxml;
     exports Utils;
 }

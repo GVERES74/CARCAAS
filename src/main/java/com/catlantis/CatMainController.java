@@ -4,9 +4,10 @@
  */
 package com.catlantis;
 
-import Model.CatDBConnection;
-import Model.PersonData;
-import Model.RescuedAnimalData;
+
+import Model.DBFunctions.CatDBConnection;
+import Model.Tables.PersonData;
+import Model.Tables.AnimalData;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -66,6 +67,7 @@ public CatDBConnection catlantisDBconnection;
 public AnimalReceiptController receiptController = new AnimalReceiptController();
 
 
+
 @FXML
 private MenuItem menuItemPopupAbout, menuItemSysInfo;
 
@@ -117,13 +119,10 @@ private DatePicker datePickerReceiptDate, datePickerBirthDate, datePickerRescueD
 @FXML
 private Button btnSaveNewReceipt;
 
-private final ObservableList<RescuedAnimalData> rescuedAnimals = FXCollections.observableArrayList(
-    new RescuedAnimalData("1", "Macska", "Main Coon", "Nőstény", "Tapi", "Barna", "2024.11.12.", "Photo1", "Ivartalan", "Egészséges", "Sérülésmentes")
-);
 
-private final ObservableList<PersonData> persons = FXCollections.observableArrayList(
+/*private final ObservableList<PersonData> persons = FXCollections.observableArrayList(
     new PersonData("1", "2", "3")
-);
+);*/
 
 
 
@@ -138,6 +137,13 @@ private final ObservableList<PersonData> persons = FXCollections.observableArray
     private void exitCatMainApp(){
         if (Dialogs.showConfirmAlert("Kilépés a programból", null, "Biztosan kilép a programból?") == true){
         System.exit(0);
+        }; 
+    }
+    
+    @FXML
+    private void saveNewReceipt(){
+        if (Dialogs.showConfirmAlert("Új befogadás mentése", null, "Biztosan mented az adatokat?") == true){
+        catlantisDBconnection.addNewReceipt();
         }; 
     }
 
@@ -258,7 +264,8 @@ private final ObservableList<PersonData> persons = FXCollections.observableArray
             labelModulePath.setText("/"+selectedItem.getParent().getValue()+"/"+selectedMenuItem);
                 if (selectedMenuItem != null){
                     switch (selectedMenuItem){
-                        case "Új adomány fogadása": {} break;
+                        case "Új beérkező adomány": {} break;
+                        case "Új kimenő adomány": {} break;
                         case "Adomány szerkesztése": {} break;
                         case "Adományok megtekintése": {} break;
                     }
@@ -329,7 +336,7 @@ private final ObservableList<PersonData> persons = FXCollections.observableArray
         
         
         tableView_RescuedAnimals.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol,animalCastredstatusCol,animalHealthstatusCol,animalInjurystatusCol);
-        tableView_RescuedAnimals.setItems(rescuedAnimals);
+        tableView_RescuedAnimals.setItems(catlantisDBconnection.newanimaldata);
         //Ha hibaüzenetet kapsz (Modul elérési hiba, pl. Model, akkor a module-info.java-ba fel kell venni: opens Model to javafx.fxml; és exports Model;   
        
         
@@ -340,9 +347,12 @@ private final ObservableList<PersonData> persons = FXCollections.observableArray
         TableColumn columnName = new TableColumn(columnDesc);
         columnName.setMinWidth(size);
         columnName.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnName.setCellValueFactory(new PropertyValueFactory<RescuedAnimalData, String>(propertyName));
+        columnName.setCellValueFactory(new PropertyValueFactory<AnimalData, String>(propertyName));
         return columnName;
     }
+    
+        
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb){

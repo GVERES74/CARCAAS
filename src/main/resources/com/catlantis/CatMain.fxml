@@ -151,7 +151,7 @@
                                        </children></AnchorPane>
                                 </items>
                               </SplitPane>
-                              <TitledPane id="frmTitledPaneNewReceipt" fx:id="frmTitledPaneNewReceipt" animated="false" text="Új bekerülés" visible="false" StackPane.alignment="TOP_CENTER">
+                              <TitledPane id="frmTitledPaneNewReceipt" fx:id="frmTitledPaneNewReceipt" animated="false" text="Új bekerülés" StackPane.alignment="TOP_CENTER">
                                 <content>
                                   <AnchorPane minHeight="200.0" minWidth="200.0">
                                        <children>
@@ -587,7 +587,7 @@
                                                 </VBox>
                                                 <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                                                    <children>
-                                                      <Button id="btnSaveNewReceipt" fx:id="btnSaveNewReceipt" mnemonicParsing="false" text="Mentés" />
+                                                      <Button id="btnSaveNewReceipt" fx:id="btnSaveNewReceipt" mnemonicParsing="false" onAction="#saveNewReceipt" text="Mentés" />
                                                    </children>
                                                    <padding>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
