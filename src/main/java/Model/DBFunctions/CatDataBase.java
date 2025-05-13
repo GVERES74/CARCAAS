@@ -13,10 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 
 
@@ -24,7 +23,7 @@ import javafx.collections.ObservableList;
  *
  * @author DjRed
  */
-public class CatDBConnection {
+public class CatDataBase {
     final String JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     final String LOCALURL = "jdbc:derby:CatMainDBase;create=true";
     final String USERNAME = "Catlantis";
@@ -32,10 +31,9 @@ public class CatDBConnection {
     public Connection connection = null;
     Statement createStatement = null;
     DatabaseMetaData dbMetaData = null;
-    public final ObservableList<AnimalData> newanimaldata = FXCollections.observableArrayList();
-    AnimalData animaldata;
     
-    public CatDBConnection(){
+        
+    public CatDataBase(){
         
                 
         try{
@@ -49,7 +47,7 @@ public class CatDBConnection {
             try {
                 createStatement = connection.createStatement();
             } catch (SQLException ex) {
-                Logger.getLogger(CatDBConnection.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
                 Dialogs.showErrorAlert("Hiba", "CreateStatement", ex.getMessage());
             }
         }
@@ -57,7 +55,7 @@ public class CatDBConnection {
             try {
                 dbMetaData = connection.getMetaData();
             } catch (SQLException ex) {
-                Logger.getLogger(CatDBConnection.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
                 Dialogs.showErrorAlert("Hiba", "GetMetaData", ex.getMessage());
             }
             
@@ -67,7 +65,7 @@ public class CatDBConnection {
                     createStatement.execute(CreateTables.CreateTableUsers); //Ha nem létezik a tábla, akkor létrehozzuk
                 }
                 
-            ResultSet resultSetRescuedAnimals = dbMetaData.getTables(null, "APP", "RESCUEDANIMALS", null);
+            ResultSet resultSetRescuedAnimals = dbMetaData.getTables(null, "APP", "ANIMALS", null);
                 if (!resultSetRescuedAnimals.next()){
                     createStatement.execute(CreateTables.CreateTableAnimals); //Ha nem létezik a tábla, akkor létrehozzuk
                 }
@@ -95,25 +93,14 @@ public class CatDBConnection {
                 
                 
         } catch (SQLException ex) {
-            Logger.getLogger(CatDBConnection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
             Dialogs.showErrorAlert("Hiba", "Adattábla USERS nem lett létrehozva!", ex.getMessage());
         }
     }
     
-    public void addNewReceipt(){
+    public void addNewReceipt(AnimalData animaldata){
        try{
-                String sqladdnewanimal = "insert into Animals("
-                    + "AnimalID"
-                    + "AnimalRace"
-                    + "AnimalSpecies"
-                    + "AnimalSex"
-                    + "AnimalName"
-                    + "AnimalColor"
-                    + "AnimalBirthDate"
-                    + "PhotoAlbumId"
-                    + "CastredStatus"
-                    + "HealthStatus"
-                    + "InjuryStatus) values (?,?,?,?,?,?,?,?,?,?,?)";
+String sqladdnewanimal = "insert into animals(db_animalid, db_animalrace, db_animalspecies, db_animalsex, db_animalname, db_animalcolor, db_animalbirthdate, db_photoalbumid, db_castredstatus, db_healthstatus, db_injurystatus) values (?,?,?,?,?,?,?,?,?,?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewanimal);
             preparedStmt.setString(1, animaldata.getAnimalid());
@@ -129,13 +116,50 @@ public class CatDBConnection {
             preparedStmt.setString(11, animaldata.getInjurystatus());
             preparedStmt.execute();
             
-            animaldata = new AnimalData("1", "Macska", "Main Coon", "Nőstény", "Tapi", "Barna", "2024.11.12.", "Photo1", "Ivartalan", "Egészséges", "Sérülésmentes");
-            newanimaldata.addAll(animaldata);
-            
-            
-        } catch (SQLException e){Dialogs.showErrorAlert("Figyelem!", "addNewReceipt","Hiba!");}
-        
+                 
+        } catch 
+                (SQLException e){
+                Dialogs.showErrorAlert("Figyelem!", "addNewReceipt","Hiba: !"+e);
+                System.out.println("Figyelem! "+"addNewReceipt"+" Hiba: !"+e);}
            
-    }     
+    }    
+    
+    public ArrayList<AnimalData> getAnimals(){
+        
+        String animalgetquery = "SELECT * from animals";
+        ArrayList<AnimalData> animals =null;
+        
+        try{
+            ResultSet rs = createStatement.executeQuery(animalgetquery);
+            animals = new ArrayList<>();
+            while (rs.next()){
+                AnimalData allanimals = new AnimalData(
+                        rs.getString("db_animalid"),
+                        rs.getString("db_animalrace"),
+                        rs.getString("db_animalspecies"),    
+                        rs.getString("db_animalsex"),
+                        rs.getString("db_animalname"),
+                        rs.getString("db_animalcolor"),
+                        rs.getString("db_animalbirthdate"),
+                        rs.getString("db_photoalbuiId"),
+                        rs.getString("db_castredstatus"),
+                        rs.getString("db_healthstatus"),
+                        rs.getString("db_injurystatus"));
+                    
+                animals.add(allanimals);
+            }               
+        }catch (SQLException ex){
+            
+        }
+        return animals;
+    }
+    
+    public void deleteTable(){
+        try {
+            createStatement.execute("drop table Animals");
+        } catch (SQLException ex) {
+            Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 } //end Class
