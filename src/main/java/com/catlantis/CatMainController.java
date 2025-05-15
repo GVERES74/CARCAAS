@@ -142,8 +142,8 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
     private void saveNewReceipt(){
         if (Dialogs.showConfirmAlert("Új befogadás mentése", null, "Biztosan mented az adatokat?") == true){
             AnimalData newanimal = new AnimalData(
-                                                    Calendar.calendar.getTime().toString(),
-//                                                    
+//                                                    Calendar.calendar.getTime().toString(),
+                                                    "",
                                                     comboBoxSelectRace.getValue().toString(),
                                                     comboBoxSelectSpecies.getValue().toString(),
                                                     comboBoxSelectGender.getValue().toString(),
@@ -163,8 +163,6 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
             
             newanimaldata.addAll(newanimal);
             catlantisdb.addNewReceipt(newanimal);
-            
-        
             tableViewNewReceipt.setItems(newanimaldata);
             
         }; 
@@ -352,22 +350,7 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
     public void viewNewReceipt(){
         formReceiptViewSplitPane.toFront();
         formReceiptViewSplitPane.setVisible(true);
-                
-        TableColumn animalIdCol = createTableColumn("Azonosító", "animalid", 50);
-        TableColumn animalRaceCol = createTableColumn("Faj", "animalrace", 50);
-        TableColumn animalSpeciesCol = createTableColumn("Fajta", "animalspecies", 50);
-        TableColumn animalSexCol = createTableColumn("Neme", "animalsex", 50);
-        TableColumn animalNameCol = createTableColumn("Név", "animalname", 50);
-        TableColumn animalColorCol = createTableColumn("Szin", "animalcolor", 50);
-        TableColumn animalBirthdateCol = createTableColumn("Születési dátum", "animalbirthdate", 50);
-        TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 50);
-        TableColumn animalCastredstatusCol = createTableColumn("Nemzőképesség", "castredstatus", 50);
-        TableColumn animalHealthstatusCol = createTableColumn("Egészségi állapot", "healthstatus", 50);
-        TableColumn animalInjurystatusCol = createTableColumn("Sérülés", "injurystatus", 50);
-              
-        tableViewBrowseReceipts.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol,animalCastredstatusCol,animalHealthstatusCol,animalInjurystatusCol);
-        newanimaldata.addAll(catlantisdb.getAnimals());
-        tableViewBrowseReceipts.setItems(newanimaldata);
+        tableViewBrowseReceipts.setItems(newanimaldata);        
         //Ha hibaüzenetet kapsz (Modul elérési hiba, pl. Model, akkor a module-info.java-ba fel kell venni: opens Model to javafx.fxml; és exports Model;   
        
         
@@ -383,7 +366,7 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
     }
     
     public void setNewReceiptTableColumns(){
-         TableColumn animalIdCol = createTableColumn("Azonosító", "animalid", 50);
+        TableColumn animalIdCol = createTableColumn("Azonosító", "animalid", 50);
 //        TableColumn animalRescuedateCol = createTableColumn("Befogadás dátuma", "animalid", 50);
         TableColumn animalRaceCol = createTableColumn("Faj", "animalrace", 50);
         TableColumn animalNameCol = createTableColumn("Név", "animalname", 50);
@@ -393,11 +376,31 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
         TableColumn animalColorCol = createTableColumn("Szin", "animalcolor", 50);
         TableColumn animalBirthdateCol = createTableColumn("Születési dátum", "animalbirthdate", 50);
         TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 50);
+        TableColumn animalCastredstatusCol = createTableColumn("Nemzőképesség", "castredstatus", 150);
+        TableColumn animalHealthstatusCol = createTableColumn("Egészségi állapot", "healthstatus", 150);
+        TableColumn animalInjurystatusCol = createTableColumn("Sérülés", "injurystatus", 150);
+        tableViewNewReceipt.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol,animalCastredstatusCol,animalHealthstatusCol,animalInjurystatusCol);
+    }    
+    
+    public void setViewReceiptTableColumns(){
+                  
+        TableColumn animalIdCol = createTableColumn("Azonosító", "animalid", 50);
+        TableColumn animalRaceCol = createTableColumn("Faj", "animalrace", 50);
+        TableColumn animalSpeciesCol = createTableColumn("Fajta", "animalspecies", 50);
+        TableColumn animalSexCol = createTableColumn("Neme", "animalsex", 50);
+        TableColumn animalNameCol = createTableColumn("Név", "animalname", 50);
+        TableColumn animalColorCol = createTableColumn("Szin", "animalcolor", 50);
+        TableColumn animalBirthdateCol = createTableColumn("Születési dátum", "animalbirthdate", 50);
+        TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 50);
         TableColumn animalCastredstatusCol = createTableColumn("Nemzőképesség", "castredstatus", 50);
         TableColumn animalHealthstatusCol = createTableColumn("Egészségi állapot", "healthstatus", 50);
         TableColumn animalInjurystatusCol = createTableColumn("Sérülés", "injurystatus", 50);
-        tableViewNewReceipt.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol,animalCastredstatusCol,animalHealthstatusCol,animalInjurystatusCol);
+              
+        tableViewBrowseReceipts.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol,animalCastredstatusCol,animalHealthstatusCol,animalInjurystatusCol);
+        newanimaldata.addAll(catlantisdb.getAnimals());
+        
     }    
+    
     
     
     @Override
@@ -409,5 +412,6 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
         startUpScreen();
         createCatlantisDataBaseConnection();
         setNewReceiptTableColumns();
+        setViewReceiptTableColumns();
     }
 }  

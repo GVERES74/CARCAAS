@@ -127,7 +127,7 @@
                            <children>
                               <SplitPane id="splitPaneNewReceipt" fx:id="splitPaneNewReceipt" dividerPositions="0.5" orientation="VERTICAL" prefHeight="500.0" prefWidth="160.0">
                                 <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="250.0" prefWidth="160.0">
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="160.0">
                                        <children>
                                           <HBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
@@ -572,7 +572,7 @@
                                           </HBox>
                                        </children>
                                     </AnchorPane>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="250.0" prefWidth="160.0">
+                                  <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="160.0">
                                        <children>
                                           <TableView id="tableViewNewReceipt" fx:id="tableViewNewReceipt" maxHeight="250.0" prefHeight="250.0" prefWidth="1606.0" />
                                        </children>

@@ -68,6 +68,7 @@ public class CatDataBase {
             ResultSet resultSetRescuedAnimals = dbMetaData.getTables(null, "APP", "ANIMALS", null);
                 if (!resultSetRescuedAnimals.next()){
                     createStatement.execute(CreateTables.CreateTableAnimals); //Ha nem létezik a tábla, akkor létrehozzuk
+                    Dialogs.showInfoAlert("CatDataBase", "CreateTableAnimals", "Table created");
                 }
                 
                 ResultSet resultSetPersons = dbMetaData.getTables(null, "APP", "PERSONS", null);
@@ -100,7 +101,19 @@ public class CatDataBase {
     
     public void addNewReceipt(AnimalData animaldata){
        try{
-String sqladdnewanimal = "insert into animals(db_animalid, db_animalrace, db_animalspecies, db_animalsex, db_animalname, db_animalcolor, db_animalbirthdate, db_photoalbumid, db_castredstatus, db_healthstatus, db_injurystatus) values (?,?,?,?,?,?,?,?,?,?,?)";
+            String sqladdnewanimal = "insert into animals("
+                    + "db_animalid, "
+                    + "db_animalrace, "
+                    + "db_animalspecies, "
+                    + "db_animalsex, "
+                    + "db_animalname, "
+                    + "db_animalcolor, "
+                    + "db_animalbirthdate, "
+                    + "db_photoalbumid, "
+                    + "db_castredstatus, "
+                    + "db_healthstatus, "
+                    + "db_injurystatus) "
+                    + "values (?,?,?,?,?,?,?,?,?,?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewanimal);
             preparedStmt.setString(1, animaldata.getAnimalid());
@@ -141,7 +154,7 @@ String sqladdnewanimal = "insert into animals(db_animalid, db_animalrace, db_ani
                         rs.getString("db_animalname"),
                         rs.getString("db_animalcolor"),
                         rs.getString("db_animalbirthdate"),
-                        rs.getString("db_photoalbuiId"),
+                        rs.getString("db_photoalbumid"),
                         rs.getString("db_castredstatus"),
                         rs.getString("db_healthstatus"),
                         rs.getString("db_injurystatus"));
@@ -149,7 +162,7 @@ String sqladdnewanimal = "insert into animals(db_animalid, db_animalrace, db_ani
                 animals.add(allanimals);
             }               
         }catch (SQLException ex){
-            
+           Dialogs.showErrorAlert("CatDatabase", "GetAnimals", ""+ex);
         }
         return animals;
     }

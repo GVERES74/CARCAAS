@@ -48,7 +48,19 @@ public class CreateTables {
                                     + "PersonEmail varchar(50) NOT NULL, UNIQUE(PersonPhone, PersonEmail))";
     
     
-    public static String CreateTableAnimals = "create table animals(db_animalid varchar(30), db_animalrace varchar(30), db_animalspecies varchar(30), db_animalsex varchar(20), db_animalname varchar(30) NOT NULL UNIQUE, db_animalcolor varchar (30), db_animalbirthdate varchar (30), db_photoalbumid varchar (50), db_castredstatus varchar(150), db_healthstatus varchar (150), db_injurystatus varchar(150))";
+    public static String CreateTableAnimals = "create table animals("
+            + "db_animalid varchar INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+            + "db_animalrace varchar(30), "
+            + "db_animalspecies varchar(30), "
+            + "db_animalsex varchar(20), "
+            + "db_animalname varchar(30) NOT NULL UNIQUE, "
+            + "db_animalcolor varchar (30), "
+            + "db_animalbirthdate varchar (30), "
+            + "db_photoalbumid varchar (50), "
+            + "db_castredstatus varchar(150), "
+            + "db_healthstatus varchar (150), "
+            + "db_injurystatus varchar(150))";
+    
     
     static String CreateTableUsers = "create table Users("
                                     + "UserID varchar(10) NOT NULL PRIMARY KEY,"
