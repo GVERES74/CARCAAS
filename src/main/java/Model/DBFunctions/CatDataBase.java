@@ -129,10 +129,10 @@ public class CatDataBase {
             preparedStmt.setString(11, animaldata.getInjurystatus());
             preparedStmt.execute();
             
-                 
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+animaldata.getAnimalid()+" sikeresen hozzáadva!");     
         } catch 
                 (SQLException e){
-                Dialogs.showErrorAlert("Figyelem!", "addNewReceipt","Hiba: !"+e);
+                Dialogs.showErrorAlert("Figyelem!", "addNewReceipt",animaldata.getAnimalid()+" "+e);
                 System.out.println("Figyelem! "+"addNewReceipt"+" Hiba: !"+e);}
            
     }    
@@ -160,6 +160,7 @@ public class CatDataBase {
                         rs.getString("db_injurystatus"));
                     
                 animals.add(allanimals);
+                
             }               
         }catch (SQLException ex){
            Dialogs.showErrorAlert("CatDatabase", "GetAnimals", ""+ex);
@@ -167,9 +168,10 @@ public class CatDataBase {
         return animals;
     }
     
-    public void deleteTable(){
+    public void deleteTable(String tableName){
         try {
-            createStatement.execute("drop table Animals");
+            createStatement.execute("drop table"+tableName);
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Tábla "+tableName+" sikeresen törölve!");
         } catch (SQLException ex) {
             Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
         }

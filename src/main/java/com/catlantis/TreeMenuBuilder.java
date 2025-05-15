@@ -70,6 +70,12 @@ public class TreeMenuBuilder {
             TreeItem treeItemDonationsNewOutgoingDonation = new TreeItem("Új kimenő adomány");
             TreeItem treeItemDonationsEditDonation = new TreeItem("Adomány szerkesztése");
             TreeItem treeItemDonationsViewDonations = new TreeItem("Adományok megtekintése");
+            
+    public  TreeItem treeItemRootActions = new TreeItem("Tevékenységek");
+            TreeItem treeItemCastration = new TreeItem("Ivartalantási akció");
+            TreeItem treeItemCastrationNewCastration = new TreeItem("Új ivartalanitás");
+            TreeItem treeItemCastrationEditCastration = new TreeItem("Ivartalanitás szerkesztése");
+            TreeItem treeItemCastrationBrowseCastration = new TreeItem("Ivartalanitások megtekintése");        
            
             
     public  TreeItem treeItemRootOrganization = new TreeItem("Egyesület");
@@ -148,9 +154,17 @@ public class TreeMenuBuilder {
                 treeItemDonationsEditDonation,
                 treeItemDonationsViewDonations); 
         treeItemRootDonations.getChildren().addAll(treeItemDonations);
-               
         
-         
+        
+        
+        treeItemCastration.getChildren().addAll(
+                treeItemCastrationNewCastration,
+                treeItemCastrationEditCastration,
+                treeItemCastrationBrowseCastration);
+        treeItemRootActions.getChildren().addAll(treeItemCastration);
+        
+        
+        
         treeItemOrganizationChart.getChildren().addAll(
                 treeItemOrganizationChartView);
         

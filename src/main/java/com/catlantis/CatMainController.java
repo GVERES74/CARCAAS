@@ -17,6 +17,7 @@ import Utils.Calendar;
 import Utils.Dialogs;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.GregorianCalendar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -78,7 +79,7 @@ private AnchorPane mainTreeMenuSplitPaneBottomAnchorPane, mainTreeMenuSplitPaneT
 private StackPane mainContentStackPane;
 
 @FXML
-private TreeView mainTreeViewAnimalCare, mainTreeViewFinancial, mainTreeViewDonations, mainTreeViewOrganization;
+private TreeView mainTreeViewAnimalCare, mainTreeViewFinancial, mainTreeViewDonations, mainTreeViewOrganization, mainTreeViewActions;
 
 @FXML
 private Label dateLabel, labelModulePath;
@@ -142,8 +143,8 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
     private void saveNewReceipt(){
         if (Dialogs.showConfirmAlert("Új befogadás mentése", null, "Biztosan mented az adatokat?") == true){
             AnimalData newanimal = new AnimalData(
-//                                                    Calendar.calendar.getTime().toString(),
-                                                    "",
+                                                    datePickerReceiptDate.getValue().toString()+textFieldAnimalName.getText(),
+                                                    
                                                     comboBoxSelectRace.getValue().toString(),
                                                     comboBoxSelectSpecies.getValue().toString(),
                                                     comboBoxSelectGender.getValue().toString(),
@@ -170,7 +171,7 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
     
     @FXML
     private void deleteTable(){
-      catlantisdb.deleteTable();
+      catlantisdb.deleteTable("animals");
     } 
     
     
@@ -255,6 +256,7 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
         mainTreeViewAnimalCare.setRoot(treeMenuBuilder.treeItemRootAnimalCare); //Root
         mainTreeViewFinancial.setRoot(treeMenuBuilder.treeItemRootFinancial);
         mainTreeViewDonations.setRoot(treeMenuBuilder.treeItemRootDonations);
+        mainTreeViewActions.setRoot(treeMenuBuilder.treeItemCastration);
         mainTreeViewOrganization.setRoot(treeMenuBuilder.treeItemRootOrganization);
     
     }

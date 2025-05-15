@@ -49,7 +49,7 @@ public class CreateTables {
     
     
     public static String CreateTableAnimals = "create table animals("
-            + "db_animalid varchar INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+            + "db_animalid varchar(50), "
             + "db_animalrace varchar(30), "
             + "db_animalspecies varchar(30), "
             + "db_animalsex varchar(20), "

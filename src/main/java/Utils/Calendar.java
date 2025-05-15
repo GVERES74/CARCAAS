@@ -13,4 +13,8 @@ import java.util.GregorianCalendar;
 public class Calendar {
     
     public static GregorianCalendar calendar = new GregorianCalendar();
+    
+    public Calendar(){
+       
+    }
 }
