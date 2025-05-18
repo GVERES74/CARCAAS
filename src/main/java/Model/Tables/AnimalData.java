@@ -21,12 +21,10 @@ public class AnimalData {
     private final SimpleStringProperty animalcolor;
     private final SimpleStringProperty animalbirthdate;
     private final SimpleStringProperty photoalbumid;
-    private final SimpleStringProperty castredstatus;
-    private final SimpleStringProperty healthstatus;
-    private final SimpleStringProperty injurystatus;
     
     
-    public AnimalData(String animalId, String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, String photoAlbumId, String castredStatus, String healthStatus, String injuryStatus){
+    
+    public AnimalData(String animalId, String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, String photoAlbumId){
         
         this.animalid = new SimpleStringProperty(animalId);
         this.animalrace = new SimpleStringProperty(animalRace);
@@ -36,9 +34,7 @@ public class AnimalData {
         this.animalcolor = new SimpleStringProperty(animalColor);
         this.animalbirthdate = new SimpleStringProperty(animalBirthdate);
         this.photoalbumid = new SimpleStringProperty(photoAlbumId);
-        this.castredstatus = new SimpleStringProperty(castredStatus);
-        this.healthstatus = new SimpleStringProperty(healthStatus);
-        this.injurystatus = new SimpleStringProperty(injuryStatus);
+        
     }    
     
     
@@ -75,21 +71,6 @@ public class AnimalData {
         return photoalbumid.get();
     }
 
-    public String getCastredstatus() {
-        return castredstatus.get();
-    }
-
-    public String getHealthstatus() {
-        return healthstatus.get();
-    }
-
-    public String getInjurystatus() {
-        return injurystatus.get();
-    }
-        
-
-
     
-
     
 }

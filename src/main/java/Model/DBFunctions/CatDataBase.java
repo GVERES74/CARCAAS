@@ -5,6 +5,9 @@
 package Model.DBFunctions;
 
 import Model.Tables.AnimalData;
+import Model.Tables.PersonData;
+import Model.Tables.AddressData;
+import Model.Tables.ReceiptData;
 import Utils.Dialogs;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -99,7 +102,7 @@ public class CatDataBase {
         }
     }
     
-    public void addNewReceipt(AnimalData animaldata){
+    public void addNewAnimal(AnimalData animaldata){
        try{
             String sqladdnewanimal = "insert into animals("
                     + "db_animalid, "
@@ -109,11 +112,8 @@ public class CatDataBase {
                     + "db_animalname, "
                     + "db_animalcolor, "
                     + "db_animalbirthdate, "
-                    + "db_photoalbumid, "
-                    + "db_castredstatus, "
-                    + "db_healthstatus, "
-                    + "db_injurystatus) "
-                    + "values (?,?,?,?,?,?,?,?,?,?,?)";
+                    + "db_photoalbumid)"
+                    + "values (?,?,?,?,?,?,?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewanimal);
             preparedStmt.setString(1, animaldata.getAnimalid());
@@ -124,16 +124,13 @@ public class CatDataBase {
             preparedStmt.setString(6, animaldata.getAnimalcolor());
             preparedStmt.setString(7, animaldata.getAnimalbirthdate());
             preparedStmt.setString(8, animaldata.getPhotoalbumid());
-            preparedStmt.setString(9, animaldata.getCastredstatus());
-            preparedStmt.setString(10, animaldata.getHealthstatus());
-            preparedStmt.setString(11, animaldata.getInjurystatus());
             preparedStmt.execute();
             
             Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+animaldata.getAnimalid()+" sikeresen hozzáadva!");     
         } catch 
                 (SQLException e){
-                Dialogs.showErrorAlert("Figyelem!", "addNewReceipt",animaldata.getAnimalid()+" "+e);
-                System.out.println("Figyelem! "+"addNewReceipt"+" Hiba: !"+e);}
+                Dialogs.showErrorAlert("Figyelem!", "Új állat hozzáadása",animaldata.getAnimalid()+" "+e);
+                System.out.println("Figyelem! "+"Új állat hozzáadása"+" Hiba: !"+e);}
            
     }    
     
@@ -154,10 +151,7 @@ public class CatDataBase {
                         rs.getString("db_animalname"),
                         rs.getString("db_animalcolor"),
                         rs.getString("db_animalbirthdate"),
-                        rs.getString("db_photoalbumid"),
-                        rs.getString("db_castredstatus"),
-                        rs.getString("db_healthstatus"),
-                        rs.getString("db_injurystatus"));
+                        rs.getString("db_photoalbumid"));
                     
                 animals.add(allanimals);
                 
@@ -168,9 +162,59 @@ public class CatDataBase {
         return animals;
     }
     
+    
+    public ArrayList<PersonData> getPersons(){
+        
+        String persongetquery = "SELECT * from persons";
+        ArrayList<PersonData> persons =null;
+        
+        try{
+            ResultSet rs = createStatement.executeQuery(persongetquery);
+            persons = new ArrayList<>();
+            while (rs.next()){
+                PersonData allpersons = new PersonData(
+                        rs.getString("db_personid"),
+                        rs.getString("db_personname"),
+                        rs.getString("db_personphone"),    
+                        rs.getString("db_personemail"));
+                                            
+                persons.add(allpersons);
+                
+            }               
+        }catch (SQLException ex){
+           Dialogs.showErrorAlert("CatDatabase", "GetPersons", ""+ex);
+        }
+        return persons;
+    }
+    
+    public void addNewPerson(PersonData persondata){
+       try{
+            String sqladdnewperson = "insert into persons("
+                    + "db_personid, "
+                    + "db_personname, "
+                    + "db_personphone, "
+                    + "db_personemail) "
+                    + "values (?,?,?,?)";
+                    
+            PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewperson);
+            preparedStmt.setString(1, persondata.getPersonid());
+            preparedStmt.setString(2, persondata.getPersonname());
+            preparedStmt.setString(3, persondata.getPersonphone());
+            preparedStmt.setString(4, persondata.getPersonemail());
+            preparedStmt.execute();
+            
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+persondata.getPersonid()+" sikeresen hozzáadva!");     
+        } catch 
+                (SQLException e){
+                Dialogs.showErrorAlert("Figyelem!", "Új személy hozzáadása",persondata.getPersonid()+" "+e);
+                System.out.println("Figyelem! "+"Új személy hozzáadása"+" Hiba: !"+e);}
+           
+    }    
+    
+    
     public void deleteTable(String tableName){
         try {
-            createStatement.execute("drop table"+tableName);
+            createStatement.execute("drop table "+tableName);
             Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Tábla "+tableName+" sikeresen törölve!");
         } catch (SQLException ex) {
             Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);

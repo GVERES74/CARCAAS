@@ -102,7 +102,7 @@
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <TreeView id="mainTreeViewActions" fx:id="mainTreeViewActions" prefHeight="200.0" prefWidth="300.0" />
+                                                <TreeView id="mainTreeViewActions" fx:id="mainTreeViewActions" prefHeight="200.0" prefWidth="300.0" showRoot="false" />
                                              </children>
                                           </AnchorPane>
                                       </content>
@@ -134,9 +134,15 @@
                      <children>
                         <StackPane id="mainContentStackPane" fx:id="mainContentStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
+                              <SplitPane fx:id="splitPaneNewCastration" dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                  <AnchorPane fx:id="anchorPaneNewCastrationTable" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                </items>
+                              </SplitPane>
                               <SplitPane id="splitPaneNewReceipt" fx:id="splitPaneNewReceipt" dividerPositions="0.5" orientation="VERTICAL" prefHeight="500.0" prefWidth="160.0">
                                 <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="160.0">
+                                  <AnchorPane prefHeight="600.0">
                                        <children>
                                           <HBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
@@ -238,7 +244,7 @@
                                                             </ComboBox>
                                                          </children>
                                                       </HBox>
-                                                      <Label layoutX="15.0" layoutY="457.0" text="Születési dátum" textFill="GREY">
+                                                      <Label layoutX="15.0" layoutY="457.0" text="Születési dátum (kalkulált)" textFill="GREY">
                                                          <font>
                                                             <Font name="Calibri Bold" size="18.0" />
                                                          </font>
@@ -572,6 +578,7 @@
                                                    <children>
                                                       <Button id="btnSaveNewReceipt" fx:id="btnSaveNewReceipt" mnemonicParsing="false" onAction="#saveNewReceipt" text="Mentés" />
                                                       <Button id="btnDeleteTable" fx:id="btnDeleteTable" mnemonicParsing="false" onAction="#deleteTable" text="Tábla törlése" />
+                                                      <ComboBox id="comboDataTables" fx:id="comboDataTables" prefWidth="150.0" promptText="Táblanév" />
                                                    </children>
                                                    <padding>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -581,32 +588,29 @@
                                           </HBox>
                                        </children>
                                     </AnchorPane>
-                                  <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="160.0">
-                                       <children>
-                                          <TableView id="tableViewNewReceipt" fx:id="tableViewNewReceipt" maxHeight="250.0" prefHeight="250.0" prefWidth="1606.0" />
-                                       </children>
-                                    </AnchorPane>
+                                  <AnchorPane id="anchorPaneNewReceiptTable" fx:id="anchorPaneNewReceiptTable" maxHeight="200.0" minHeight="150.0" />
                                 </items>
                               </SplitPane>
-                              <SplitPane id="formReceiptViewSplitPane" fx:id="formReceiptViewSplitPane" dividerPositions="0.5" orientation="VERTICAL" visible="false">
+                              <SplitPane id="splitPaneViewReceipt" fx:id="splitPaneViewReceipt" dividerPositions="0.5" orientation="VERTICAL" visible="false">
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" />
                                   <AnchorPane minHeight="0.0" minWidth="0.0">
                                        <children>
                                           <TabPane id="tabPaneListReceipts" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <tabs>
-                                              <Tab text="Fő adatok">
+                                              <Tab text="Bekerülési adatok">
                                                 <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="45.0">
-                                                         <children>
-                                                            <TableView id="tableViewBrowseReceipts" fx:id="tableViewBrowseReceipts" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                         </children>
-                                                      </AnchorPane>
+                                                  <AnchorPane id="anchorPaneViewReceiptTable" fx:id="anchorPaneViewReceiptTable" minHeight="150.0" prefHeight="150.0" />
                                                 </content>
                                               </Tab>
-                                              <Tab text="Egyéb adatok">
+                                                <Tab text="Állat adatok">
+                                                  <content>
+                                                    <AnchorPane id="anchorPaneViewAnimalTable" fx:id="anchorPaneViewAnimalTable" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                  </content>
+                                                </Tab>
+                                              <Tab text="Személy adatok">
                                                 <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                  <AnchorPane id="anchorPaneViewPersonTable" fx:id="anchorPaneViewPersonTable" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                                 </content>
                                               </Tab>
                                             </tabs>

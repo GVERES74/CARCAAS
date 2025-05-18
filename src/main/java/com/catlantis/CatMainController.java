@@ -6,7 +6,11 @@ package com.catlantis;
 
 
 import Model.DBFunctions.CatDataBase;
+import Model.Tables.AddressData;
 import Model.Tables.AnimalData;
+import Model.Tables.PersonAddress;
+import Model.Tables.PersonData;
+import Model.Tables.ReceiptData;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -17,7 +21,6 @@ import Utils.Calendar;
 import Utils.Dialogs;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.GregorianCalendar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -27,6 +30,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -60,12 +64,16 @@ public class CatMainController implements Initializable{
 
 
 private WebView webViewBrowser = new WebView();
+private TableView tableViewNewReceipt = new TableView();
+private TableView tableViewNewPerson = new TableView();
+private TableView tableViewBrowseAnimals = new TableView();
+private TableView tableViewNewCastration = new TableView();
 private Pane splashPane;
 private Pane paneWebview;
 private ImageView splashImageView;
 private TreeMenuBuilder treeMenuBuilder = new TreeMenuBuilder();
 public CatDataBase catlantisdb;
-public AnimalReceiptController receiptController = new AnimalReceiptController();
+
 
 
 
@@ -73,7 +81,7 @@ public AnimalReceiptController receiptController = new AnimalReceiptController()
 private MenuItem menuItemPopupAbout, menuItemSysInfo;
 
 @FXML
-private AnchorPane mainTreeMenuSplitPaneBottomAnchorPane, mainTreeMenuSplitPaneTopAnchorPane;
+private AnchorPane mainTreeMenuSplitPaneBottomAnchorPane, mainTreeMenuSplitPaneTopAnchorPane, anchorPaneNewReceiptTable, anchorPaneViewReceiptTable, anchorPaneNewCastrationTable, anchorPaneViewAnimalTable, anchorPaneViewPersonTable;
 
 @FXML
 private StackPane mainContentStackPane;
@@ -107,13 +115,11 @@ private TextArea textAreaInjuryDetails, textAreaSicknessDetails, textAreaAdditio
 
 
 @FXML
-private SplitPane formReceiptViewSplitPane, splitPaneNewReceipt;
+private SplitPane splitPaneViewReceipt, splitPaneNewReceipt, splitPaneNewCastration;
+
 
 @FXML
-private TableView tableViewBrowseReceipts, tableViewNewReceipt;
-
-@FXML
-private ComboBox comboBoxSelectRace, comboBoxSelectSpecies, comboBoxSelectGender, comboBoxSelectColor, comboBoxSelectAge, comboBoxSelectAgeYMW;
+private ComboBox comboBoxSelectRace, comboBoxSelectSpecies, comboBoxSelectGender, comboBoxSelectColor, comboBoxSelectAge, comboBoxSelectAgeYMW, comboDataTables;
 
 @FXML
 private DatePicker datePickerReceiptDate, datePickerBirthDate, datePickerRescueDate;
@@ -123,6 +129,11 @@ private Button btnSaveNewReceipt;
 
 
 public final ObservableList<AnimalData> newanimaldata = FXCollections.observableArrayList();
+public final ObservableList<PersonData> newpersondata = FXCollections.observableArrayList();
+public final ObservableList<AddressData> newaddressdata = FXCollections.observableArrayList();
+public final ObservableList<ReceiptData> newreceiptdata = FXCollections.observableArrayList();
+public final ObservableList<PersonAddress> newpersonaddress = FXCollections.observableArrayList();
+
 
 //    @FXML
 //    private void startModuleReceipt() throws IOException {
@@ -143,35 +154,39 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
     private void saveNewReceipt(){
         if (Dialogs.showConfirmAlert("Új befogadás mentése", null, "Biztosan mented az adatokat?") == true){
             AnimalData newanimal = new AnimalData(
-                                                    datePickerReceiptDate.getValue().toString()+textFieldAnimalName.getText(),
-                                                    
-                                                    comboBoxSelectRace.getValue().toString(),
-                                                    comboBoxSelectSpecies.getValue().toString(),
-                                                    comboBoxSelectGender.getValue().toString(),
-                                                    textFieldAnimalName.getText(),
-                                                    comboBoxSelectColor.getValue().toString(),
-//                                                    comboBoxSelectAge.getValue().toString()+" "+comboBoxSelectAgeYMW.getValue().toString(),
-                                                    datePickerBirthDate.getValue().toString(),
-                                                    textFieldAnimalName.getText()+"_"+Calendar.calendar.getTime(),
-                                                    rbGroupCastred.getSelectedToggle().toString(),
-                                                    rbGroupHealth.getSelectedToggle().toString(),
-                                                    rbGroupInjured.getSelectedToggle().toString()
-            
-            
+                datePickerReceiptDate.getValue().toString()+textFieldAnimalName.getText(),
+                comboBoxSelectRace.getValue().toString(),
+                comboBoxSelectSpecies.getValue().toString(),
+                comboBoxSelectGender.getValue().toString(),
+                textFieldAnimalName.getText(),
+                comboBoxSelectColor.getValue().toString(),
+                datePickerBirthDate.getValue().toString(),
+                textFieldAnimalName.getText()+"_"+Calendar.calendar.getTime()               
             
             );
             
+            PersonData newperson = new PersonData(
+                    textFieldSaviorEmail.getText()+datePickerReceiptDate.getValue().toString(),
+                    textFieldSaviorName.getText(),
+                    textFieldSaviorPhone.getText(),
+                    textFieldSaviorEmail.getText()
+            
+            );
             
             newanimaldata.addAll(newanimal);
-            catlantisdb.addNewReceipt(newanimal);
+            catlantisdb.addNewAnimal(newanimal);
             tableViewNewReceipt.setItems(newanimaldata);
             
+            newpersondata.addAll(newperson);
+            catlantisdb.addNewPerson(newperson);
+            tableViewNewPerson.setItems(newpersondata);
         }; 
     }
     
     @FXML
     private void deleteTable(){
-      catlantisdb.deleteTable("animals");
+        
+        catlantisdb.deleteTable(comboDataTables.getSelectionModel().getSelectedItem().toString());
     } 
     
     
@@ -256,7 +271,7 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
         mainTreeViewAnimalCare.setRoot(treeMenuBuilder.treeItemRootAnimalCare); //Root
         mainTreeViewFinancial.setRoot(treeMenuBuilder.treeItemRootFinancial);
         mainTreeViewDonations.setRoot(treeMenuBuilder.treeItemRootDonations);
-        mainTreeViewActions.setRoot(treeMenuBuilder.treeItemCastration);
+        mainTreeViewActions.setRoot(treeMenuBuilder.treeItemRootActions);
         mainTreeViewOrganization.setRoot(treeMenuBuilder.treeItemRootOrganization);
     
     }
@@ -300,6 +315,20 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
                     }
                 }});
         
+        
+        mainTreeViewActions.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            TreeItem<String> selectedItem = (TreeItem<String>)newValue;
+            String selectedMenuItem = selectedItem.getValue();
+            labelModulePath.setText("/"+selectedItem.getParent().getValue()+"/"+selectedMenuItem);
+                if (selectedMenuItem != null){
+                    switch (selectedMenuItem){
+                        case "Új ivartalanitás": {createNewCastration();} break;
+                        case "Ivartalanitás szerkesztése": {} break;
+                        case "Ivartalanitások megtekintése": {} break;
+                       
+                    }
+                }});
+        
         mainTreeViewOrganization.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             TreeItem<String> selectedItem = (TreeItem<String>)newValue;
             String selectedMenuItem = selectedItem.getValue();
@@ -319,13 +348,15 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
         splitPaneNewReceipt.setVisible(true);
         
        comboBoxSelectRace.getItems().addAll("Macska","Kutya","Hörcsög","Nyúl");
-       comboBoxSelectSpecies.getItems().addAll("Maine Coon", "Ragdoll", "Sziámi", "Labrador");
-       comboBoxSelectColor.getItems().addAll("Fehér", "Fekete", "Barna", "Vörös", "Tricolor");
+       comboBoxSelectSpecies.getItems().addAll("Maine Coon", "Ragdoll", "Sziámi", "Házimacska", "Labrador");
+       comboBoxSelectColor.getItems().addAll("Fehér", "Fekete", "Barna", "Vörös", "Tricolor", "Cirmos", "Tarka");
        comboBoxSelectGender.getItems().addAll("Hím", "Nőstény", "Kandúr", "Kan", "Szuka");
        comboBoxSelectAge.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12);
        comboBoxSelectAge.setValue(comboBoxSelectAge.getItems().get(0));
        comboBoxSelectAgeYMW.getItems().addAll("nap", "hét", "hónap", "év");
        comboBoxSelectAgeYMW.setValue(comboBoxSelectAgeYMW.getItems().get(0));
+       comboDataTables.getItems().addAll("animals", "persons", "receipts");
+       
         
         
         comboBoxSelectAgeYMW.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -350,11 +381,19 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
     }
            
     public void viewNewReceipt(){
-        formReceiptViewSplitPane.toFront();
-        formReceiptViewSplitPane.setVisible(true);
-        tableViewBrowseReceipts.setItems(newanimaldata);        
-        //Ha hibaüzenetet kapsz (Modul elérési hiba, pl. Model, akkor a module-info.java-ba fel kell venni: opens Model to javafx.fxml; és exports Model;   
+        splitPaneViewReceipt.toFront();
+        splitPaneViewReceipt.setVisible(true);
        
+        tableViewBrowseAnimals.setItems(newanimaldata);        
+        //Ha hibaüzenetet kapsz (Modul elérési hiba, pl. Model, akkor a module-info.java-ba fel kell venni: opens Model to javafx.fxml; és exports Model;   
+        tableViewNewPerson.setItems(newpersondata);
+        
+    }
+    
+    public void createNewCastration(){
+        splitPaneNewCastration.toFront();
+        splitPaneNewCastration.setVisible(true);
+        
         
     }
     
@@ -374,17 +413,20 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
         TableColumn animalNameCol = createTableColumn("Név", "animalname", 50);
         TableColumn animalSpeciesCol = createTableColumn("Fajta", "animalspecies", 50);
         TableColumn animalSexCol = createTableColumn("Neme", "animalsex", 50);
-        
         TableColumn animalColorCol = createTableColumn("Szin", "animalcolor", 50);
         TableColumn animalBirthdateCol = createTableColumn("Születési dátum", "animalbirthdate", 50);
         TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 50);
-        TableColumn animalCastredstatusCol = createTableColumn("Nemzőképesség", "castredstatus", 150);
-        TableColumn animalHealthstatusCol = createTableColumn("Egészségi állapot", "healthstatus", 150);
-        TableColumn animalInjurystatusCol = createTableColumn("Sérülés", "injurystatus", 150);
-        tableViewNewReceipt.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol,animalCastredstatusCol,animalHealthstatusCol,animalInjurystatusCol);
-    }    
+        
+        tableViewNewReceipt.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol);
+        
+        ScrollPane tblViewScrollPane = new ScrollPane(tableViewNewReceipt);
+                   tblViewScrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        anchorPaneNewReceiptTable.getChildren().add(tblViewScrollPane);
+      
+    }   
     
-    public void setViewReceiptTableColumns(){
+    
+    public void setViewAnimalTableColumns(){
                   
         TableColumn animalIdCol = createTableColumn("Azonosító", "animalid", 50);
         TableColumn animalRaceCol = createTableColumn("Faj", "animalrace", 50);
@@ -394,16 +436,53 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
         TableColumn animalColorCol = createTableColumn("Szin", "animalcolor", 50);
         TableColumn animalBirthdateCol = createTableColumn("Születési dátum", "animalbirthdate", 50);
         TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 50);
-        TableColumn animalCastredstatusCol = createTableColumn("Nemzőképesség", "castredstatus", 50);
-        TableColumn animalHealthstatusCol = createTableColumn("Egészségi állapot", "healthstatus", 50);
-        TableColumn animalInjurystatusCol = createTableColumn("Sérülés", "injurystatus", 50);
-              
-        tableViewBrowseReceipts.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol,animalCastredstatusCol,animalHealthstatusCol,animalInjurystatusCol);
+       
+        tableViewBrowseAnimals.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol);
+        
+        ScrollPane tblViewScrollPane = new ScrollPane(tableViewBrowseAnimals);
+                   tblViewScrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        anchorPaneViewAnimalTable.getChildren().add(tblViewScrollPane);  
         newanimaldata.addAll(catlantisdb.getAnimals());
+        
         
     }    
     
     
+     public void setNewCastrationTableColumns(){
+        TableColumn animalIdCol = createTableColumn("Azonosító", "animalid", 50);
+        TableColumn animalRaceCol = createTableColumn("Faj", "animalrace", 50);
+        TableColumn animalNameCol = createTableColumn("Név", "animalname", 50);
+        TableColumn animalSpeciesCol = createTableColumn("Fajta", "animalspecies", 50);
+        TableColumn animalSexCol = createTableColumn("Neme", "animalsex", 50);
+        TableColumn animalColorCol = createTableColumn("Szin", "animalcolor", 50);
+        TableColumn animalBirthdateCol = createTableColumn("Születési dátum", "animalbirthdate", 50);
+        TableColumn animalHealthstatusCol = createTableColumn("Egészségi állapot", "healthstatus", 150);
+        TableColumn animalInjurystatusCol = createTableColumn("Sérülés", "injurystatus", 150);
+        tableViewNewCastration.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalHealthstatusCol,animalInjurystatusCol);
+        
+        ScrollPane tblViewScrollPane = new ScrollPane(tableViewNewCastration);
+                   tblViewScrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.ALWAYS);
+        anchorPaneNewCastrationTable.getChildren().add(tblViewScrollPane);
+      
+    }   
+
+     
+     public void setViewPersonTableColumns(){
+        TableColumn personIdCol = createTableColumn("Azonosító", "personid", 30);
+        TableColumn personNameCol = createTableColumn("Név", "personname", 50);
+        TableColumn personPhoneCol = createTableColumn("Telefonszám", "personphone", 20);
+        TableColumn personEmailCol = createTableColumn("E-mail", "personemail", 50);
+       
+        tableViewNewPerson.getColumns().addAll(personIdCol, personNameCol, personPhoneCol, personEmailCol);
+        
+        ScrollPane tblViewScrollPane = new ScrollPane(tableViewNewPerson);
+                   tblViewScrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.ALWAYS);
+        anchorPaneViewPersonTable.getChildren().add(tblViewScrollPane);
+        newpersondata.addAll(catlantisdb.getPersons());
+    }   
+
+
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -414,6 +493,9 @@ public final ObservableList<AnimalData> newanimaldata = FXCollections.observable
         startUpScreen();
         createCatlantisDataBaseConnection();
         setNewReceiptTableColumns();
-        setViewReceiptTableColumns();
+        setViewAnimalTableColumns();
+        setNewCastrationTableColumns();
+        setViewPersonTableColumns();
+        
     }
 }  

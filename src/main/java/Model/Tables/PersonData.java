@@ -17,9 +17,9 @@ public class PersonData {
     private final SimpleStringProperty personid, personname, personphone, personemail;
     
     
-    public PersonData(String personName, String personPhone, String personEmail){
+    public PersonData(String personId, String personName, String personPhone, String personEmail){
         
-        this.personid = new SimpleStringProperty("");
+        this.personid = new SimpleStringProperty(personId);
         this.personname = new SimpleStringProperty(personName);
         this.personphone = new SimpleStringProperty(personPhone);
         this.personemail = new SimpleStringProperty(personEmail);

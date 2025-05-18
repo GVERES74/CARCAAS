@@ -71,11 +71,11 @@ public class TreeMenuBuilder {
             TreeItem treeItemDonationsEditDonation = new TreeItem("Adomány szerkesztése");
             TreeItem treeItemDonationsViewDonations = new TreeItem("Adományok megtekintése");
             
-    public  TreeItem treeItemRootActions = new TreeItem("Tevékenységek");
-            TreeItem treeItemCastration = new TreeItem("Ivartalantási akció");
+    public  TreeItem treeItemRootActions = new TreeItem("Tevékenységek"); //Show Root in FXML unchecked! Otherwise throws exception when clicked on.
+            TreeItem treeItemCastration = new TreeItem("Ivartalanitási akció");
             TreeItem treeItemCastrationNewCastration = new TreeItem("Új ivartalanitás");
             TreeItem treeItemCastrationEditCastration = new TreeItem("Ivartalanitás szerkesztése");
-            TreeItem treeItemCastrationBrowseCastration = new TreeItem("Ivartalanitások megtekintése");        
+            TreeItem treeItemCastrationViewCastration = new TreeItem("Ivartalanitások megtekintése");      
            
             
     public  TreeItem treeItemRootOrganization = new TreeItem("Egyesület");
@@ -160,7 +160,7 @@ public class TreeMenuBuilder {
         treeItemCastration.getChildren().addAll(
                 treeItemCastrationNewCastration,
                 treeItemCastrationEditCastration,
-                treeItemCastrationBrowseCastration);
+                treeItemCastrationViewCastration);
         treeItemRootActions.getChildren().addAll(treeItemCastration);
         
         
