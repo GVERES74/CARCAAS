@@ -15,6 +15,19 @@ public class AddressData {
     private final SimpleStringProperty addressid, addresscountry, addresscounty, addresszipcode, addresscity, addressstreet, addressnumber;
     
     
+    public AddressData(Integer addressId, String addressCountry, String addressCounty, String addressZipcode, String addressCity, String addressStreet, String addressNumber){
+        
+        this.addressid = new SimpleStringProperty(String.valueOf(addressId));
+        this.addresscountry = new SimpleStringProperty(addressCountry);
+        this.addresscounty = new SimpleStringProperty(addressCounty);
+        this.addresszipcode = new SimpleStringProperty(addressZipcode);
+        this.addresscity = new SimpleStringProperty(addressCity);
+        this.addressstreet = new SimpleStringProperty(addressStreet);
+        this.addressnumber = new SimpleStringProperty(addressNumber);
+    }
+    
+    
+    
     public AddressData(String addressCountry, String addressCounty, String addressZipcode, String addressCity, String addressStreet, String addressNumber){
         
         this.addressid = new SimpleStringProperty("");

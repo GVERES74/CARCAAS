@@ -6,8 +6,6 @@ package Model.DBFunctions;
 
 import Model.Tables.AnimalData;
 import Model.Tables.PersonData;
-import Model.Tables.AddressData;
-import Model.Tables.ReceiptData;
 import Utils.Dialogs;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -67,6 +65,12 @@ public class CatDataBase {
                 if (!resultSetUsers.next()){
                     createStatement.execute(CreateTables.CreateTableUsers); //Ha nem létezik a tábla, akkor létrehozzuk
                 }
+            
+            ResultSet resultSetCompanies = dbMetaData.getTables(null, "APP", "COMPANIES", null);
+                if (!resultSetCompanies.next()){
+                    createStatement.execute(CreateTables.CreateTableCompanies); //Ha nem létezik a tábla, akkor létrehozzuk
+                }    
+                
                 
             ResultSet resultSetRescuedAnimals = dbMetaData.getTables(null, "APP", "ANIMALS", null);
                 if (!resultSetRescuedAnimals.next()){
@@ -105,25 +109,25 @@ public class CatDataBase {
     public void addNewAnimal(AnimalData animaldata){
        try{
             String sqladdnewanimal = "insert into animals("
-                    + "db_animalid, "
-                    + "db_animalrace, "
-                    + "db_animalspecies, "
-                    + "db_animalsex, "
-                    + "db_animalname, "
-                    + "db_animalcolor, "
-                    + "db_animalbirthdate, "
-                    + "db_photoalbumid)"
-                    + "values (?,?,?,?,?,?,?,?)";
+                    
+                    + "db_animal_race, "
+                    + "db_animal_species, "
+                    + "db_animal_sex, "
+                    + "db_animal_name, "
+                    + "db_animal_color, "
+                    + "db_animal_birthdate, "
+                    + "db_photoalbum_id)"
+                    + "values (?,?,?,?,?,?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewanimal);
-            preparedStmt.setString(1, animaldata.getAnimalid());
-            preparedStmt.setString(2, animaldata.getAnimalrace());
-            preparedStmt.setString(3, animaldata.getAnimalspecies());
-            preparedStmt.setString(4, animaldata.getAnimalsex());
-            preparedStmt.setString(5, animaldata.getAnimalname());
-            preparedStmt.setString(6, animaldata.getAnimalcolor());
-            preparedStmt.setString(7, animaldata.getAnimalbirthdate());
-            preparedStmt.setString(8, animaldata.getPhotoalbumid());
+            
+            preparedStmt.setString(1, animaldata.getAnimalrace());
+            preparedStmt.setString(2, animaldata.getAnimalspecies());
+            preparedStmt.setString(3, animaldata.getAnimalsex());
+            preparedStmt.setString(4, animaldata.getAnimalname());
+            preparedStmt.setString(5, animaldata.getAnimalcolor());
+            preparedStmt.setString(6, animaldata.getAnimalbirthdate());
+            preparedStmt.setString(7, animaldata.getPhotoalbumid());
             preparedStmt.execute();
             
             Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+animaldata.getAnimalid()+" sikeresen hozzáadva!");     
@@ -144,14 +148,14 @@ public class CatDataBase {
             animals = new ArrayList<>();
             while (rs.next()){
                 AnimalData allanimals = new AnimalData(
-                        rs.getString("db_animalid"),
-                        rs.getString("db_animalrace"),
-                        rs.getString("db_animalspecies"),    
-                        rs.getString("db_animalsex"),
-                        rs.getString("db_animalname"),
-                        rs.getString("db_animalcolor"),
-                        rs.getString("db_animalbirthdate"),
-                        rs.getString("db_photoalbumid"));
+                        rs.getInt("db_animal_id"),
+                        rs.getString("db_animal_race"),
+                        rs.getString("db_animal_species"),    
+                        rs.getString("db_animal_sex"),
+                        rs.getString("db_animal_name"),
+                        rs.getString("db_animal_color"),
+                        rs.getString("db_animal_birthdate"),
+                        rs.getString("db_photo_albumid"));
                     
                 animals.add(allanimals);
                 
@@ -173,10 +177,10 @@ public class CatDataBase {
             persons = new ArrayList<>();
             while (rs.next()){
                 PersonData allpersons = new PersonData(
-                        rs.getString("db_personid"),
-                        rs.getString("db_personname"),
-                        rs.getString("db_personphone"),    
-                        rs.getString("db_personemail"));
+                        rs.getInt("db_person_id"),
+                        rs.getString("db_person_name"),
+                        rs.getString("db_person_phone"),    
+                        rs.getString("db_person_email"));
                                             
                 persons.add(allpersons);
                 
@@ -190,17 +194,17 @@ public class CatDataBase {
     public void addNewPerson(PersonData persondata){
        try{
             String sqladdnewperson = "insert into persons("
-                    + "db_personid, "
-                    + "db_personname, "
-                    + "db_personphone, "
-                    + "db_personemail) "
-                    + "values (?,?,?,?)";
+                    
+                    + "db_person_name, "
+                    + "db_person_phone, "
+                    + "db_person_email) "
+                    + "values (?,?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewperson);
-            preparedStmt.setString(1, persondata.getPersonid());
-            preparedStmt.setString(2, persondata.getPersonname());
-            preparedStmt.setString(3, persondata.getPersonphone());
-            preparedStmt.setString(4, persondata.getPersonemail());
+            
+            preparedStmt.setString(1, persondata.getPersonname());
+            preparedStmt.setString(2, persondata.getPersonphone());
+            preparedStmt.setString(3, persondata.getPersonemail());
             preparedStmt.execute();
             
             Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+persondata.getPersonid()+" sikeresen hozzáadva!");     

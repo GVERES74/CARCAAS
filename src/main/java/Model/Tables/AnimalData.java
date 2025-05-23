@@ -24,9 +24,9 @@ public class AnimalData {
     
     
     
-    public AnimalData(String animalId, String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, String photoAlbumId){
+    public AnimalData(Integer animalId, String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, String photoAlbumId){
         
-        this.animalid = new SimpleStringProperty(animalId);
+        this.animalid = new SimpleStringProperty(String.valueOf(animalId));
         this.animalrace = new SimpleStringProperty(animalRace);
         this.animalspecies = new SimpleStringProperty(animalSpecies);
         this.animalsex = new SimpleStringProperty(animalSex);
@@ -37,6 +37,18 @@ public class AnimalData {
         
     }    
     
+    public AnimalData(String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, String photoAlbumId){
+        
+        this.animalid = new SimpleStringProperty("");
+        this.animalrace = new SimpleStringProperty(animalRace);
+        this.animalspecies = new SimpleStringProperty(animalSpecies);
+        this.animalsex = new SimpleStringProperty(animalSex);
+        this.animalname = new SimpleStringProperty(animalName);
+        this.animalcolor = new SimpleStringProperty(animalColor);
+        this.animalbirthdate = new SimpleStringProperty(animalBirthdate);
+        this.photoalbumid = new SimpleStringProperty(photoAlbumId);
+        
+    }    
     
     //Ha egy vagy több cella üresen jelenik meg, akkor ellenőrizni kell a getter-eket, vagy újra Insert Code -> Getter..
     public String getAnimalid() {

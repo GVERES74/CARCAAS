@@ -5,8 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import Utils.Tools;
 
 import java.io.IOException;
+import javafx.stage.Screen;
 
 /**
  * JavaFX App
@@ -14,10 +16,13 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    
+    
+    
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("CatMain"), 1366, 768);
+        scene = new Scene(loadFXML("CatMain"), Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
         stage.setScene(scene);
 	stage.setTitle("Catlantis - Animal Rescue, Care And Adoptation System");
 	stage.show();

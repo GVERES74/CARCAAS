@@ -47,6 +47,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -73,15 +74,9 @@ private Pane paneWebview;
 private ImageView splashImageView;
 private TreeMenuBuilder treeMenuBuilder = new TreeMenuBuilder();
 public CatDataBase catlantisdb;
+public String os_user_name = "";
 
 
-
-
-@FXML
-private MenuItem menuItemPopupAbout, menuItemSysInfo;
-
-@FXML
-private AnchorPane mainTreeMenuSplitPaneBottomAnchorPane, mainTreeMenuSplitPaneTopAnchorPane, anchorPaneNewReceiptTable, anchorPaneViewReceiptTable, anchorPaneNewCastrationTable, anchorPaneViewAnimalTable, anchorPaneViewPersonTable;
 
 @FXML
 private StackPane mainContentStackPane;
@@ -116,6 +111,10 @@ private TextArea textAreaInjuryDetails, textAreaSicknessDetails, textAreaAdditio
 
 @FXML
 private SplitPane splitPaneViewReceipt, splitPaneNewReceipt, splitPaneNewCastration;
+
+
+@FXML
+private AnchorPane anchorPaneGeneralInfo, anchorPaneNewReceiptTable, anchorPaneViewAnimalTable, anchorPaneNewCastrationTable, anchorPaneViewPersonTable;
 
 
 @FXML
@@ -154,7 +153,7 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
     private void saveNewReceipt(){
         if (Dialogs.showConfirmAlert("Új befogadás mentése", null, "Biztosan mented az adatokat?") == true){
             AnimalData newanimal = new AnimalData(
-                datePickerReceiptDate.getValue().toString()+textFieldAnimalName.getText(),
+                
                 comboBoxSelectRace.getValue().toString(),
                 comboBoxSelectSpecies.getValue().toString(),
                 comboBoxSelectGender.getValue().toString(),
@@ -166,7 +165,7 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
             );
             
             PersonData newperson = new PersonData(
-                    textFieldSaviorEmail.getText()+datePickerReceiptDate.getValue().toString(),
+                    
                     textFieldSaviorName.getText(),
                     textFieldSaviorPhone.getText(),
                     textFieldSaviorEmail.getText()
@@ -242,14 +241,22 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
     public void showSystemInfo(){
         String osname = System.getProperty("os.name");
         String osver = System.getProperty("os.version");
-        String user = System.getProperty("user.name");
-        Dialogs.showInfoAlert("System Information", "Operating System: "+ osname + " (Version: "+ osver+")", "User: "+user);
+        
+        Dialogs.showInfoAlert("System Information", "Operating System: "+ osname + " (Version: "+ osver+")", "User: "+os_user_name);
       
     }
     
     public void showBottomTitledPaneContent(){
         labelModulePath.setText("Catlantis.com");
-        dateLabel.setText("Dátum: "+Calendar.calendar.getTime());
+        os_user_name = System.getProperty("user.name");
+        HBox genInfoHBox = new HBox();
+        genInfoHBox.setSpacing(10.0);
+        Label dateLabel = new Label("Dátum: "+Calendar.calendar.getTime());
+        Label userLabel = new Label("Felhasználó: "+os_user_name);
+        
+        anchorPaneGeneralInfo.getChildren().add(genInfoHBox);
+        genInfoHBox.getChildren().addAll(dateLabel, userLabel);
+        
         
     }
     
@@ -261,7 +268,7 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         splashPane.setMaxWidth(mainContentStackPane.getMaxWidth());
         splashImageView.setFitHeight(splashPane.getMaxHeight());
         splashImageView.setFitWidth(splashPane.getMaxWidth());
-        splashImageView.setPreserveRatio(true);
+        splashImageView.setPreserveRatio(false);
         splashImageView.setImage(new Image(getClass().getResourceAsStream("kitty.jpg")));
         mainContentStackPane.getChildren().add(splashPane);
         splashPane.toFront();
@@ -355,7 +362,7 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
        comboBoxSelectAge.setValue(comboBoxSelectAge.getItems().get(0));
        comboBoxSelectAgeYMW.getItems().addAll("nap", "hét", "hónap", "év");
        comboBoxSelectAgeYMW.setValue(comboBoxSelectAgeYMW.getItems().get(0));
-       comboDataTables.getItems().addAll("animals", "persons", "receipts");
+       comboDataTables.getItems().addAll("animals", "persons", "receipts", "addresses", "users");
        
         
         
@@ -421,6 +428,7 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         
         ScrollPane tblViewScrollPane = new ScrollPane(tableViewNewReceipt);
                    tblViewScrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+                   tblViewScrollPane.setFitToWidth(true);
         anchorPaneNewReceiptTable.getChildren().add(tblViewScrollPane);
       
     }   
@@ -441,6 +449,7 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         
         ScrollPane tblViewScrollPane = new ScrollPane(tableViewBrowseAnimals);
                    tblViewScrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+                   tblViewScrollPane.setFitToWidth(true);
         anchorPaneViewAnimalTable.getChildren().add(tblViewScrollPane);  
         newanimaldata.addAll(catlantisdb.getAnimals());
         

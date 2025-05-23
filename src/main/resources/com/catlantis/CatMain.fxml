@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane id="catMainAnchorPane" fx:id="catMainAnchorPane" minHeight="768.0" minWidth="1366.0" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catlantis.CatMainController">
+<AnchorPane id="catMainAnchorPane" fx:id="catMainAnchorPane" minHeight="768.0" minWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catlantis.CatMainController">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -24,6 +24,11 @@
                     <MenuItem id="menuItemAppExit" fx:id="menuItemAppExit" mnemonicParsing="false" onAction="#exitCatMainApp" text="Exit" />
                   </items>
                 </Menu>
+                  <Menu mnemonicParsing="false" text="Admin">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Új felhasználó" />
+                    </items>
+                  </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Delete" />
@@ -65,7 +70,7 @@
             </ToolBar>
             <SplitPane id="catMainSplitPane" fx:id="catMainSplitPane" dividerPositions="0.2375">
               <items>
-                <AnchorPane maxWidth="300.0" minHeight="0.0" minWidth="100.0" prefWidth="300.0">
+                <AnchorPane maxWidth="300.0" minWidth="100.0" prefWidth="300.0">
                      <children>
                         <VBox id="vBoxTreeMenu">
                            <children>
@@ -130,7 +135,7 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                <AnchorPane id="anchorPaneContent" minHeight="300.0" minWidth="500.0">
+                <AnchorPane id="anchorPaneContent">
                      <children>
                         <StackPane id="mainContentStackPane" fx:id="mainContentStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
@@ -140,103 +145,66 @@
                                   <AnchorPane fx:id="anchorPaneNewCastrationTable" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
                                 </items>
                               </SplitPane>
-                              <SplitPane id="splitPaneNewReceipt" fx:id="splitPaneNewReceipt" dividerPositions="0.5" orientation="VERTICAL" prefHeight="500.0" prefWidth="160.0">
+                              <SplitPane id="splitPaneNewReceipt" fx:id="splitPaneNewReceipt" dividerPositions="0.5" orientation="VERTICAL">
                                 <items>
-                                  <AnchorPane prefHeight="600.0">
+                                  <AnchorPane>
                                        <children>
                                           <HBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <VBox spacing="10.0" style="-fx-border-color: #a9a9a9;" HBox.hgrow="ALWAYS">
+                                                <VBox fillWidth="false" spacing="10.0" style="-fx-border-color: #a9a9a9;" HBox.hgrow="ALWAYS">
                                                    <children>
+                                                      <Label text="Állat adatai">
+                                                         <font>
+                                                            <Font name="Arial Black" size="18.0" />
+                                                         </font>
+                                                      </Label>
                                                       <Label text="Dátum" textFill="GREY">
                                                          <font>
                                                             <Font name="Calibri Bold" size="18.0" />
                                                          </font>
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
+                                                         <VBox.margin>
+                                                            <Insets />
+                                                         </VBox.margin>
                                                       </Label>
                                                       <DatePicker id="datePickerReceiptDate" fx:id="datePickerReceiptDate" promptText="Bekerülés dátuma" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" />
                                                       <Label text="Faj" textFill="GREY">
                                                          <font>
                                                             <Font name="Calibri Bold" size="18.0" />
                                                          </font>
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
                                                       </Label>
-                                                      <ComboBox id="comboBoxSelectRace" fx:id="comboBoxSelectRace" prefWidth="150.0" promptText="Válassz" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" visibleRowCount="5">
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
-                                                      </ComboBox>
+                                                      <ComboBox id="comboBoxSelectRace" fx:id="comboBoxSelectRace" prefWidth="150.0" promptText="Válassz" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" visibleRowCount="5" />
                                                       <Label text="Fajta" textFill="GREY">
                                                          <font>
                                                             <Font name="Calibri Bold" size="18.0" />
                                                          </font>
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
                                                       </Label>
-                                                      <ComboBox id="comboBoxSelectSpecies" fx:id="comboBoxSelectSpecies" prefWidth="150.0" promptText="Válassz" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" visibleRowCount="5">
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
-                                                      </ComboBox>
+                                                      <ComboBox id="comboBoxSelectSpecies" fx:id="comboBoxSelectSpecies" prefWidth="150.0" promptText="Válassz" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" visibleRowCount="5" />
                                                       <Label text="Állat neve" textFill="GREY">
                                                          <font>
                                                             <Font name="Calibri Bold" size="18.0" />
                                                          </font>
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
                                                       </Label>
-                                                      <TextField id="textFieldAnimalName" fx:id="textFieldAnimalName" prefHeight="30.0" prefWidth="150.0" promptText="Név (ideiglenes)" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;">
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
-                                                      </TextField>
+                                                      <TextField id="textFieldAnimalName" fx:id="textFieldAnimalName" prefHeight="30.0" prefWidth="150.0" promptText="Név (ideiglenes)" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" />
                                                       <Label text="Neme" textFill="GREY">
                                                          <font>
                                                             <Font name="Calibri Bold" size="18.0" />
                                                          </font>
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
                                                       </Label>
-                                                      <ComboBox id="comboBoxSelectGender" fx:id="comboBoxSelectGender" prefWidth="150.0" promptText="Válassz" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" visibleRowCount="5">
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
-                                                      </ComboBox>
+                                                      <ComboBox id="comboBoxSelectGender" fx:id="comboBoxSelectGender" prefWidth="150.0" promptText="Válassz" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" visibleRowCount="5" />
                                                       <Label text="Színe" textFill="GREY">
                                                          <font>
                                                             <Font name="Calibri Bold" size="18.0" />
                                                          </font>
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
                                                       </Label>
-                                                      <ComboBox id="comboBoxSelectColor" fx:id="comboBoxSelectColor" prefWidth="150.0" promptText="Válassz" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" visibleRowCount="5">
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
-                                                      </ComboBox>
+                                                      <ComboBox id="comboBoxSelectColor" fx:id="comboBoxSelectColor" prefWidth="150.0" promptText="Válassz" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" visibleRowCount="5" />
                                                       <Label text="Életkora" textFill="GREY">
                                                          <font>
                                                             <Font name="Calibri Bold" size="18.0" />
                                                          </font>
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
                                                       </Label>
                                                       <HBox spacing="10.0">
                                                          <children>
-                                                            <ComboBox id="comboBoxSelectAge" fx:id="comboBoxSelectAge" prefWidth="75.0" promptText="Válassz (1-12)" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" visibleRowCount="12">
-                                                               <padding>
-                                                                  <Insets left="5.0" />
-                                                               </padding>
-                                                            </ComboBox>
+                                                            <ComboBox id="comboBoxSelectAge" fx:id="comboBoxSelectAge" prefWidth="75.0" promptText="Válassz (1-12)" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" visibleRowCount="12" />
                                                             <ComboBox id="comboBoxSelectAgeYMW" fx:id="comboBoxSelectAgeYMW" prefWidth="100.0" promptText="Válassz (év; hónap; hét; nap)" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" visibleRowCount="4">
                                                                <padding>
                                                                   <Insets left="5.0" />
@@ -248,18 +216,20 @@
                                                          <font>
                                                             <Font name="Calibri Bold" size="18.0" />
                                                          </font>
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
                                                       </Label>
                                                       <DatePicker id="datePickerBirthDate" fx:id="datePickerBirthDate" />
                                                    </children>
                                                    <padding>
-                                                      <Insets bottom="2.0" left="10.0" right="5.0" top="5.0" />
+                                                      <Insets left="10.0" />
                                                    </padding>
                                                 </VBox>
                                                 <VBox spacing="10.0" style="-fx-border-color: #a9a9a9;" HBox.hgrow="ALWAYS">
                                                    <children>
+                                                      <Label text="Bekerülési állapot">
+                                                         <font>
+                                                            <Font name="Arial Black" size="18.0" />
+                                                         </font>
+                                                      </Label>
                                                       <Label text="Szaporítóképesség" textFill="GREY">
                                                          <font>
                                                             <Font name="Calibri Bold" size="18.0" />
@@ -364,10 +334,10 @@
                                                       <TextArea id="textAreaAdditionalInfo" fx:id="textAreaAdditionalInfo" maxWidth="300.0" prefHeight="150.0" prefWidth="300.0" promptText="Kiegészítő információk" wrapText="true" />
                                                    </children>
                                                    <padding>
-                                                      <Insets bottom="2.0" left="10.0" right="5.0" top="5.0" />
+                                                      <Insets left="10.0" />
                                                    </padding>
                                                 </VBox>
-                                                <VBox spacing="5.0" style="-fx-border-color: #a9a9a9;" HBox.hgrow="ALWAYS">
+                                                <VBox fillWidth="false" spacing="10.0" style="-fx-border-color: #a9a9a9;" HBox.hgrow="ALWAYS">
                                                    <children>
                                                       <Label text="Megtalálás körülményei" textFill="GREY">
                                                          <font>
@@ -571,7 +541,7 @@
                                                       </HBox>
                                                    </children>
                                                    <padding>
-                                                      <Insets bottom="2.0" left="10.0" right="5.0" top="5.0" />
+                                                      <Insets left="10.0" />
                                                    </padding>
                                                 </VBox>
                                                 <VBox spacing="10.0" HBox.hgrow="ALWAYS">
@@ -580,15 +550,15 @@
                                                       <Button id="btnDeleteTable" fx:id="btnDeleteTable" mnemonicParsing="false" onAction="#deleteTable" text="Tábla törlése" />
                                                       <ComboBox id="comboDataTables" fx:id="comboDataTables" prefWidth="150.0" promptText="Táblanév" />
                                                    </children>
-                                                   <padding>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                   </padding>
                                                 </VBox>
                                              </children>
                                           </HBox>
                                        </children>
                                     </AnchorPane>
-                                  <AnchorPane id="anchorPaneNewReceiptTable" fx:id="anchorPaneNewReceiptTable" maxHeight="200.0" minHeight="150.0" />
+                                  <AnchorPane id="anchorPaneNewReceiptTable" fx:id="anchorPaneNewReceiptTable" minHeight="100.0">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding></AnchorPane>
                                 </items>
                               </SplitPane>
                               <SplitPane id="splitPaneViewReceipt" fx:id="splitPaneViewReceipt" dividerPositions="0.5" orientation="VERTICAL" visible="false">
@@ -605,12 +575,12 @@
                                               </Tab>
                                                 <Tab text="Állat adatok">
                                                   <content>
-                                                    <AnchorPane id="anchorPaneViewAnimalTable" fx:id="anchorPaneViewAnimalTable" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                    <AnchorPane id="anchorPaneViewAnimalTable" fx:id="anchorPaneViewAnimalTable" minHeight="0.0" minWidth="200.0" prefHeight="180.0" />
                                                   </content>
                                                 </Tab>
                                               <Tab text="Személy adatok">
                                                 <content>
-                                                  <AnchorPane id="anchorPaneViewPersonTable" fx:id="anchorPaneViewPersonTable" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                  <AnchorPane id="anchorPaneViewPersonTable" fx:id="anchorPaneViewPersonTable" minHeight="0.0" minWidth="200.0" prefHeight="180.0" />
                                                 </content>
                                               </Tab>
                                             </tabs>
@@ -624,15 +594,12 @@
                   </AnchorPane>
               </items>
             </SplitPane>
-            <TitledPane text="Info" VBox.vgrow="ALWAYS">
+            <TitledPane text="Általános Információk" VBox.vgrow="ALWAYS">
               <content>
-                <AnchorPane fx:id="generalInfoTitledPane" minHeight="50.0" minWidth="0.0">
+                <AnchorPane id="anchorPaneGeneralInfo" fx:id="anchorPaneGeneralInfo" minHeight="50.0" minWidth="0.0">
                      <rotationAxis>
                         <Point3D x="180.0" z="1.0" />
                      </rotationAxis>
-                     <children>
-                        <Label fx:id="dateLabel" layoutX="5.0" layoutY="5.0" prefHeight="21.0" prefWidth="250.0" text="Date" />
-                     </children>
                   </AnchorPane>
               </content>
             </TitledPane>

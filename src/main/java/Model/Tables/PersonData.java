@@ -17,15 +17,25 @@ public class PersonData {
     private final SimpleStringProperty personid, personname, personphone, personemail;
     
     
-    public PersonData(String personId, String personName, String personPhone, String personEmail){
+    public PersonData(Integer personId, String personName, String personPhone, String personEmail){
         
-        this.personid = new SimpleStringProperty(personId);
+        this.personid = new SimpleStringProperty(String.valueOf(personId));
         this.personname = new SimpleStringProperty(personName);
         this.personphone = new SimpleStringProperty(personPhone);
         this.personemail = new SimpleStringProperty(personEmail);
         
     }
 
+    public PersonData(String personName, String personPhone, String personEmail){
+        
+        this.personid = new SimpleStringProperty("");
+        this.personname = new SimpleStringProperty(personName);
+        this.personphone = new SimpleStringProperty(personPhone);
+        this.personemail = new SimpleStringProperty(personEmail);
+        
+    }
+    
+    
     public String getPersonid() {
         return personid.get();
     }
