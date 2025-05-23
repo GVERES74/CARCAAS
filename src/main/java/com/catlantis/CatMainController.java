@@ -21,17 +21,20 @@ import Utils.Calendar;
 import Utils.Dialogs;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -82,10 +85,16 @@ public String os_user_name = "";
 private StackPane mainContentStackPane;
 
 @FXML
+private TabPane tabPaneAdmin;
+
+@FXML
 private TreeView mainTreeViewAnimalCare, mainTreeViewFinancial, mainTreeViewDonations, mainTreeViewOrganization, mainTreeViewActions;
 
 @FXML
 private Label dateLabel, labelModulePath;
+
+@FXML
+private MenuItem menuItemAdmin;
 
 @FXML
 private TextField textFieldAnimalName;
@@ -114,11 +123,11 @@ private SplitPane splitPaneViewReceipt, splitPaneNewReceipt, splitPaneNewCastrat
 
 
 @FXML
-private AnchorPane anchorPaneGeneralInfo, anchorPaneNewReceiptTable, anchorPaneViewAnimalTable, anchorPaneNewCastrationTable, anchorPaneViewPersonTable;
+private AnchorPane anchorPaneGeneralInfo, anchorPaneNewReceiptTable, anchorPaneViewAnimalTable, anchorPaneNewCastrationTable, anchorPaneViewPersonTable, anchorPaneAdminTables;
 
 
 @FXML
-private ComboBox comboBoxSelectRace, comboBoxSelectSpecies, comboBoxSelectGender, comboBoxSelectColor, comboBoxSelectAge, comboBoxSelectAgeYMW, comboDataTables;
+private ComboBox comboBoxSelectRace, comboBoxSelectSpecies, comboBoxSelectGender, comboBoxSelectColor, comboBoxSelectAge, comboBoxSelectAgeYMW;
 
 @FXML
 private DatePicker datePickerReceiptDate, datePickerBirthDate, datePickerRescueDate;
@@ -182,11 +191,9 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         }; 
     }
     
-    @FXML
-    private void deleteTable(){
         
-        catlantisdb.deleteTable(comboDataTables.getSelectionModel().getSelectedItem().toString());
-    } 
+    
+    
     
     
 //Java Methods Only!!    
@@ -195,7 +202,22 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         catlantisdb = new CatDataBase();
         
     }
+    
+    
+     
+    
+    
+    
+    public void showAdminTabPanes(){
+        tabPaneAdmin.toFront();
+        tabPaneAdmin.setVisible(true);
+        ComboBox comboDataTables = new ComboBox();
+        comboDataTables.getItems().addAll("animals", "persons", "receipts", "addresses", "users");
+        anchorPaneAdminTables.getChildren().addAll(comboDataTables);
             
+    }
+    
+    
     public void showProgInfo(){
         
         Dialogs.showInfoAlert("Application Information", null, "DjRed Software Development Private - 2022");    
@@ -346,6 +368,10 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
                         
                     }
                 }});
+        
+        menuItemAdmin.setOnAction(e-> {
+           showAdminTabPanes(); 
+        });
      }
     
     
@@ -356,13 +382,13 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         
        comboBoxSelectRace.getItems().addAll("Macska","Kutya","Hörcsög","Nyúl");
        comboBoxSelectSpecies.getItems().addAll("Maine Coon", "Ragdoll", "Sziámi", "Házimacska", "Labrador");
-       comboBoxSelectColor.getItems().addAll("Fehér", "Fekete", "Barna", "Vörös", "Tricolor", "Cirmos", "Tarka");
+       comboBoxSelectColor.getItems().addAll("Fehér", "Fekete", "Barna", "Vörös", "Tricolor", "Cirmos", "Tarka", "Szürke");
        comboBoxSelectGender.getItems().addAll("Hím", "Nőstény", "Kandúr", "Kan", "Szuka");
        comboBoxSelectAge.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12);
        comboBoxSelectAge.setValue(comboBoxSelectAge.getItems().get(0));
        comboBoxSelectAgeYMW.getItems().addAll("nap", "hét", "hónap", "év");
        comboBoxSelectAgeYMW.setValue(comboBoxSelectAgeYMW.getItems().get(0));
-       comboDataTables.getItems().addAll("animals", "persons", "receipts", "addresses", "users");
+       
        
         
         
@@ -446,6 +472,7 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 50);
        
         tableViewBrowseAnimals.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol);
+        tableViewBrowseAnimals.setEditable(true);
         
         ScrollPane tblViewScrollPane = new ScrollPane(tableViewBrowseAnimals);
                    tblViewScrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -483,10 +510,14 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         TableColumn personEmailCol = createTableColumn("E-mail", "personemail", 50);
        
         tableViewNewPerson.getColumns().addAll(personIdCol, personNameCol, personPhoneCol, personEmailCol);
+        tableViewNewPerson.setEditable(true);
+        
         
         ScrollPane tblViewScrollPane = new ScrollPane(tableViewNewPerson);
                    tblViewScrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.ALWAYS);
+                   tblViewScrollPane.setMaxWidth(anchorPaneViewPersonTable.getMaxWidth());
         anchorPaneViewPersonTable.getChildren().add(tblViewScrollPane);
+        tableViewNewPerson.setMaxWidth(tblViewScrollPane.getMaxWidth());
         newpersondata.addAll(catlantisdb.getPersons());
     }   
 

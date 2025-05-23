@@ -26,7 +26,7 @@
                 </Menu>
                   <Menu mnemonicParsing="false" text="Admin">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Új felhasználó" />
+                        <MenuItem id="menuItemAdmin" fx:id="menuItemAdmin" mnemonicParsing="false" text="Adminisztráció" />
                     </items>
                   </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
@@ -139,6 +139,20 @@
                      <children>
                         <StackPane id="mainContentStackPane" fx:id="mainContentStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
+                              <TabPane id="tabPaneAdmin" fx:id="tabPaneAdmin" tabClosingPolicy="UNAVAILABLE">
+                                <tabs>
+                                  <Tab text="Felhasználók kezelése">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                  </Tab>
+                                  <Tab text="Adattáblák kezelése">
+                                    <content>
+                                      <AnchorPane id="anchorPaneAdminTables" fx:id="anchorPaneAdminTables" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                  </Tab>
+                                </tabs>
+                              </TabPane>
                               <SplitPane fx:id="splitPaneNewCastration" dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
@@ -547,8 +561,6 @@
                                                 <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                                                    <children>
                                                       <Button id="btnSaveNewReceipt" fx:id="btnSaveNewReceipt" mnemonicParsing="false" onAction="#saveNewReceipt" text="Mentés" />
-                                                      <Button id="btnDeleteTable" fx:id="btnDeleteTable" mnemonicParsing="false" onAction="#deleteTable" text="Tábla törlése" />
-                                                      <ComboBox id="comboDataTables" fx:id="comboDataTables" prefWidth="150.0" promptText="Táblanév" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -570,12 +582,12 @@
                                             <tabs>
                                               <Tab text="Bekerülési adatok">
                                                 <content>
-                                                  <AnchorPane id="anchorPaneViewReceiptTable" fx:id="anchorPaneViewReceiptTable" minHeight="150.0" prefHeight="150.0" />
+                                                  <AnchorPane id="anchorPaneViewReceiptTable" fx:id="anchorPaneViewReceiptTable" minHeight="150.0" minWidth="500.0" prefHeight="150.0" prefWidth="500.0" />
                                                 </content>
                                               </Tab>
                                                 <Tab text="Állat adatok">
                                                   <content>
-                                                    <AnchorPane id="anchorPaneViewAnimalTable" fx:id="anchorPaneViewAnimalTable" minHeight="0.0" minWidth="200.0" prefHeight="180.0" />
+                                                    <AnchorPane id="anchorPaneViewAnimalTable" fx:id="anchorPaneViewAnimalTable" minHeight="100.0" minWidth="500.0" prefHeight="180.0" prefWidth="500.0" />
                                                   </content>
                                                 </Tab>
                                               <Tab text="Személy adatok">
@@ -596,7 +608,7 @@
             </SplitPane>
             <TitledPane text="Általános Információk" VBox.vgrow="ALWAYS">
               <content>
-                <AnchorPane id="anchorPaneGeneralInfo" fx:id="anchorPaneGeneralInfo" minHeight="50.0" minWidth="0.0">
+                <AnchorPane id="anchorPaneGeneralInfo" fx:id="anchorPaneGeneralInfo" minHeight="100.0">
                      <rotationAxis>
                         <Point3D x="180.0" z="1.0" />
                      </rotationAxis>

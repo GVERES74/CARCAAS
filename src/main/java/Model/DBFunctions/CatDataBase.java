@@ -130,10 +130,10 @@ public class CatDataBase {
             preparedStmt.setString(7, animaldata.getPhotoalbumid());
             preparedStmt.execute();
             
-            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+animaldata.getAnimalid()+" sikeresen hozzáadva!");     
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+animaldata.getAnimalname()+" sikeresen hozzáadva!");     
         } catch 
                 (SQLException e){
-                Dialogs.showErrorAlert("Figyelem!", "Új állat hozzáadása",animaldata.getAnimalid()+" "+e);
+                Dialogs.showErrorAlert("Figyelem!", "Új állat hozzáadása",animaldata.getAnimalname()+" "+e);
                 System.out.println("Figyelem! "+"Új állat hozzáadása"+" Hiba: !"+e);}
            
     }    
@@ -155,7 +155,7 @@ public class CatDataBase {
                         rs.getString("db_animal_name"),
                         rs.getString("db_animal_color"),
                         rs.getString("db_animal_birthdate"),
-                        rs.getString("db_photo_albumid"));
+                        rs.getString("db_photoalbum_id"));
                     
                 animals.add(allanimals);
                 
@@ -207,7 +207,7 @@ public class CatDataBase {
             preparedStmt.setString(3, persondata.getPersonemail());
             preparedStmt.execute();
             
-            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+persondata.getPersonid()+" sikeresen hozzáadva!");     
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+persondata.getPersonemail()+" sikeresen hozzáadva!");     
         } catch 
                 (SQLException e){
                 Dialogs.showErrorAlert("Figyelem!", "Új személy hozzáadása",persondata.getPersonid()+" "+e);
