@@ -50,6 +50,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -181,12 +182,14 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
             
             );
             
-            newanimaldata.addAll(newanimal);
+            
             catlantisdb.addNewAnimal(newanimal);
+            newanimaldata.addAll(newanimal);
             tableViewNewReceipt.setItems(newanimaldata);
             
-            newpersondata.addAll(newperson);
+            
             catlantisdb.addNewPerson(newperson);
+            newpersondata.addAll(newperson);
             tableViewNewPerson.setItems(newpersondata);
         }; 
     }
@@ -271,13 +274,15 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
     public void showBottomTitledPaneContent(){
         labelModulePath.setText("Catlantis.com");
         os_user_name = System.getProperty("user.name");
-        HBox genInfoHBox = new HBox();
-        genInfoHBox.setSpacing(10.0);
+        
         Label dateLabel = new Label("Dátum: "+Calendar.calendar.getTime());
         Label userLabel = new Label("Felhasználó: "+os_user_name);
-        
-        anchorPaneGeneralInfo.getChildren().add(genInfoHBox);
-        genInfoHBox.getChildren().addAll(dateLabel, userLabel);
+        GridPane gridPane = new GridPane();
+        anchorPaneGeneralInfo.getChildren().add(gridPane);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.add(dateLabel, 0, 0, 1, 1);
+        gridPane.add(userLabel, 1, 0, 1, 1);
         
         
     }
@@ -290,7 +295,7 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         splashPane.setMaxWidth(mainContentStackPane.getMaxWidth());
         splashImageView.setFitHeight(splashPane.getMaxHeight());
         splashImageView.setFitWidth(splashPane.getMaxWidth());
-        splashImageView.setPreserveRatio(false);
+        splashImageView.setPreserveRatio(true);
         splashImageView.setImage(new Image(getClass().getResourceAsStream("kitty.jpg")));
         mainContentStackPane.getChildren().add(splashPane);
         splashPane.toFront();
@@ -448,13 +453,12 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         TableColumn animalSexCol = createTableColumn("Neme", "animalsex", 50);
         TableColumn animalColorCol = createTableColumn("Szin", "animalcolor", 50);
         TableColumn animalBirthdateCol = createTableColumn("Születési dátum", "animalbirthdate", 50);
-        TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 50);
+        TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 100);
         
         tableViewNewReceipt.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol);
         
         ScrollPane tblViewScrollPane = new ScrollPane(tableViewNewReceipt);
-                   tblViewScrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-                   tblViewScrollPane.setFitToWidth(true);
+                   
         anchorPaneNewReceiptTable.getChildren().add(tblViewScrollPane);
       
     }   
@@ -469,14 +473,14 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         TableColumn animalNameCol = createTableColumn("Név", "animalname", 50);
         TableColumn animalColorCol = createTableColumn("Szin", "animalcolor", 50);
         TableColumn animalBirthdateCol = createTableColumn("Születési dátum", "animalbirthdate", 50);
-        TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 50);
+        TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 100);
        
         tableViewBrowseAnimals.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol);
         tableViewBrowseAnimals.setEditable(true);
         
         ScrollPane tblViewScrollPane = new ScrollPane(tableViewBrowseAnimals);
-                   tblViewScrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-                   tblViewScrollPane.setFitToWidth(true);
+                 
+                                    
         anchorPaneViewAnimalTable.getChildren().add(tblViewScrollPane);  
         newanimaldata.addAll(catlantisdb.getAnimals());
         
@@ -507,17 +511,17 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         TableColumn personIdCol = createTableColumn("Azonosító", "personid", 30);
         TableColumn personNameCol = createTableColumn("Név", "personname", 50);
         TableColumn personPhoneCol = createTableColumn("Telefonszám", "personphone", 20);
-        TableColumn personEmailCol = createTableColumn("E-mail", "personemail", 50);
+        TableColumn personEmailCol = createTableColumn("E-mail", "personemail", 100);
        
         tableViewNewPerson.getColumns().addAll(personIdCol, personNameCol, personPhoneCol, personEmailCol);
         tableViewNewPerson.setEditable(true);
         
         
         ScrollPane tblViewScrollPane = new ScrollPane(tableViewNewPerson);
-                   tblViewScrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.ALWAYS);
-                   tblViewScrollPane.setMaxWidth(anchorPaneViewPersonTable.getMaxWidth());
+                   
+                   
         anchorPaneViewPersonTable.getChildren().add(tblViewScrollPane);
-        tableViewNewPerson.setMaxWidth(tblViewScrollPane.getMaxWidth());
+       
         newpersondata.addAll(catlantisdb.getPersons());
     }   
 

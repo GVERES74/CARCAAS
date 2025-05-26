@@ -143,12 +143,12 @@
                                 <tabs>
                                   <Tab text="Felhasználók kezelése">
                                     <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                      <AnchorPane />
                                     </content>
                                   </Tab>
                                   <Tab text="Adattáblák kezelése">
                                     <content>
-                                      <AnchorPane id="anchorPaneAdminTables" fx:id="anchorPaneAdminTables" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                      <AnchorPane id="anchorPaneAdminTables" fx:id="anchorPaneAdminTables" />
                                     </content>
                                   </Tab>
                                 </tabs>
@@ -570,7 +570,8 @@
                                   <AnchorPane id="anchorPaneNewReceiptTable" fx:id="anchorPaneNewReceiptTable" minHeight="100.0">
                                        <padding>
                                           <Insets top="5.0" />
-                                       </padding></AnchorPane>
+                                       </padding>
+                                    </AnchorPane>
                                 </items>
                               </SplitPane>
                               <SplitPane id="splitPaneViewReceipt" fx:id="splitPaneViewReceipt" dividerPositions="0.5" orientation="VERTICAL" visible="false">
@@ -597,7 +598,8 @@
                                               </Tab>
                                             </tabs>
                                           </TabPane>
-                                       </children></AnchorPane>
+                                       </children>
+                                    </AnchorPane>
                                 </items>
                               </SplitPane>
                            </children>
@@ -606,7 +608,7 @@
                   </AnchorPane>
               </items>
             </SplitPane>
-            <TitledPane text="Általános Információk" VBox.vgrow="ALWAYS">
+            <TitledPane text="Általános Információk">
               <content>
                 <AnchorPane id="anchorPaneGeneralInfo" fx:id="anchorPaneGeneralInfo" minHeight="100.0">
                      <rotationAxis>

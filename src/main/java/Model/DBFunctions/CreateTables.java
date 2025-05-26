@@ -42,14 +42,14 @@ public class CreateTables {
     
     
     static String CreateTablePersons = "create table persons("
-                                    + "db_person_id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                                    + "db_person_id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (1, 1),"
                                     + "db_person_name varchar(30) NOT NULL,"
                                     + "db_person_phone varchar(20) NOT NULL,"
                                     + "db_person_email varchar(50) NOT NULL)";
     
     
     public static String CreateTableAnimals = "create table animals("
-            + "db_animal_id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+            + "db_animal_id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (1, 1), "
             + "db_animal_race varchar(30), "
             + "db_animal_species varchar(30), "
             + "db_animal_sex varchar(20), "
