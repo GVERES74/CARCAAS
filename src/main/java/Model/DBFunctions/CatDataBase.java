@@ -115,17 +115,7 @@ public class CatDataBase {
             Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
             Dialogs.showErrorAlert("Hiba", "Adattábla ADDRESSES nem lett létrehozva!", ex.getMessage());
             } 
-                
-            try {           
-            ResultSet resultSetPersonAddress = dbMetaData.getTables(null, "APP", "PERSONADDRESS", null);
-                if (!resultSetPersonAddress.next()){
-                    createStatement.execute(CreateTables.CreateTablePersonAddress); //Ha nem létezik a tábla, akkor létrehozzuk
-                }
-            } catch (SQLException ex) {
-            Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
-            Dialogs.showErrorAlert("Hiba", "Adattábla PERSONADDRESS nem lett létrehozva!", ex.getMessage());
-            }     
-            
+                                 
             try {     
             ResultSet resultSetReceipts = dbMetaData.getTables(null, "APP", "RECEIPTS", null);
                 if (!resultSetReceipts.next()){
@@ -203,6 +193,8 @@ public class CatDataBase {
        try{
             String sqladdnewperson = "insert into persons("
                     
+                    + "db_animal_id, "
+                    + "db_address_id, "
                     + "db_person_name, "
                     + "db_person_phone, "
                     + "db_person_email) "
@@ -233,6 +225,8 @@ public class CatDataBase {
             while (rs.next()){
                 PersonData allpersons = new PersonData(
                         rs.getInt("db_person_id"),
+                        rs.getInt("db_animal_id"),
+                        rs.getInt("db_address_id"),
                         rs.getString("db_person_name"),
                         rs.getString("db_person_phone"),    
                         rs.getString("db_person_email"));
@@ -251,6 +245,7 @@ public class CatDataBase {
        try{
             String sqladdnewaddress = "insert into addresses("
                     
+                    + "db_person_id, "
                     + "db_address_country, "
                     + "db_address_county, "
                     + "db_address_zipcode,"
@@ -261,12 +256,13 @@ public class CatDataBase {
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewaddress);
             
-            preparedStmt.setString(1, addressdata.getAddresscountry());
-            preparedStmt.setString(2, addressdata.getAddresscounty());
-            preparedStmt.setString(3, addressdata.getAddresszipcode());
-            preparedStmt.setString(4, addressdata.getAddresscity());
-            preparedStmt.setString(5, addressdata.getAddressstreet());
-            preparedStmt.setString(6, addressdata.getAddressnumber());
+            preparedStmt.setString(1, addressdata.getPersonid());
+            preparedStmt.setString(2, addressdata.getAddresscountry());
+            preparedStmt.setString(3, addressdata.getAddresscounty());
+            preparedStmt.setString(4, addressdata.getAddresszipcode());
+            preparedStmt.setString(5, addressdata.getAddresscity());
+            preparedStmt.setString(6, addressdata.getAddressstreet());
+            preparedStmt.setString(7, addressdata.getAddressnumber());
             
             preparedStmt.execute();
             
@@ -288,6 +284,7 @@ public class CatDataBase {
             while (rs.next()){
                 AddressData alladdresses = new AddressData(
                         rs.getInt("db_address_id"),
+                        rs.getInt("db_person_id"),
                         rs.getString("db_address_country"),
                         rs.getString("db_address_county"),    
                         rs.getString("db_address_zipcode"),

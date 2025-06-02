@@ -12,12 +12,13 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class AddressData {
     
-    private final SimpleStringProperty addressid, addresscountry, addresscounty, addresszipcode, addresscity, addressstreet, addressnumber;
+    private final SimpleStringProperty addressid, personid, addresscountry, addresscounty, addresszipcode, addresscity, addressstreet, addressnumber;
     
     
-    public AddressData(Integer addressId, String addressCountry, String addressCounty, String addressZipcode, String addressCity, String addressStreet, String addressNumber){
+    public AddressData(Integer addressId, Integer personId, String addressCountry, String addressCounty, String addressZipcode, String addressCity, String addressStreet, String addressNumber){
         
         this.addressid = new SimpleStringProperty(String.valueOf(addressId));
+        this.personid = new SimpleStringProperty(String.valueOf(personId));
         this.addresscountry = new SimpleStringProperty(addressCountry);
         this.addresscounty = new SimpleStringProperty(addressCounty);
         this.addresszipcode = new SimpleStringProperty(addressZipcode);
@@ -31,6 +32,7 @@ public class AddressData {
     public AddressData(String addressCountry, String addressCounty, String addressZipcode, String addressCity, String addressStreet, String addressNumber){
         
         this.addressid = new SimpleStringProperty("");
+        this.personid = new SimpleStringProperty("");
         this.addresscountry = new SimpleStringProperty(addressCountry);
         this.addresscounty = new SimpleStringProperty(addressCounty);
         this.addresszipcode = new SimpleStringProperty(addressZipcode);
@@ -43,6 +45,10 @@ public class AddressData {
         return addressid.get();
     }
 
+    public String getPersonid() {
+        return personid.get();
+    }
+      
     public String getAddresscountry() {
         return addresscountry.get();
     }
@@ -67,6 +73,10 @@ public class AddressData {
         return addressnumber.get();
     }
 
+    public void setPersonid(String personId){
+        personid.set(personId);
+    }
+    
     public void setAddresscountry(String addressCountry){
         addresscountry.set(addressCountry);
     }
