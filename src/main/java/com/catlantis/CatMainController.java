@@ -21,13 +21,11 @@ import Utils.Calendar;
 import Utils.Dialogs;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
@@ -51,7 +49,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -70,11 +67,14 @@ public class CatMainController implements Initializable{
 
 private WebView webViewBrowser = new WebView();
 private TableView tableViewNewReceipt = new TableView();
+private TableView tableViewNewAnimal = new TableView();
 private TableView tableViewNewPerson = new TableView();
+private TableView tableViewNewAddress = new TableView();
 private TableView tableViewBrowseAnimals = new TableView();
 private TableView tableViewNewCastration = new TableView();
 private Pane splashPane;
 private Pane paneWebview;
+private Button deleteButton;
 private ImageView splashImageView;
 private TreeMenuBuilder treeMenuBuilder = new TreeMenuBuilder();
 public CatDataBase catlantisdb;
@@ -120,11 +120,11 @@ private TextArea textAreaInjuryDetails, textAreaSicknessDetails, textAreaAdditio
 
 
 @FXML
-private SplitPane splitPaneViewReceipt, splitPaneNewReceipt, splitPaneNewCastration;
+private SplitPane splitPaneViewReceipt, splitPaneCreateNewReceipt, splitPaneNewCastration;
 
 
 @FXML
-private AnchorPane anchorPaneGeneralInfo, anchorPaneNewReceiptTable, anchorPaneViewAnimalTable, anchorPaneNewCastrationTable, anchorPaneViewPersonTable, anchorPaneAdminTables;
+private AnchorPane anchorPaneGeneralInfo, anchorPaneNewReceiptTable, anchorPaneViewReceiptTable, anchorPaneViewAnimalTable, anchorPaneNewCastrationTable, anchorPaneViewPersonTable, anchorPaneViewAddressTable, anchorPaneAdminTables;
 
 
 @FXML
@@ -170,9 +170,13 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
                 textFieldAnimalName.getText(),
                 comboBoxSelectColor.getValue().toString(),
                 datePickerBirthDate.getValue().toString(),
-                textFieldAnimalName.getText()+"_"+Calendar.calendar.getTime()               
+                textFieldAnimalName.getText()+"_"+LocalDate.now()
             
             );
+            catlantisdb.addNewAnimal(newanimal);
+            newanimaldata.addAll(newanimal);
+            tableViewNewAnimal.setItems(newanimaldata);
+            
             
             PersonData newperson = new PersonData(
                     
@@ -181,17 +185,43 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
                     textFieldSaviorEmail.getText()
             
             );
-            
-            
-            catlantisdb.addNewAnimal(newanimal);
-            newanimaldata.addAll(newanimal);
-            tableViewNewReceipt.setItems(newanimaldata);
-            
-            
             catlantisdb.addNewPerson(newperson);
             newpersondata.addAll(newperson);
             tableViewNewPerson.setItems(newpersondata);
+            
+            
+            AddressData newaddress = new AddressData(
+            
+                    textFieldSaviorAddressCountry.getText(),
+                    textFieldSaviorAddressCounty.getText(),
+                    textFieldSaviorAddressPostalCode.getText(),
+                    textFieldSaviorAddressCity.getText(),
+                    textFieldSaviorAddressStreet.getText(),
+                    textFieldSaviorAddressNum.getText()
+            );
+            catlantisdb.addNewAddress(newaddress);
+            newaddressdata.addAll(newaddress);
+            tableViewNewAddress.setItems(newaddressdata);
+            
+            ReceiptData newreceipt = new ReceiptData(
+                    
+                    
+                    rbGroupCastred.getSelectedToggle().toString(),
+                    rbGroupInjured.getSelectedToggle().toString(),
+                    textAreaInjuryDetails.getText(),
+                    rbGroupHealth.getSelectedToggle().toString(),
+                    textAreaSicknessDetails.getText(),
+                    textAreaAdditionalInfo.getText(),
+                    datePickerReceiptDate.getValue().toString()
+            
+            
+            );
+            catlantisdb.addNewReceipt(newreceipt);
+            newreceiptdata.addAll(newreceipt);
+            tableViewNewReceipt.setItems(newreceiptdata);
+            
         }; 
+        anchorPaneNewReceiptTable.getChildren().add(tableViewNewReceipt);
     }
     
         
@@ -217,7 +247,12 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         tabPaneAdmin.setVisible(true);
         ComboBox comboDataTables = new ComboBox();
         comboDataTables.getItems().addAll("animals", "persons", "receipts", "addresses", "users");
-        anchorPaneAdminTables.getChildren().addAll(comboDataTables);
+        deleteButton = new Button("Törlés");
+        anchorPaneAdminTables.getChildren().addAll(comboDataTables, deleteButton);
+        
+        deleteButton.setOnAction(e-> {
+            catlantisdb.deleteTable(comboDataTables.getSelectionModel().getSelectedItem().toString());
+        });
             
     }
     
@@ -379,13 +414,17 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         menuItemAdmin.setOnAction(e-> {
            showAdminTabPanes(); 
         });
+        
+           
+        
+        
      }
     
     
     public void createNewReceipt() {
         hideActiveChildPanes();
-        splitPaneNewReceipt.toFront();
-        splitPaneNewReceipt.setVisible(true);
+        splitPaneCreateNewReceipt.toFront();
+        splitPaneCreateNewReceipt.setVisible(true);
         
        comboBoxSelectRace.getItems().addAll("Macska","Kutya","Hörcsög","Nyúl");
        comboBoxSelectSpecies.getItems().addAll("Maine Coon", "Ragdoll", "Sziámi", "Házimacska", "Labrador");
@@ -425,10 +464,11 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         splitPaneViewReceipt.toFront();
         splitPaneViewReceipt.setVisible(true);
        
-        tableViewBrowseAnimals.setItems(newanimaldata);        
         //Ha hibaüzenetet kapsz (Modul elérési hiba, pl. Model, akkor a module-info.java-ba fel kell venni: opens Model to javafx.fxml; és exports Model;   
+        tableViewNewAnimal.setItems(newanimaldata);        
         tableViewNewPerson.setItems(newpersondata);
-        
+        tableViewNewAddress.setItems(newaddressdata);
+        tableViewNewReceipt.setItems(newreceiptdata);
     }
     
     public void createNewCastration(){
@@ -439,18 +479,10 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         
     }
     
-    public TableColumn createTableColumn (String columnDesc, String propertyName, int size){
-        
-        TableColumn columnName = new TableColumn(columnDesc);
-        columnName.setMinWidth(size);
-        columnName.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnName.setCellValueFactory(new PropertyValueFactory<AnimalData, String>(propertyName));
-        return columnName;
-    }
-    
+   
+//SET TABLE COLUMNS    
     public void setNewReceiptTableColumns(){
         TableColumn animalIdCol = createTableColumn("Azonosító", "animalid", 50);
-//        TableColumn animalRescuedateCol = createTableColumn("Befogadás dátuma", "animalid", 50);
         TableColumn animalRaceCol = createTableColumn("Faj", "animalrace", 50);
         TableColumn animalNameCol = createTableColumn("Név", "animalname", 50);
         TableColumn animalSpeciesCol = createTableColumn("Fajta", "animalspecies", 50);
@@ -459,12 +491,13 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         TableColumn animalBirthdateCol = createTableColumn("Születési dátum", "animalbirthdate", 50);
         TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 100);
         
-        tableViewNewReceipt.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol);
+        TableColumn rescuedateCol = createTableColumn("Befogadás dátuma", "receiptdate", 50);
+        TableColumn receiptIdCol = createTableColumn("Befogadás naplószám", "receiptid", 50);
+        tableViewNewReceipt.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol, rescuedateCol, receiptIdCol);
         
         ScrollPane tblViewScrollPane = new ScrollPane(tableViewNewReceipt);
-                   
-        anchorPaneNewReceiptTable.getChildren().add(tblViewScrollPane);
-      
+        anchorPaneViewReceiptTable.getChildren().add(tblViewScrollPane);
+        newreceiptdata.addAll(catlantisdb.getReceipts());
     }   
     
     
@@ -478,21 +511,46 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         TableColumn animalColorCol = createTableColumn("Szin", "animalcolor", 50);
         TableColumn animalBirthdateCol = createTableColumn("Születési dátum", "animalbirthdate", 50);
         TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 100);
-       
         tableViewBrowseAnimals.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol);
         tableViewBrowseAnimals.setEditable(true);
-        
         ScrollPane tblViewScrollPane = new ScrollPane(tableViewBrowseAnimals);
-                 
-                                    
         anchorPaneViewAnimalTable.getChildren().add(tblViewScrollPane);  
         newanimaldata.addAll(catlantisdb.getAnimals());
-        
-        
+              
     }    
     
+         
+    public void setViewPersonTableColumns(){
+        TableColumn personIdCol = createTableColumn("Azonosító", "personid", 30);
+        TableColumn personNameCol = createTableColumn("Név", "personname", 50);
+        TableColumn personPhoneCol = createTableColumn("Telefonszám", "personphone", 20);
+        TableColumn personEmailCol = createTableColumn("E-mail", "personemail", 100);
+        tableViewNewPerson.getColumns().addAll(personIdCol, personNameCol, personPhoneCol, personEmailCol);
+        tableViewNewPerson.setEditable(true);
+        ScrollPane tblViewScrollPane = new ScrollPane(tableViewNewPerson);
+        anchorPaneViewPersonTable.getChildren().add(tblViewScrollPane);
+        newpersondata.addAll(catlantisdb.getPersons());
+    }   
+
+    public void setViewAddressTableColumns(){
+        TableColumn addressIdCol = createTableColumn("Azonosító", "addressid", 30);
+        TableColumn countryCol = createTableColumn("Ország", "addresscountry", 50);
+        TableColumn countyCol = createTableColumn("Megye", "addresscounty", 50);
+        TableColumn zipcodeCol = createTableColumn("Irányitószám", "addresszipcode", 50);
+        TableColumn cityCol = createTableColumn("Település", "addresscity", 50);
+        TableColumn streetCol = createTableColumn("Utca", "addressstreet", 50);
+        TableColumn addressnumberCol = createTableColumn("Házszám", "addressnumber", 50);
+        
+        tableViewNewAddress.getColumns().addAll(addressIdCol, countryCol, countyCol, zipcodeCol, cityCol, streetCol, addressnumberCol);
+        tableViewNewAddress.setEditable(true);
+        ScrollPane tblViewScrollPane = new ScrollPane(tableViewNewAddress);
+        anchorPaneViewAddressTable.getChildren().add(tblViewScrollPane);
+        newaddressdata.addAll(catlantisdb.getAddresses());
+    }   
     
-     public void setNewCastrationTableColumns(){
+    
+    
+    public void setNewCastrationTableColumns(){
         TableColumn animalIdCol = createTableColumn("Azonosító", "animalid", 50);
         TableColumn animalRaceCol = createTableColumn("Faj", "animalrace", 50);
         TableColumn animalNameCol = createTableColumn("Név", "animalname", 50);
@@ -508,33 +566,23 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
                    tblViewScrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.ALWAYS);
         anchorPaneNewCastrationTable.getChildren().add(tblViewScrollPane);
       
-    }   
-
+    }    
      
-     public void setViewPersonTableColumns(){
-        TableColumn personIdCol = createTableColumn("Azonosító", "personid", 30);
-        TableColumn personNameCol = createTableColumn("Név", "personname", 50);
-        TableColumn personPhoneCol = createTableColumn("Telefonszám", "personphone", 20);
-        TableColumn personEmailCol = createTableColumn("E-mail", "personemail", 100);
-       
-        tableViewNewPerson.getColumns().addAll(personIdCol, personNameCol, personPhoneCol, personEmailCol);
-        tableViewNewPerson.setEditable(true);
-        
-        
-        ScrollPane tblViewScrollPane = new ScrollPane(tableViewNewPerson);
-                   
-                   
-        anchorPaneViewPersonTable.getChildren().add(tblViewScrollPane);
-       
-        newpersondata.addAll(catlantisdb.getPersons());
-    }   
-
-
+     
+//FUNCTIONS-----------------------------------------------------------------------------------------------------------------------------
     public void hideActiveChildPanes(){
         mainContentStackPane.getChildren().forEach(childrenPanes -> childrenPanes.setVisible(false)); //All children Panes set to invisible
     }
             
-    
+    public TableColumn createTableColumn (String columnDesc, String propertyName, int size){
+        
+        TableColumn columnName = new TableColumn(columnDesc);
+        columnName.setMinWidth(size);
+        columnName.setCellFactory(TextFieldTableCell.forTableColumn());
+        columnName.setCellValueFactory(new PropertyValueFactory<AnimalData, String>(propertyName));
+        return columnName;
+    }
+     
     @Override
     public void initialize(URL url, ResourceBundle rb){
         
@@ -545,8 +593,8 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
         createCatlantisDataBaseConnection();
         setNewReceiptTableColumns();
         setViewAnimalTableColumns();
-        setNewCastrationTableColumns();
         setViewPersonTableColumns();
-        
+        setViewAddressTableColumns();
+        setNewCastrationTableColumns();
     }
 }  

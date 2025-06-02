@@ -13,10 +13,10 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class ReceiptData {
    
-    private final SimpleStringProperty receiptid;
+    private SimpleStringProperty receiptid;
     private SimpleStringProperty animalid;
     private SimpleStringProperty personid; //PersonAddress nem kell, ez a PersonAddress táblában lesz összekapcsolva
-    private SimpleStringProperty rescueaddressid;
+    private SimpleStringProperty addressid;
     private SimpleStringProperty castredstatus;
     private SimpleStringProperty injurystatus;
     private SimpleStringProperty injurydesc;
@@ -26,145 +26,137 @@ public class ReceiptData {
     private SimpleStringProperty receiptdate;
     private SimpleStringProperty userid;
     
-    public ReceiptData(String animalId, String personId, String personAddressId, String rescueAddressId, String castredStatus, String injuryStatus, String injuryDesc, String healthStatus, String sicknessDesc, String reMarks, LocalDate receiptDate, String userID){
+    public ReceiptData(Integer receiptId, Integer animalId, Integer personId, Integer addressId, String castredStatus, String injuryStatus, String injuryDesc, String healthStatus, String sicknessDesc, String reMarks, String receiptDate, Integer userID){
         
-        this.receiptid = new SimpleStringProperty("");
-        this.animalid = new SimpleStringProperty(animalId);
-        this.personid = new SimpleStringProperty(personId);
-        this.rescueaddressid = new SimpleStringProperty(rescueAddressId);
+        this.receiptid = new SimpleStringProperty(String.valueOf(receiptId));
+        this.animalid = new SimpleStringProperty(String.valueOf(animalId));
+        this.personid = new SimpleStringProperty(String.valueOf(personId));
+        this.addressid = new SimpleStringProperty(String.valueOf(addressId));
         this.castredstatus = new SimpleStringProperty(castredStatus);
         this.injurystatus = new SimpleStringProperty(injuryStatus);
         this.injurydesc = new SimpleStringProperty(injuryDesc);
         this.healthstatus = new SimpleStringProperty(healthStatus);
         this.sicknessdesc = new SimpleStringProperty(sicknessDesc);
         this.remarks = new SimpleStringProperty(reMarks);
-        this.receiptdate = new SimpleStringProperty(receiptDate.toString());
-        this.userid = new SimpleStringProperty(userID);
+        this.receiptdate = new SimpleStringProperty(String.valueOf(receiptDate));
+        this.userid = new SimpleStringProperty(String.valueOf(userID));
         
     }
 
+    public ReceiptData(String castredStatus, String injuryStatus, String injuryDesc, String healthStatus, String sicknessDesc, String reMarks, String receiptDate){
+        
+        this.receiptid = new SimpleStringProperty("");
+        this.animalid = new SimpleStringProperty("");
+        this.personid = new SimpleStringProperty("");
+        this.addressid = new SimpleStringProperty("");
+        this.castredstatus = new SimpleStringProperty(castredStatus);
+        this.injurystatus = new SimpleStringProperty(injuryStatus);
+        this.injurydesc = new SimpleStringProperty(injuryDesc);
+        this.healthstatus = new SimpleStringProperty(healthStatus);
+        this.sicknessdesc = new SimpleStringProperty(sicknessDesc);
+        this.remarks = new SimpleStringProperty(reMarks);
+        this.receiptdate = new SimpleStringProperty(String.valueOf(receiptDate));
+        this.userid = new SimpleStringProperty("");
+        
+    }
+    
+    
+    
     public String getReceiptid() {
         return receiptid.get();
+    }
+
+    public void setReceiptid(SimpleStringProperty receiptid) {
+        this.receiptid = receiptid;
     }
 
     public String getAnimalid() {
         return animalid.get();
     }
 
+    public void setAnimalid(SimpleStringProperty animalid) {
+        this.animalid = animalid;
+    }
+
     public String getPersonid() {
         return personid.get();
     }
 
-    public String getRescueaddressid() {
-        return rescueaddressid.get();
+    public void setPersonid(SimpleStringProperty personid) {
+        this.personid = personid;
+    }
+
+    public String getAddressid() {
+        return addressid.get();
+    }
+
+    public void setAddressid(SimpleStringProperty addressid) {
+        this.addressid = addressid;
     }
 
     public String getCastredstatus() {
         return castredstatus.get();
     }
 
+    public void setCastredstatus(SimpleStringProperty castredstatus) {
+        this.castredstatus = castredstatus;
+    }
+
     public String getInjurystatus() {
         return injurystatus.get();
+    }
+
+    public void setInjurystatus(SimpleStringProperty injurystatus) {
+        this.injurystatus = injurystatus;
     }
 
     public String getInjurydesc() {
         return injurydesc.get();
     }
 
+    public void setInjurydesc(SimpleStringProperty injurydesc) {
+        this.injurydesc = injurydesc;
+    }
+
     public String getHealthstatus() {
         return healthstatus.get();
+    }
+
+    public void setHealthstatus(SimpleStringProperty healthstatus) {
+        this.healthstatus = healthstatus;
     }
 
     public String getSicknessdesc() {
         return sicknessdesc.get();
     }
 
+    public void setSicknessdesc(SimpleStringProperty sicknessdesc) {
+        this.sicknessdesc = sicknessdesc;
+    }
+
     public String getRemarks() {
         return remarks.get();
+    }
+
+    public void setRemarks(SimpleStringProperty remarks) {
+        this.remarks = remarks;
     }
 
     public String getReceiptdate() {
         return receiptdate.get();
     }
 
+    public void setReceiptdate(SimpleStringProperty receiptdate) {
+        this.receiptdate = receiptdate;
+    }
+
     public String getUserid() {
         return userid.get();
     }
-    
-    
 
-    /**
-     * @param animalid the animalid to set
-     */
-    public void setAnimalid(String animalId) {
-        animalid.set(animalId);
+    public void setUserid(SimpleStringProperty userid) {
+        this.userid = userid;
     }
 
-    /**
-     * @param personid the personid to set
-     */
-    public void setPersonid(String personId) {
-        personid.set(personId);
-    }
-
-    /**
-     * @param rescueaddressid the rescueaddressid to set
-     */
-    public void setRescueaddressid(String rescueaddressId) {
-        rescueaddressid.set(rescueaddressId);
-    }
-
-    /**
-     * @param castredstatus the castredstatus to set
-     */
-    public void setCastredstatus(String castredStatus) {
-        castredstatus.set(castredStatus);
-    }
-
-    /**
-     * @param injurystatus the injurystatus to set
-     */
-    public void setInjurystatus(String injuryStatus) {
-        injurystatus.set(injuryStatus);
-    }
-
-    /**
-     * @param injurydesc the injurydesc to set
-     */
-    public void setInjurydesc(String injuryDesc) {
-        injurydesc.set(injuryDesc);
-    }
-
-    /**
-     * @param healthstatus the healthstatus to set
-     */
-    public void setHealthstatus(String healthStatus) {
-        healthstatus.set(healthStatus);
-    }
-
-    /**
-     * @param sicknessdesc the sicknessdesc to set
-     */
-    public void setSicknessdesc(String sicknessDesc) {
-        sicknessdesc.set(sicknessDesc);
-    }
-
-    /**
-     * @param remarks the remarks to set
-     */
-    public void setRemarks(String reMarks) {
-        remarks.set(reMarks);
-    }
-
-    /**
-     * @param receiptdate the receiptdate to set
-     */
-    public void setReceiptdate(String receiptDate) {
-        receiptdate.set(receiptDate);
-    }
-    
-    public void setUserid(String userID) {
-        userid.set(userID);
-    }
-    
+   
 }

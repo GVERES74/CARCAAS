@@ -11,10 +11,10 @@ package Model.DBFunctions;
 public class CreateTables {
     
     static String CreateTableReceipts = "create table receipts("
-                                    + "db_receipt_id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-                                    + "db_animal_id INT NOT NULL,"
-                                    + "db_rescuer_person_id varchar(10),"
-                                    + "db_rescue_address_id varchar(10),"
+                                    + "db_receipt_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                                    + "db_animal_id INT,"
+                                    + "db_person_id INT,"
+                                    + "db_address_id INT,"
                                     + "db_castred_status varchar(10),"
                                     + "db_injury_status varchar(10),"
                                     + "db_injury_desc varchar (250),"
@@ -22,17 +22,17 @@ public class CreateTables {
                                     + "db_sickness_desc varchar (250),"
                                     + "db_remarks varchar (250),"
                                     + "db_receipt_date varchar(20),"
-                                    + "db_user_id varchar (10))"; //Rögzítő felhasználó ID
+                                    + "db_user_id INT)"; //Rögzítő felhasználó ID
 
     
     static String CreateTablePersonAddress = "create table personaddress("
-                                    + "db_assign_id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-                                    + "db_person_id INT NOT NULL,"
-                                    + "db_address_id INT NOT NULL,"
+                                    + "db_assign_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                                    + "db_person_id INT,"
+                                    + "db_address_id INT,"
                                     + "db_relation_type varchar(30) NOT NULL UNIQUE)";
     
     static String CreateTableAddresses = "create table addresses("
-                                    + "db_address_id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                                    + "db_address_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                                     + "db_address_country varchar(30) NOT NULL,"
                                     + "db_address_county varchar(30) NOT NULL,"
                                     + "db_address_zipcode varchar(20) NOT NULL,"
@@ -42,7 +42,7 @@ public class CreateTables {
     
     
     static String CreateTablePersons = "create table persons("
-                                    + "db_person_id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (1, 1),"
+                                    + "db_person_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                                     + "db_person_first_name varchar(20) NOT NULL,"
                                     + "db_person_last_name varchar(20) NOT NULL,"
                                     + "db_person_phone varchar(20) NOT NULL,"
@@ -50,18 +50,18 @@ public class CreateTables {
     
     
     public static String CreateTableAnimals = "create table animals("
-            + "db_animal_id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (1, 1), "
-            + "db_animal_race varchar(30), "
-            + "db_animal_species varchar(30), "
-            + "db_animal_sex varchar(20), "
-            + "db_animal_name varchar(30) NOT NULL UNIQUE, "
-            + "db_animal_color varchar (30), "
-            + "db_animal_birthdate varchar (30), "
+            + "db_animal_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+            + "db_animal_race varchar(30),"
+            + "db_animal_species varchar(30),"
+            + "db_animal_sex varchar(20),"
+            + "db_animal_name varchar(30) NOT NULL UNIQUE,"
+            + "db_animal_color varchar (30),"
+            + "db_animal_birthdate varchar (30),"
             + "db_photoalbum_id varchar (50))";
     
     
     static String CreateTableUsers = "create table users("
-                                    + "user_id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                                    + "user_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                                     + "user_cat_id varchar(9),"
                                     + "user_name varchar(30) NOT NULL,"
                                     + "user_phone varchar(30) NOT NULL,"
@@ -72,7 +72,7 @@ public class CreateTables {
    
     
     static String CreateTableCompanies = "create table companies("
-                                    + "company_id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                                    + "company_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                                     + "company_name varchar(50) NOT NULL,"
                                     + "company_type varchar(10) NOT NULL,"
                                     + "company_person_id INT,"

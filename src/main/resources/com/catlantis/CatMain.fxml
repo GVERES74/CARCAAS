@@ -159,7 +159,7 @@
                                   <AnchorPane fx:id="anchorPaneNewCastrationTable" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
                                 </items>
                               </SplitPane>
-                              <SplitPane id="splitPaneNewReceipt" fx:id="splitPaneNewReceipt" dividerPositions="0.5" orientation="VERTICAL">
+                              <SplitPane id="splitPaneCreateNewReceipt" fx:id="splitPaneCreateNewReceipt" dividerPositions="0.5" orientation="VERTICAL">
                                 <items>
                                   <AnchorPane>
                                        <children>
@@ -596,6 +596,11 @@
                                                   <AnchorPane id="anchorPaneViewPersonTable" fx:id="anchorPaneViewPersonTable" minHeight="0.0" minWidth="200.0" prefHeight="180.0" />
                                                 </content>
                                               </Tab>
+                                                <Tab text="Cim adatok">
+                                                   <content>
+                                                      <AnchorPane id="anchorPaneViewAddressTable" fx:id="anchorPaneViewAddressTable" minHeight="0.0" minWidth="200.0" prefHeight="180.0" />
+                                                   </content>
+                                                </Tab>
                                             </tabs>
                                           </TabPane>
                                        </children>

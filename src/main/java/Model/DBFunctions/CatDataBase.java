@@ -6,6 +6,10 @@ package Model.DBFunctions;
 
 import Model.Tables.AnimalData;
 import Model.Tables.PersonData;
+import Model.Tables.ReceiptData;
+import Model.Tables.AddressData;
+import Model.Tables.CompanyData;
+import Model.Tables.UserData;
 import Utils.Dialogs;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -60,50 +64,80 @@ public class CatDataBase {
                 Dialogs.showErrorAlert("Hiba", "GetMetaData", ex.getMessage());
             }
             
-        try {
+            try {
             ResultSet resultSetUsers = dbMetaData.getTables(null, "APP", "USERS", null);
                 if (!resultSetUsers.next()){
                     createStatement.execute(CreateTables.CreateTableUsers); //Ha nem létezik a tábla, akkor létrehozzuk
                 }
+                
+            } catch (SQLException ex) {
+            Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
+            Dialogs.showErrorAlert("Hiba", "Adattábla USERS nem lett létrehozva!", ex.getMessage());
+            }
             
+            try {
             ResultSet resultSetCompanies = dbMetaData.getTables(null, "APP", "COMPANIES", null);
                 if (!resultSetCompanies.next()){
                     createStatement.execute(CreateTables.CreateTableCompanies); //Ha nem létezik a tábla, akkor létrehozzuk
                 }    
-                
-                
+            } catch (SQLException ex) {
+            Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
+            Dialogs.showErrorAlert("Hiba", "Adattábla COMPANIES nem lett létrehozva!", ex.getMessage());
+            }    
+            
+            try {
             ResultSet resultSetRescuedAnimals = dbMetaData.getTables(null, "APP", "ANIMALS", null);
                 if (!resultSetRescuedAnimals.next()){
                     createStatement.execute(CreateTables.CreateTableAnimals); //Ha nem létezik a tábla, akkor létrehozzuk
                     Dialogs.showInfoAlert("CatDataBase", "CreateTableAnimals", "Table created");
                 }
-                
-                ResultSet resultSetPersons = dbMetaData.getTables(null, "APP", "PERSONS", null);
+            } catch (SQLException ex) {
+            Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
+            Dialogs.showErrorAlert("Hiba", "Adattábla ANIMALS nem lett létrehozva!", ex.getMessage());
+            }  
+            
+            try {
+            ResultSet resultSetPersons = dbMetaData.getTables(null, "APP", "PERSONS", null);
                 if (!resultSetPersons.next()){
                     createStatement.execute(CreateTables.CreateTablePersons); //Ha nem létezik a tábla, akkor létrehozzuk
                 }
+            } catch (SQLException ex) {
+            Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
+            Dialogs.showErrorAlert("Hiba", "Adattábla PERSONS nem lett létrehozva!", ex.getMessage());
+            }      
                 
-                ResultSet resultSetAddresses = dbMetaData.getTables(null, "APP", "ADDRESSES", null);
+            try {    
+            ResultSet resultSetAddresses = dbMetaData.getTables(null, "APP", "ADDRESSES", null);
                 if (!resultSetAddresses.next()){
                     createStatement.execute(CreateTables.CreateTableAddresses); //Ha nem létezik a tábla, akkor létrehozzuk
                 }
+            } catch (SQLException ex) {
+            Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
+            Dialogs.showErrorAlert("Hiba", "Adattábla ADDRESSES nem lett létrehozva!", ex.getMessage());
+            } 
                 
-                ResultSet resultSetPersonAddress = dbMetaData.getTables(null, "APP", "PERSONADDRESS", null);
+            try {           
+            ResultSet resultSetPersonAddress = dbMetaData.getTables(null, "APP", "PERSONADDRESS", null);
                 if (!resultSetPersonAddress.next()){
                     createStatement.execute(CreateTables.CreateTablePersonAddress); //Ha nem létezik a tábla, akkor létrehozzuk
                 }
-                
-                ResultSet resultSetReceipts = dbMetaData.getTables(null, "APP", "RECEIPTS", null);
+            } catch (SQLException ex) {
+            Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
+            Dialogs.showErrorAlert("Hiba", "Adattábla PERSONADDRESS nem lett létrehozva!", ex.getMessage());
+            }     
+            
+            try {     
+            ResultSet resultSetReceipts = dbMetaData.getTables(null, "APP", "RECEIPTS", null);
                 if (!resultSetReceipts.next()){
                     createStatement.execute(CreateTables.CreateTableReceipts); //Rögzítő felhasználó ID
                 }
-                
-                
-                
-        } catch (SQLException ex) {
+            } catch (SQLException ex) {
             Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
-            Dialogs.showErrorAlert("Hiba", "Adattábla USERS nem lett létrehozva!", ex.getMessage());
-        }
+            Dialogs.showErrorAlert("Hiba", "Adattábla RECEIPTS nem lett létrehozva!", ex.getMessage());
+            }     
+                
+                
+        
     }
     
     public void addNewAnimal(AnimalData animaldata){
@@ -137,7 +171,6 @@ public class CatDataBase {
                 System.out.println("Figyelem! "+"Új állat hozzáadása"+" Hiba: !"+e);}
            
     }    
-    
     public ArrayList<AnimalData> getAnimals(){
         
         String animalgetquery = "SELECT * from animals";
@@ -166,7 +199,29 @@ public class CatDataBase {
         return animals;
     }
     
-    
+    public void addNewPerson(PersonData persondata){
+       try{
+            String sqladdnewperson = "insert into persons("
+                    
+                    + "db_person_name, "
+                    + "db_person_phone, "
+                    + "db_person_email) "
+                    + "values (?,?,?)";
+                    
+            PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewperson);
+            
+            preparedStmt.setString(1, persondata.getPersonname());
+            preparedStmt.setString(2, persondata.getPersonphone());
+            preparedStmt.setString(3, persondata.getPersonemail());
+            preparedStmt.execute();
+            
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+persondata.getPersonemail()+" sikeresen hozzáadva!");     
+        } catch 
+                (SQLException e){
+                Dialogs.showErrorAlert("Figyelem!", "Új személy hozzáadása",persondata.getPersonid()+" "+e);
+                System.out.println("Figyelem! "+"Új személy hozzáadása"+" Hiba: !"+e);}
+           
+    }    
     public ArrayList<PersonData> getPersons(){
         
         String persongetquery = "SELECT * from persons";
@@ -191,29 +246,132 @@ public class CatDataBase {
         return persons;
     }
     
-    public void addNewPerson(PersonData persondata){
+    
+    public void addNewAddress(AddressData addressdata){
        try{
-            String sqladdnewperson = "insert into persons("
+            String sqladdnewaddress = "insert into addresses("
                     
-                    + "db_person_name, "
-                    + "db_person_phone, "
-                    + "db_person_email) "
-                    + "values (?,?,?)";
+                    + "db_address_country, "
+                    + "db_address_county, "
+                    + "db_address_zipcode,"
+                    + "db_address_city, "
+                    + "db_address_street,"
+                    + "db_address_number)"
+                    + "values (?,?,?,?,?,?)";
                     
-            PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewperson);
+            PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewaddress);
             
-            preparedStmt.setString(1, persondata.getPersonname());
-            preparedStmt.setString(2, persondata.getPersonphone());
-            preparedStmt.setString(3, persondata.getPersonemail());
+            preparedStmt.setString(1, addressdata.getAddresscountry());
+            preparedStmt.setString(2, addressdata.getAddresscounty());
+            preparedStmt.setString(3, addressdata.getAddresszipcode());
+            preparedStmt.setString(4, addressdata.getAddresscity());
+            preparedStmt.setString(5, addressdata.getAddressstreet());
+            preparedStmt.setString(6, addressdata.getAddressnumber());
+            
             preparedStmt.execute();
             
-            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+persondata.getPersonemail()+" sikeresen hozzáadva!");     
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+addressdata.getAddressid()+" sikeresen hozzáadva!");     
         } catch 
                 (SQLException e){
-                Dialogs.showErrorAlert("Figyelem!", "Új személy hozzáadása",persondata.getPersonid()+" "+e);
-                System.out.println("Figyelem! "+"Új személy hozzáadása"+" Hiba: !"+e);}
+                Dialogs.showErrorAlert("Figyelem!", "Új cim hozzáadása",addressdata.getAddressid()+" "+e);
+                System.out.println("Figyelem! "+"Új cim hozzáadása"+" Hiba: !"+e);}
            
     }    
+    public ArrayList<AddressData> getAddresses(){
+        
+        String addressgetquery = "SELECT * from addresses";
+        ArrayList<AddressData> addresses =null;
+        
+        try{
+            ResultSet rs = createStatement.executeQuery(addressgetquery);
+            addresses = new ArrayList<>();
+            while (rs.next()){
+                AddressData alladdresses = new AddressData(
+                        rs.getInt("db_address_id"),
+                        rs.getString("db_address_country"),
+                        rs.getString("db_address_county"),    
+                        rs.getString("db_address_zipcode"),
+                        rs.getString("db_address_city"),
+                        rs.getString("db_address_street"),    
+                        rs.getString("db_address_number"));
+                                            
+                addresses.add(alladdresses);
+                
+            }               
+        }catch (SQLException ex){
+           Dialogs.showErrorAlert("CatDatabase", "GetAddresses", ""+ex);
+        }
+        return addresses;
+    }
+    
+    public void addNewReceipt(ReceiptData receiptdata){
+        
+        try{
+            String sqladdnewreceipt = "insert into receipts("
+                    
+                    + "db_castred_status, "
+                    + "db_injury_status, "
+                    + "db_injury_desc, "
+                    + "db_health_status,"
+                    + "db_sickness_desc,"
+                    + "db_remarks,"
+                    + "db_receipt_date)"
+                    + "values (?,?,?,?,?,?,?)";
+                    
+            PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewreceipt);
+            
+            preparedStmt.setString(1, receiptdata.getCastredstatus());
+            preparedStmt.setString(2, receiptdata.getInjurystatus());
+            preparedStmt.setString(3, receiptdata.getInjurydesc());
+            preparedStmt.setString(4, receiptdata.getHealthstatus());
+            preparedStmt.setString(5, receiptdata.getSicknessdesc());
+            preparedStmt.setString(6, receiptdata.getRemarks());
+            preparedStmt.setString(7, receiptdata.getReceiptdate());
+            
+            preparedStmt.execute();
+            
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+receiptdata.getReceiptid()+" sikeresen hozzáadva!");     
+        } catch 
+                (SQLException e){
+                Dialogs.showErrorAlert("Figyelem!", "Új átvétel hozzáadása",receiptdata.getReceiptid()+" "+e);
+                System.out.println("Figyelem! "+"Új átvétel hozzáadása"+" Hiba: !"+e);} 
+        
+       
+    }
+    public ArrayList<ReceiptData> getReceipts(){
+        
+        String receiptgetquery = "SELECT * from receipts";
+        ArrayList<ReceiptData> receipts =null;
+        
+        try{
+            ResultSet rs = createStatement.executeQuery(receiptgetquery);
+            receipts = new ArrayList<>();
+            while (rs.next()){
+                ReceiptData allreceipts = new ReceiptData(
+                        rs.getInt("db_receipt_id"),
+                        rs.getInt("db_animal_id"),
+                        rs.getInt("db_rescuer_person_id"),    
+                        rs.getInt("db_rescue_address_id"),
+                        rs.getString("db_castred_status"),
+                        rs.getString("db_injury_status"),
+                        rs.getString("db_injury_desc"),
+                        rs.getString("db_health_status"),
+                        rs.getString("db_sickness_desc"),
+                        rs.getString("db_remarks"),
+                        rs.getString("db_receipt_date"),
+                        rs.getInt("db_user_id"));
+                        
+                receipts.add(allreceipts);
+                
+            }               
+        }catch (SQLException ex){
+           Dialogs.showErrorAlert("CatDatabase", "GetReceipts", ""+ex);
+        }
+        return receipts;
+    }
+    
+    
+    
     
     
     public void deleteTable(String tableName){
@@ -224,5 +382,7 @@ public class CatDataBase {
             Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    
     
 } //end Class
