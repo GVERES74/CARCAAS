@@ -70,7 +70,7 @@
             </ToolBar>
             <SplitPane id="catMainSplitPane" fx:id="catMainSplitPane" dividerPositions="0.2375">
               <items>
-                <AnchorPane maxWidth="300.0" minWidth="100.0" prefWidth="300.0">
+                <AnchorPane id="leftMenuAnchorPane" maxWidth="300.0" minWidth="100.0" prefWidth="300.0">
                      <children>
                         <VBox id="vBoxTreeMenu">
                            <children>

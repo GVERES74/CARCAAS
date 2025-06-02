@@ -212,6 +212,7 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
     
     
     public void showAdminTabPanes(){
+        hideActiveChildPanes();
         tabPaneAdmin.toFront();
         tabPaneAdmin.setVisible(true);
         ComboBox comboDataTables = new ComboBox();
@@ -289,6 +290,7 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
     
         
     private void startUpScreen(){
+        hideActiveChildPanes();
         splashImageView = new ImageView();
         splashPane = new Pane(splashImageView);
         splashPane.setMaxHeight(mainContentStackPane.getMaxHeight());
@@ -381,7 +383,7 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
     
     
     public void createNewReceipt() {
-                
+        hideActiveChildPanes();
         splitPaneNewReceipt.toFront();
         splitPaneNewReceipt.setVisible(true);
         
@@ -419,6 +421,7 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
     }
            
     public void viewNewReceipt(){
+        hideActiveChildPanes();
         splitPaneViewReceipt.toFront();
         splitPaneViewReceipt.setVisible(true);
        
@@ -429,6 +432,7 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
     }
     
     public void createNewCastration(){
+        hideActiveChildPanes();
         splitPaneNewCastration.toFront();
         splitPaneNewCastration.setVisible(true);
         
@@ -526,7 +530,10 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
     }   
 
 
-
+    public void hideActiveChildPanes(){
+        mainContentStackPane.getChildren().forEach(childrenPanes -> childrenPanes.setVisible(false)); //All children Panes set to invisible
+    }
+            
     
     @Override
     public void initialize(URL url, ResourceBundle rb){

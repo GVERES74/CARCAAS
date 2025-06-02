@@ -43,7 +43,8 @@ public class CreateTables {
     
     static String CreateTablePersons = "create table persons("
                                     + "db_person_id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (1, 1),"
-                                    + "db_person_name varchar(30) NOT NULL,"
+                                    + "db_person_first_name varchar(20) NOT NULL,"
+                                    + "db_person_last_name varchar(20) NOT NULL,"
                                     + "db_person_phone varchar(20) NOT NULL,"
                                     + "db_person_email varchar(50) NOT NULL)";
     
@@ -73,12 +74,8 @@ public class CreateTables {
     static String CreateTableCompanies = "create table companies("
                                     + "company_id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                                     + "company_name varchar(50) NOT NULL,"
-                                    + "company_phone varchar(30) NOT NULL,"
-                                    + "company_email varchar(30) NOT NULL,"
-                                    + "company_address_zipcode varchar(30) NOT NULL,"
-                                    + "company_address_country varchar(30),"
-                                    + "company_address_county varchar(30),"
-                                    + "company_address_city varchar(30),"
-                                    + "company_address_street varchar(30),"
-                                    + "company_address_number varchar(30))";
+                                    + "company_type varchar(10) NOT NULL,"
+                                    + "company_person_id INT,"
+                                    + "company_address_id INT)";
+                                    
 }
