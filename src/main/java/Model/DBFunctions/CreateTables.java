@@ -15,10 +15,10 @@ public class CreateTables {
                                     + "db_animal_id INT,"
                                     + "db_person_id INT,"
                                     + "db_address_id INT,"
-                                    + "db_castred_status varchar(10),"
-                                    + "db_injury_status varchar(10),"
+                                    + "db_castred_status varchar(150),"
+                                    + "db_injury_status varchar(150),"
                                     + "db_injury_desc varchar (250),"
-                                    + "db_health_status varchar (10),"
+                                    + "db_health_status varchar (150),"
                                     + "db_sickness_desc varchar (250),"
                                     + "db_remarks varchar (250),"
                                     + "db_receipt_date varchar(20),"
@@ -27,7 +27,6 @@ public class CreateTables {
             
     static String CreateTableAddresses = "create table addresses("
                                     + "db_address_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-                                    + "db_person_id INT,"
                                     + "db_address_country varchar(30) NOT NULL,"
                                     + "db_address_county varchar(30) NOT NULL,"
                                     + "db_address_zipcode varchar(20) NOT NULL,"
@@ -38,24 +37,21 @@ public class CreateTables {
     
     static String CreateTablePersons = "create table persons("
                                     + "db_person_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-                                    + "db_animal_id INT,"
-                                    + "db_address_id INT,"
-                                    + "db_person_first_name varchar(20) NOT NULL,"
-                                    + "db_person_last_name varchar(20) NOT NULL,"
+                                    + "db_person_name varchar(50) NOT NULL,"
                                     + "db_person_phone varchar(20) NOT NULL,"
                                     + "db_person_email varchar(50) NOT NULL)";
     
     
     public static String CreateTableAnimals = "create table animals("
             + "db_animal_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-            + "db_person_id INT,"
             + "db_animal_race varchar(30),"
             + "db_animal_species varchar(30),"
             + "db_animal_sex varchar(20),"
             + "db_animal_name varchar(30) NOT NULL UNIQUE,"
             + "db_animal_color varchar (30),"
             + "db_animal_birthdate varchar (30),"
-            + "db_photoalbum_id varchar (50))";
+            + "db_photoalbum_id varchar (50),"
+            + "db_animal_status varchar (50))";
     
     
     static String CreateTableUsers = "create table users("

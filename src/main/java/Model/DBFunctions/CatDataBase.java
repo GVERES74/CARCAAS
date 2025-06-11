@@ -134,14 +134,15 @@ public class CatDataBase {
        try{
             String sqladdnewanimal = "insert into animals("
                     
-                    + "db_animal_race, "
-                    + "db_animal_species, "
-                    + "db_animal_sex, "
-                    + "db_animal_name, "
-                    + "db_animal_color, "
-                    + "db_animal_birthdate, "
-                    + "db_photoalbum_id)"
-                    + "values (?,?,?,?,?,?,?)";
+                    + "db_animal_race,"
+                    + "db_animal_species,"
+                    + "db_animal_sex,"
+                    + "db_animal_name,"
+                    + "db_animal_color,"
+                    + "db_animal_birthdate,"
+                    + "db_photoalbum_id,"
+                    + "db_animal_status)"
+                    + "values (?,?,?,?,?,?,?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewanimal);
             
@@ -152,6 +153,7 @@ public class CatDataBase {
             preparedStmt.setString(5, animaldata.getAnimalcolor());
             preparedStmt.setString(6, animaldata.getAnimalbirthdate());
             preparedStmt.setString(7, animaldata.getPhotoalbumid());
+            preparedStmt.setString(8, animaldata.getAnimalstatus());
             preparedStmt.execute();
             
             Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+animaldata.getAnimalname()+" sikeresen hozzáadva!");     
@@ -171,6 +173,7 @@ public class CatDataBase {
             animals = new ArrayList<>();
             while (rs.next()){
                 AnimalData allanimals = new AnimalData(
+                        
                         rs.getInt("db_animal_id"),
                         rs.getString("db_animal_race"),
                         rs.getString("db_animal_species"),    
@@ -178,7 +181,8 @@ public class CatDataBase {
                         rs.getString("db_animal_name"),
                         rs.getString("db_animal_color"),
                         rs.getString("db_animal_birthdate"),
-                        rs.getString("db_photoalbum_id"));
+                        rs.getString("db_photoalbum_id"),
+                        rs.getString("db_animal_status"));
                     
                 animals.add(allanimals);
                 
@@ -193,14 +197,13 @@ public class CatDataBase {
        try{
             String sqladdnewperson = "insert into persons("
                     
-                    + "db_animal_id, "
-                    + "db_address_id, "
-                    + "db_person_name, "
-                    + "db_person_phone, "
-                    + "db_person_email) "
+                    + "db_person_name,"
+                    + "db_person_phone,"
+                    + "db_person_email)"
                     + "values (?,?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewperson);
+            
             
             preparedStmt.setString(1, persondata.getPersonname());
             preparedStmt.setString(2, persondata.getPersonphone());
@@ -224,9 +227,8 @@ public class CatDataBase {
             persons = new ArrayList<>();
             while (rs.next()){
                 PersonData allpersons = new PersonData(
+                        
                         rs.getInt("db_person_id"),
-                        rs.getInt("db_animal_id"),
-                        rs.getInt("db_address_id"),
                         rs.getString("db_person_name"),
                         rs.getString("db_person_phone"),    
                         rs.getString("db_person_email"));
@@ -244,8 +246,7 @@ public class CatDataBase {
     public void addNewAddress(AddressData addressdata){
        try{
             String sqladdnewaddress = "insert into addresses("
-                    
-                    + "db_person_id, "
+                                        
                     + "db_address_country, "
                     + "db_address_county, "
                     + "db_address_zipcode,"
@@ -256,20 +257,20 @@ public class CatDataBase {
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewaddress);
             
-            preparedStmt.setString(1, addressdata.getPersonid());
-            preparedStmt.setString(2, addressdata.getAddresscountry());
-            preparedStmt.setString(3, addressdata.getAddresscounty());
-            preparedStmt.setString(4, addressdata.getAddresszipcode());
-            preparedStmt.setString(5, addressdata.getAddresscity());
-            preparedStmt.setString(6, addressdata.getAddressstreet());
-            preparedStmt.setString(7, addressdata.getAddressnumber());
+            
+            preparedStmt.setString(1, addressdata.getAddresscountry());
+            preparedStmt.setString(2, addressdata.getAddresscounty());
+            preparedStmt.setString(3, addressdata.getAddresszipcode());
+            preparedStmt.setString(4, addressdata.getAddresscity());
+            preparedStmt.setString(5, addressdata.getAddressstreet());
+            preparedStmt.setString(6, addressdata.getAddressnumber());
             
             preparedStmt.execute();
             
             Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+addressdata.getAddressid()+" sikeresen hozzáadva!");     
         } catch 
                 (SQLException e){
-                Dialogs.showErrorAlert("Figyelem!", "Új cim hozzáadása",addressdata.getAddressid()+" "+e);
+                Dialogs.showErrorAlert("Figyelem!", "Új cim hozzáadása",addressdata.getAddresscity()+" "+e);
                 System.out.println("Figyelem! "+"Új cim hozzáadása"+" Hiba: !"+e);}
            
     }    
@@ -284,7 +285,6 @@ public class CatDataBase {
             while (rs.next()){
                 AddressData alladdresses = new AddressData(
                         rs.getInt("db_address_id"),
-                        rs.getInt("db_person_id"),
                         rs.getString("db_address_country"),
                         rs.getString("db_address_county"),    
                         rs.getString("db_address_zipcode"),
@@ -305,10 +305,9 @@ public class CatDataBase {
         
         try{
             String sqladdnewreceipt = "insert into receipts("
-                    
-                    + "db_castred_status, "
-                    + "db_injury_status, "
-                    + "db_injury_desc, "
+                    + "db_castred_status,"
+                    + "db_injury_status,"
+                    + "db_injury_desc,"
                     + "db_health_status,"
                     + "db_sickness_desc,"
                     + "db_remarks,"
@@ -346,17 +345,17 @@ public class CatDataBase {
             while (rs.next()){
                 ReceiptData allreceipts = new ReceiptData(
                         rs.getInt("db_receipt_id"),
-                        rs.getInt("db_animal_id"),
-                        rs.getInt("db_rescuer_person_id"),    
-                        rs.getInt("db_rescue_address_id"),
+//                        rs.getInt("db_animal_id"),
+//                        rs.getInt("db_person_id"),    
+//                        rs.getInt("db_address_id"),
                         rs.getString("db_castred_status"),
                         rs.getString("db_injury_status"),
                         rs.getString("db_injury_desc"),
                         rs.getString("db_health_status"),
                         rs.getString("db_sickness_desc"),
                         rs.getString("db_remarks"),
-                        rs.getString("db_receipt_date"),
-                        rs.getInt("db_user_id"));
+                        rs.getString("db_receipt_date"));
+                        
                         
                 receipts.add(allreceipts);
                 

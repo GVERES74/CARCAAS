@@ -24,9 +24,9 @@ public class ReceiptData {
     private SimpleStringProperty sicknessdesc;
     private SimpleStringProperty remarks;
     private SimpleStringProperty receiptdate;
-    private SimpleStringProperty userid;
     
-    public ReceiptData(Integer receiptId, Integer animalId, Integer personId, Integer addressId, String castredStatus, String injuryStatus, String injuryDesc, String healthStatus, String sicknessDesc, String reMarks, String receiptDate, Integer userID){
+    
+    public ReceiptData(Integer receiptId, Integer animalId, Integer personId, Integer addressId, String castredStatus, String injuryStatus, String injuryDesc, String healthStatus, String sicknessDesc, String reMarks, String receiptDate){
         
         this.receiptid = new SimpleStringProperty(String.valueOf(receiptId));
         this.animalid = new SimpleStringProperty(String.valueOf(animalId));
@@ -39,7 +39,7 @@ public class ReceiptData {
         this.sicknessdesc = new SimpleStringProperty(sicknessDesc);
         this.remarks = new SimpleStringProperty(reMarks);
         this.receiptdate = new SimpleStringProperty(String.valueOf(receiptDate));
-        this.userid = new SimpleStringProperty(String.valueOf(userID));
+        
         
     }
 
@@ -49,14 +49,14 @@ public class ReceiptData {
         this.animalid = new SimpleStringProperty("");
         this.personid = new SimpleStringProperty("");
         this.addressid = new SimpleStringProperty("");
-        this.castredstatus = new SimpleStringProperty(castredStatus);
-        this.injurystatus = new SimpleStringProperty(injuryStatus);
-        this.injurydesc = new SimpleStringProperty(injuryDesc);
-        this.healthstatus = new SimpleStringProperty(healthStatus);
-        this.sicknessdesc = new SimpleStringProperty(sicknessDesc);
-        this.remarks = new SimpleStringProperty(reMarks);
-        this.receiptdate = new SimpleStringProperty(String.valueOf(receiptDate));
-        this.userid = new SimpleStringProperty("");
+        this.castredstatus = new SimpleStringProperty("");
+        this.injurystatus = new SimpleStringProperty("");
+        this.injurydesc = new SimpleStringProperty("");
+        this.healthstatus = new SimpleStringProperty("");
+        this.sicknessdesc = new SimpleStringProperty("");
+        this.remarks = new SimpleStringProperty("");
+        this.receiptdate = new SimpleStringProperty("");
+        
         
     }
     
@@ -150,13 +150,6 @@ public class ReceiptData {
         this.receiptdate = receiptdate;
     }
 
-    public String getUserid() {
-        return userid.get();
-    }
-
-    public void setUserid(SimpleStringProperty userid) {
-        this.userid = userid;
-    }
-
+   
    
 }

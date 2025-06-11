@@ -139,6 +139,12 @@
                      <children>
                         <StackPane id="mainContentStackPane" fx:id="mainContentStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
+                              <SplitPane id="splitPaneAllRecords" fx:id="splitPaneAllRecords" dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                                <items>
+                                  <AnchorPane id="anchorPaneAllRecordsSearch" fx:id="anchorPaneAllRecordsSearch" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                  <AnchorPane id="anchorPaneAllRecordsTable" fx:id="anchorPaneAllRecordsTable" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                </items>
+                              </SplitPane>
                               <TabPane id="tabPaneAdmin" fx:id="tabPaneAdmin" tabClosingPolicy="UNAVAILABLE">
                                 <tabs>
                                   <Tab text="Felhasználók kezelése">
