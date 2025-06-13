@@ -12,21 +12,20 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class PersonAddress {
     
-     private final SimpleStringProperty assignid, personid, addressid;
-    private SimpleStringProperty relationtype;
-    
-    
-    public PersonAddress(String personId, String addressId, String relationType){
+    private final SimpleStringProperty personaddressid, personid, addressid;
         
-        this.assignid = new SimpleStringProperty("");
+    
+    public PersonAddress(Integer personAddressId, Integer personId, Integer addressId){
+        
+        this.personaddressid = new SimpleStringProperty("");
         this.personid = new SimpleStringProperty(personId);
         this.addressid = new SimpleStringProperty(addressId);
-        this.relationtype = new SimpleStringProperty(relationType);
+   
                 
     }
 
-    public String getAssignid() {
-        return assignid.get();
+    public String getPersonaddressid() {
+        return personaddressid.get();
     }
 
     public String getPersonid() {
@@ -37,22 +36,7 @@ public class PersonAddress {
         return addressid.get();
     }
 
-    public String getRelationtype() {
-        return relationtype.get();
-    }
     
-    public void setPersonid(String personId) {
-        personid.set(personId);
-    }
-    
-    public void setAddressid(String addressId) {
-        addressid.set(addressId);
-    }
-
-    public void setRelationtype(String relationType) {
-        relationtype.set(relationType);
-    }
-    
-    
+       
 
 }
