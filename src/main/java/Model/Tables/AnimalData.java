@@ -20,12 +20,13 @@ public class AnimalData {
     private final SimpleStringProperty animalname;
     private final SimpleStringProperty animalcolor;
     private final SimpleStringProperty animalbirthdate;
+    private final SimpleStringProperty chipid;
     private final SimpleStringProperty photoalbumid;
-    private final SimpleStringProperty animalstatus; 
+     
     
     
     
-    public AnimalData(Integer animalId, String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, String photoAlbumId, String animalStatus){
+    public AnimalData(Integer animalId, String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, Integer chipId, String photoAlbumId){
         
         this.animalid = new SimpleStringProperty(String.valueOf(animalId));
         this.animalrace = new SimpleStringProperty(animalRace);
@@ -34,23 +35,12 @@ public class AnimalData {
         this.animalname = new SimpleStringProperty(animalName);
         this.animalcolor = new SimpleStringProperty(animalColor);
         this.animalbirthdate = new SimpleStringProperty(animalBirthdate);
+        this.animalstatus = new SimpleStringProperty(chipId);
         this.photoalbumid = new SimpleStringProperty(photoAlbumId);
-        this.animalstatus = new SimpleStringProperty(animalStatus);
-    }    
-    
-    public AnimalData(String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, String photoAlbumId, String animalStatus){
         
-        this.animalid = new SimpleStringProperty("");
-        this.animalrace = new SimpleStringProperty("");
-        this.animalspecies = new SimpleStringProperty("");
-        this.animalsex = new SimpleStringProperty("");
-        this.animalname = new SimpleStringProperty("");
-        this.animalcolor = new SimpleStringProperty("");
-        this.animalbirthdate = new SimpleStringProperty("");
-        this.photoalbumid = new SimpleStringProperty("");
-        this.animalstatus = new SimpleStringProperty("");
     }    
     
+        
     //Ha egy vagy több cella üresen jelenik meg, akkor ellenőrizni kell a getter-eket, vagy újra Insert Code -> Getter..
 
     public String getAnimalid() {
@@ -81,24 +71,14 @@ public class AnimalData {
         return animalbirthdate.get();
     }
 
+    public String getChipid() {
+        return chipid.get();
+    }
+    
     public String getPhotoalbumid() {
         return photoalbumid.get();
     }
 
-    public String getAnimalstatus() {
-        return animalstatus.get();
-    }
-    
-    public void setAnimalid(String animalId){
-        animalid.set(animalId);
-    }
- 
-    public void setAnimalrace(String animalRace){
-        animalrace.set(animalRace);
-    }
-    
-    public void setAnimalspecies(String animalSpecies){
-        animalspecies.set(animalSpecies);
-    }
-    
+       
+        
 }
