@@ -242,7 +242,7 @@ public class CatDataBase {
                         rs.getInt("db_user_id"),
                         rs.getString("db_user_name"),
                         rs.getString("db_user_password"),
-                        rs.getString("db_person_id"));
+                        rs.getInt("db_person_id"));
                     
                 users.add(allusers);
                 
@@ -306,7 +306,7 @@ public class CatDataBase {
                         rs.getString("db_animal_name"),
                         rs.getString("db_animal_color"),
                         rs.getString("db_animal_birthdate"),
-                        rs.getString("db_chip_id"),
+                        rs.getInt("db_chip_id"),
                         rs.getString("db_photoalbum_id"));
                     
                 animals.add(allanimals);
@@ -749,6 +749,53 @@ public void addNewVeterinary(VeterinaryData veterinarydata){
         return veterinaries;
     }		 	
 
+
+public void addNewTreatment(TreatmentData treatmentdata){
+       try{
+            String sqladdnewveterinary = "insert into VETERINARIES("
+//auto generated    + "db_vet_id,"
+		    + "db_vet_name,"
+//		    + "db_animal_id,"
+		    + "db_personaddress_id)"
+                    + "values (?,?)";
+                    
+            PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewveterinary);
+            
+            preparedStmt.setString(1, veterinarydata.getVeterinaryname());
+            //preparedStmt.setString(2, veterinarydata.getAnimalid());
+            preparedStmt.setString(2, veterinarydata.getPersonaddressid());
+            preparedStmt.execute();
+            
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+veterinarydata.getVeterinaryname()+" sikeresen hozzáadva!");     
+        } catch 
+                (SQLException e){
+                Dialogs.showErrorAlert("Hiba!", "Új állatorvos hozzáadása:",veterinarydata.getVeterinaryname()+" Hibakód: "+e);
+				}
+    }    
+
+    public ArrayList<ShelterData> getVeterinaries(){
+        
+        String veterinarygetquery = "SELECT * from VETERINARIES";
+        ArrayList<VeterinaryData> veterinaries = null;
+        
+        try{
+            ResultSet rs = createStatement.executeQuery(veterinarygetquery);
+            veterinaries = new ArrayList<>();
+            while (rs.next()){
+                VeterinaryData allveterinaries = new VeterinaryData(
+                        
+                        rs.getInt("db_vet_id"),
+                        rs.getString("db_vet_name"),
+                        rs.getInt("db_personaddress_id"));
+ //db_animal_id kell?                   
+                veterinaries.add(allveterinaries);
+                
+            }               
+        }catch (SQLException ex){
+           Dialogs.showErrorAlert("CatDatabase","GetTreatments"," Hibakód: "+ex);
+        			}
+        return treatments;
+    }		 	
 
 
 
