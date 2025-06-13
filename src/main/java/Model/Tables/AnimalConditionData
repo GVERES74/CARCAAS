@@ -1,1 +1,107 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Model.Tables;
+
+import java.time.LocalDate;
+import javafx.beans.property.SimpleStringProperty;
+
+/**
+ *
+ * @author DjRed
+ */
+public class AnimalConditionData {
+   
+    private SimpleStringProperty animalconditionid;
+    private SimpleStringProperty receiptid;
+    private SimpleStringProperty castredstatus;
+    private SimpleStringProperty injurystatus;
+    private SimpleStringProperty injurydesc;
+    private SimpleStringProperty healthstatus;
+    private SimpleStringProperty sicknessdesc;
+    private SimpleStringProperty remarks;
+        
+    
+    public AnimalConditionData(Integer animalConditionId, Integer receiptId, String castredStatus, String injuryStatus, String injuryDesc, String healthStatus, String sicknessDesc, String reMarks{
+        
+        this.animalconditionid = new SimpleStringProperty(animalConditionId);
+        this.receiptid = new SimpleStringProperty(String.valueOf(receiptId));
+        this.castredstatus = new SimpleStringProperty(castredStatus);
+        this.injurystatus = new SimpleStringProperty(injuryStatus);
+        this.injurydesc = new SimpleStringProperty(injuryDesc);
+        this.healthstatus = new SimpleStringProperty(healthStatus);
+        this.sicknessdesc = new SimpleStringProperty(sicknessDesc);
+        this.remarks = new SimpleStringProperty(reMarks);
+        
+    }
+
+   
+    public String getAnimalconditionid() {
+        return animalconditionid.get();
+    }
+
+    public void setAnimalconditionid(SimpleStringProperty animalconditionid) {
+        this.animalconditionid = animalconditionid;
+    }
+
+    public String getReceiptid() {
+        return receiptid.get();
+    }
+
+    public void setReceiptid(SimpleStringProperty receiptid) {
+        this.receiptid = receiptid;
+    }
+    
+    public String getCastredstatus() {
+        return castredstatus.get();
+    }
+
+    public void setCastredstatus(SimpleStringProperty castredstatus) {
+        this.castredstatus = castredstatus;
+    }
+
+    public String getInjurystatus() {
+        return injurystatus.get();
+    }
+
+    public void setInjurystatus(SimpleStringProperty injurystatus) {
+        this.injurystatus = injurystatus;
+    }
+
+    public String getInjurydesc() {
+        return injurydesc.get();
+    }
+
+    public void setInjurydesc(SimpleStringProperty injurydesc) {
+        this.injurydesc = injurydesc;
+    }
+
+    public String getHealthstatus() {
+        return healthstatus.get();
+    }
+
+    public void setHealthstatus(SimpleStringProperty healthstatus) {
+        this.healthstatus = healthstatus;
+    }
+
+    public String getSicknessdesc() {
+        return sicknessdesc.get();
+    }
+
+    public void setSicknessdesc(SimpleStringProperty sicknessdesc) {
+        this.sicknessdesc = sicknessdesc;
+    }
+
+    public String getRemarks() {
+        return remarks.get();
+    }
+
+    public void setRemarks(SimpleStringProperty remarks) {
+        this.remarks = remarks;
+    }
+
+  
+   
+}
 
