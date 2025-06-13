@@ -13,10 +13,10 @@ import javafx.beans.property.SimpleStringProperty;
 public class PersonData {
   
     
-    private final SimpleStringProperty personid, personname, personphone, personemail;
+    private final SimpleStringProperty personid, personfirstname, personlastname,personphone, personemail;
     
     
-    public PersonData(Integer personId, String personName, String personPhone, String personEmail){
+    public PersonData(Integer personId, String personFirstName, String personLastName, String personPhone, String personEmail){
         
         this.personid = new SimpleStringProperty(String.valueOf(personId));
         this.personname = new SimpleStringProperty(personName);
@@ -25,25 +25,20 @@ public class PersonData {
         
     }
 
-    public PersonData(String personName, String personPhone, String personEmail){
         
-        this.personid = new SimpleStringProperty("");
-        this.personname = new SimpleStringProperty(personName);
-        this.personphone = new SimpleStringProperty(personPhone);
-        this.personemail = new SimpleStringProperty(personEmail);
-        
-    }
-    
-    
     public String getPersonid() {
         return personid.get();
     }
 
            
-    public String getPersonname() {
-        return personname.get();
+    public String getPersonFirstname() {
+        return personfirstname.get();
     }
 
+public String getPersonLastname() {
+        return personlastname.get();
+    }
+  
     public String getPersonphone() {
         return personphone.get();
     }
@@ -52,16 +47,5 @@ public class PersonData {
         return personemail.get();
     }
     
-   
-    public void setPersonname(String personName){
-        personname.set(personName);
-    }
-    
-    public void setPersonphone(String personPhone){
-        personphone.set(personPhone);
-    }
-    
-    public void setPersonemail(String personEmail){
-        personemail.set(personEmail);
-    }
+       
 }
