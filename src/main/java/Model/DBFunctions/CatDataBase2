@@ -760,36 +760,43 @@ public void addNewTreatment(TreatmentData treatmentdata){
 		    + "db_animal_id,"
 		    + "db_invoice_id,"
 		    + "db_treatment_log_number)"
-                    + "values (?,?)";
+                    + "values (?,?,?,?,?,?)";
                     
-            PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewveterinary);
+            PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewtreatment);
             
-            preparedStmt.setString(1, veterinarydata.getVeterinaryname());
-            //preparedStmt.setString(2, veterinarydata.getAnimalid());
-            preparedStmt.setString(2, veterinarydata.getPersonaddressid());
+            preparedStmt.setString(1, treatmentdata.getTreatmenttype());
+            preparedStmt.setString(2, treatmentdata.getTreatmentdate());
+            preparedStmt.setString(3, treatmentdata.getVetid());
+	    preparedStmt.setString(4, treatmentdata.getAnimalid());
+	    preparedStmt.setString(5, treatmentdata.getInvoiceid());
+	    preparedStmt.setString(6, treatmentdata.getTreatmentlognumber());
             preparedStmt.execute();
             
-            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+veterinarydata.getVeterinaryname()+" sikeresen hozzáadva!");     
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+treatmentdata.getTreatmenttype()+" sikeresen hozzáadva!");     
         } catch 
                 (SQLException e){
-                Dialogs.showErrorAlert("Hiba!", "Új állatorvos hozzáadása:",veterinarydata.getVeterinaryname()+" Hibakód: "+e);
+                Dialogs.showErrorAlert("Hiba!", "Új kezelés hozzáadása:",treatmentdata.getTreatmenttype()+" Hibakód: "+e);
 				}
     }    
 
-    public ArrayList<VeterinaryData> getVeterinaries(){
+    public ArrayList<TreatmentData> getTreatments(){
         
-        String veterinarygetquery = "SELECT * from VETERINARIES";
-        ArrayList<VeterinaryData> veterinaries = null;
+        String treatmentgetquery = "SELECT * from TREATMENTS";
+        ArrayList<TreatmentData> treatments = null;
         
         try{
-            ResultSet rs = createStatement.executeQuery(veterinarygetquery);
-            veterinaries = new ArrayList<>();
+            ResultSet rs = createStatement.executeQuery(treatmentgetquery);
+            treatments = new ArrayList<>();
             while (rs.next()){
-                VeterinaryData allveterinaries = new VeterinaryData(
+                TreatmentData alltreatments = new TreatmentData(
                         
-                        rs.getInt("db_vet_id"),
-                        rs.getString("db_vet_name"),
-                        rs.getInt("db_personaddress_id"));
+                        rs.getInt("db_treatment_id"),
+                        rs.getString("db_treatment_type"),
+                        rs.getDate("db_treatment_date"),
+			rs.getInt("db_vet_id"),
+			rs.getInt("db_animal_id"),
+			rs.getInt("db_invoice_id"),
+			rs.getInt("db_treatment_log_number"));
                     
                 treatments.add(alltreatments);
                 
@@ -798,6 +805,64 @@ public void addNewTreatment(TreatmentData treatmentdata){
            Dialogs.showErrorAlert("CatDatabase","GetTreatments"," Hibakód: "+ex);
         			}
         return treatments;
+    }		 	
+
+
+public void addNewInvoice(InvoiceData invoicedata){
+       try{
+            String sqladdnewinvoice = "insert into INVOICES("
+//auto generated    + "db_treatment_id,"
+		    + "db_treatment_type,"
+		    + "db_treatment_date,"
+		    + "db_vet_id,"
+		    + "db_animal_id,"
+		    + "db_invoice_id,"
+		    + "db_treatment_log_number)"
+                    + "values (?,?,?,?,?,?)";
+                    
+            PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewtreatment);
+            
+            preparedStmt.setString(1, treatmentdata.getTreatmenttype());
+            preparedStmt.setString(2, treatmentdata.getTreatmentdate());
+            preparedStmt.setString(3, treatmentdata.getVetid());
+	    preparedStmt.setString(4, treatmentdata.getAnimalid());
+	    preparedStmt.setString(5, treatmentdata.getInvoiceid());
+	    preparedStmt.setString(6, treatmentdata.getTreatmentlognumber());
+            preparedStmt.execute();
+            
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+treatmentdata.getTreatmenttype()+" sikeresen hozzáadva!");     
+        } catch 
+                (SQLException e){
+                Dialogs.showErrorAlert("Hiba!", "Új kezelés hozzáadása:",treatmentdata.getTreatmenttype()+" Hibakód: "+e);
+				}
+    }    
+
+    public ArrayList<TreatmentData> getTreatments(){
+        
+        String treatmentgetquery = "SELECT * from TREATMENTS";
+        ArrayList<TreatmentData> treatments = null;
+        
+        try{
+            ResultSet rs = createStatement.executeQuery(treatmentgetquery);
+            treatments = new ArrayList<>();
+            while (rs.next()){
+                TreatmentData alltreatments = new TreatmentData(
+                        
+                        rs.getInt("db_treatment_id"),
+                        rs.getString("db_treatment_type"),
+                        rs.getDate("db_treatment_date"),
+			rs.getInt("db_vet_id"),
+			rs.getInt("db_animal_id"),
+			rs.getInt("db_invoice_id"),
+			rs.getInt("db_treatment_log_number"));
+                    
+                treatments.add(alltreatments);
+                
+            }               
+        }catch (SQLException ex){
+           Dialogs.showErrorAlert("CatDatabase","GetTreatments"," Hibakód: "+ex);
+        			}
+        return invoices;
     }		 	
 
 
