@@ -15,52 +15,23 @@ public class ReceiptData {
    
     private SimpleStringProperty receiptid;
     private SimpleStringProperty animalid;
-    private SimpleStringProperty personid; //PersonAddress nem kell, ez a PersonAddress táblában lesz összekapcsolva
-    private SimpleStringProperty addressid;
-    private SimpleStringProperty castredstatus;
-    private SimpleStringProperty injurystatus;
-    private SimpleStringProperty injurydesc;
-    private SimpleStringProperty healthstatus;
-    private SimpleStringProperty sicknessdesc;
-    private SimpleStringProperty remarks;
+    private SimpleStringProperty personaddressid;
     private SimpleStringProperty receiptdate;
+    private SimpleStringProperty shelterid;
+    private SimpleStringProperty receiptlognumber;
     
-    
-    public ReceiptData(Integer receiptId, Integer animalId, Integer personId, Integer addressId, String castredStatus, String injuryStatus, String injuryDesc, String healthStatus, String sicknessDesc, String reMarks, String receiptDate){
+    public ReceiptData(Integer receiptId, Integer animalId, Integer personAddressId, Date receiptDate, Integer shelterId, Integer receiptLogNumber){
         
         this.receiptid = new SimpleStringProperty(String.valueOf(receiptId));
         this.animalid = new SimpleStringProperty(String.valueOf(animalId));
-        this.personid = new SimpleStringProperty(String.valueOf(personId));
-        this.addressid = new SimpleStringProperty(String.valueOf(addressId));
-        this.castredstatus = new SimpleStringProperty(castredStatus);
-        this.injurystatus = new SimpleStringProperty(injuryStatus);
-        this.injurydesc = new SimpleStringProperty(injuryDesc);
-        this.healthstatus = new SimpleStringProperty(healthStatus);
-        this.sicknessdesc = new SimpleStringProperty(sicknessDesc);
-        this.remarks = new SimpleStringProperty(reMarks);
+        this.personid = new SimpleStringProperty(String.valueOf(personAddressId));
         this.receiptdate = new SimpleStringProperty(String.valueOf(receiptDate));
-        
+        this.animalid = new SimpleStringProperty(String.valueOf(shelterId));
+        this.animalid = new SimpleStringProperty(String.valueOf(receiptLogNumber));
         
     }
 
-    public ReceiptData(String castredStatus, String injuryStatus, String injuryDesc, String healthStatus, String sicknessDesc, String reMarks, String receiptDate){
-        
-        this.receiptid = new SimpleStringProperty("");
-        this.animalid = new SimpleStringProperty("");
-        this.personid = new SimpleStringProperty("");
-        this.addressid = new SimpleStringProperty("");
-        this.castredstatus = new SimpleStringProperty("");
-        this.injurystatus = new SimpleStringProperty("");
-        this.injurydesc = new SimpleStringProperty("");
-        this.healthstatus = new SimpleStringProperty("");
-        this.sicknessdesc = new SimpleStringProperty("");
-        this.remarks = new SimpleStringProperty("");
-        this.receiptdate = new SimpleStringProperty("");
-        
-        
-    }
-    
-    
+       
     
     public String getReceiptid() {
         return receiptid.get();
@@ -78,68 +49,12 @@ public class ReceiptData {
         this.animalid = animalid;
     }
 
-    public String getPersonid() {
-        return personid.get();
+    public String getPersonaddressid() {
+        return personaddressid.get();
     }
 
-    public void setPersonid(SimpleStringProperty personid) {
-        this.personid = personid;
-    }
-
-    public String getAddressid() {
-        return addressid.get();
-    }
-
-    public void setAddressid(SimpleStringProperty addressid) {
-        this.addressid = addressid;
-    }
-
-    public String getCastredstatus() {
-        return castredstatus.get();
-    }
-
-    public void setCastredstatus(SimpleStringProperty castredstatus) {
-        this.castredstatus = castredstatus;
-    }
-
-    public String getInjurystatus() {
-        return injurystatus.get();
-    }
-
-    public void setInjurystatus(SimpleStringProperty injurystatus) {
-        this.injurystatus = injurystatus;
-    }
-
-    public String getInjurydesc() {
-        return injurydesc.get();
-    }
-
-    public void setInjurydesc(SimpleStringProperty injurydesc) {
-        this.injurydesc = injurydesc;
-    }
-
-    public String getHealthstatus() {
-        return healthstatus.get();
-    }
-
-    public void setHealthstatus(SimpleStringProperty healthstatus) {
-        this.healthstatus = healthstatus;
-    }
-
-    public String getSicknessdesc() {
-        return sicknessdesc.get();
-    }
-
-    public void setSicknessdesc(SimpleStringProperty sicknessdesc) {
-        this.sicknessdesc = sicknessdesc;
-    }
-
-    public String getRemarks() {
-        return remarks.get();
-    }
-
-    public void setRemarks(SimpleStringProperty remarks) {
-        this.remarks = remarks;
+    public void setPersonaddressid(SimpleStringProperty personaddressid) {
+        this.personaddressid = personaddressid;
     }
 
     public String getReceiptdate() {
@@ -150,6 +65,20 @@ public class ReceiptData {
         this.receiptdate = receiptdate;
     }
 
-   
+    public String getShelterid() {
+        return shelterid.get();
+    }
+
+    public void setShelterid(SimpleStringProperty shelterid) {
+        this.shelterid = shelterid;
+    }
+
+   public String getReceiptlognumber() {
+        return receiptlognumber.get();
+    }
+
+    public void setReceiptlognumber(SimpleStringProperty receiptlognumber) {
+        this.receiptlognumber = receiptlognumber;
+    }
    
 }
