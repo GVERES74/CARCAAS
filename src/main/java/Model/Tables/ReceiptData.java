@@ -1,4 +1,4 @@
-/*
+ter/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -26,8 +26,8 @@ public class ReceiptData {
         this.animalid = new SimpleStringProperty(String.valueOf(animalId));
         this.personid = new SimpleStringProperty(String.valueOf(personAddressId));
         this.receiptdate = new SimpleStringProperty(String.valueOf(receiptDate));
-        this.animalid = new SimpleStringProperty(String.valueOf(shelterId));
-        this.animalid = new SimpleStringProperty(String.valueOf(receiptLogNumber));
+        this.shelterid = new SimpleStringProperty(String.valueOf(shelterId));
+        this.receiptlognumber = new SimpleStringProperty(String.valueOf(receiptLogNumber));
         
     }
 
