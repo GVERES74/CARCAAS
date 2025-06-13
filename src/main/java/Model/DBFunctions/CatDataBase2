@@ -811,50 +811,50 @@ public void addNewTreatment(TreatmentData treatmentdata){
 public void addNewInvoice(InvoiceData invoicedata){
        try{
             String sqladdnewinvoice = "insert into INVOICES("
-//auto generated    + "db_treatment_id,"
-		    + "db_treatment_type,"
-		    + "db_treatment_date,"
-		    + "db_vet_id,"
-		    + "db_animal_id,"
-		    + "db_invoice_id,"
-		    + "db_treatment_log_number)"
+//auto generated    + "db_invoice_id,"
+		    + "db_invoice_number,"
+		    + "db_invoice_cost,"
+		    + "db_invoice_date,"
+		    + "db_payment_duedate,"
+		    + "db_payment_paiddate,"
+		    + "db_invoice_status)"
                     + "values (?,?,?,?,?,?)";
                     
-            PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewtreatment);
+            PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewinvoice);
             
-            preparedStmt.setString(1, treatmentdata.getTreatmenttype());
-            preparedStmt.setString(2, treatmentdata.getTreatmentdate());
-            preparedStmt.setString(3, treatmentdata.getVetid());
-	    preparedStmt.setString(4, treatmentdata.getAnimalid());
-	    preparedStmt.setString(5, treatmentdata.getInvoiceid());
-	    preparedStmt.setString(6, treatmentdata.getTreatmentlognumber());
+            preparedStmt.setString(1, invoicedata.getInvoicenumber());
+            preparedStmt.setString(2, invoicedata.getInvoicecost());
+            preparedStmt.setString(3, invoicedata.getInvoicedate());
+	    preparedStmt.setString(4, invoicedata.getPaymentduedate());
+	    preparedStmt.setString(5, invoicedata.getPaymentpaiddate());
+	    preparedStmt.setString(6, invoicedata.getInvoicestatus());
             preparedStmt.execute();
             
-            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+treatmentdata.getTreatmenttype()+" sikeresen hozzáadva!");     
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+invoicedata.getInvoicenumber()+" sikeresen hozzáadva!");     
         } catch 
                 (SQLException e){
-                Dialogs.showErrorAlert("Hiba!", "Új kezelés hozzáadása:",treatmentdata.getTreatmenttype()+" Hibakód: "+e);
+                Dialogs.showErrorAlert("Hiba!", "Új számla hozzáadása:",invoicedata.getInvoicenumber()+" Hibakód: "+e);
 				}
     }    
 
-    public ArrayList<TreatmentData> getTreatments(){
+    public ArrayList<InvoiceData> getInvoices(){
         
-        String treatmentgetquery = "SELECT * from TREATMENTS";
-        ArrayList<TreatmentData> treatments = null;
+        String invoicegetquery = "SELECT * from INVOICES";
+        ArrayList<InvoiceData> invoices = null;
         
         try{
-            ResultSet rs = createStatement.executeQuery(treatmentgetquery);
-            treatments = new ArrayList<>();
+            ResultSet rs = createStatement.executeQuery(invoicegetquery);
+            invoices = new ArrayList<>();
             while (rs.next()){
-                TreatmentData alltreatments = new TreatmentData(
+                InvoiceData allinvoices = new InvoiceData(
                         
-                        rs.getInt("db_treatment_id"),
-                        rs.getString("db_treatment_type"),
-                        rs.getDate("db_treatment_date"),
-			rs.getInt("db_vet_id"),
-			rs.getInt("db_animal_id"),
-			rs.getInt("db_invoice_id"),
-			rs.getInt("db_treatment_log_number"));
+                        rs.getInt("db_invoice_id"),
+                        rs.getString("db_invoice_number"),
+                        rs.getInt("db_invoice_cost"),
+			rs.getDate("db_invoice_date"),
+			rs.getDate("db_payment_duedate"),
+			rs.getDate("db_payment_paiddate"),
+			rs.getString("db_invoice_status"));
                     
                 treatments.add(alltreatments);
                 
@@ -864,18 +864,17 @@ public void addNewInvoice(InvoiceData invoicedata){
         			}
         return invoices;
     }		 	
-
-
-
+//end of SQL INSERT and SELECT    
     
-    public void deleteTable(String tableName){
+
+public void deleteTable(String tableName){
         try {
             createStatement.execute("drop table "+tableName);
             Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Tábla "+tableName+" sikeresen törölve!");
         } catch (SQLException ex) {
             Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+}
 
     
     
