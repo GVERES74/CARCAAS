@@ -10,12 +10,12 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author DjRed
  */
-public class PersonAddress {
+public class PersonAddressData {
     
     private final SimpleStringProperty personaddressid, personid, addressid;
         
     
-    public PersonAddress(Integer personAddressId, Integer personId, Integer addressId){
+    public PersonAddressData(Integer personAddressId, Integer personId, Integer addressId){
         
         this.personaddressid = new SimpleStringProperty("");
         this.personid = new SimpleStringProperty(personId);
