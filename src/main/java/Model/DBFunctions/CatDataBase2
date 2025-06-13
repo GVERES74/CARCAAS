@@ -725,7 +725,7 @@ public void addNewVeterinary(VeterinaryData veterinarydata){
 				}
     }    
 
-    public ArrayList<ShelterData> getVeterinaries(){
+    public ArrayList<VeterinaryData> getVeterinaries(){
         
         String veterinarygetquery = "SELECT * from VETERINARIES";
         ArrayList<VeterinaryData> veterinaries = null;
@@ -752,11 +752,14 @@ public void addNewVeterinary(VeterinaryData veterinarydata){
 
 public void addNewTreatment(TreatmentData treatmentdata){
        try{
-            String sqladdnewveterinary = "insert into VETERINARIES("
-//auto generated    + "db_vet_id,"
-		    + "db_vet_name,"
-//		    + "db_animal_id,"
-		    + "db_personaddress_id)"
+            String sqladdnewtreatment = "insert into TREATMENTS("
+//auto generated    + "db_treatment_id,"
+		    + "db_treatment_type,"
+		    + "db_treatment_date,"
+		    + "db_vet_id,"
+		    + "db_animal_id,"
+		    + "db_invoice_id,"
+		    + "db_treatment_log_number)"
                     + "values (?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewveterinary);
@@ -773,7 +776,7 @@ public void addNewTreatment(TreatmentData treatmentdata){
 				}
     }    
 
-    public ArrayList<ShelterData> getVeterinaries(){
+    public ArrayList<VeterinaryData> getVeterinaries(){
         
         String veterinarygetquery = "SELECT * from VETERINARIES";
         ArrayList<VeterinaryData> veterinaries = null;
@@ -787,8 +790,8 @@ public void addNewTreatment(TreatmentData treatmentdata){
                         rs.getInt("db_vet_id"),
                         rs.getString("db_vet_name"),
                         rs.getInt("db_personaddress_id"));
- //db_animal_id kell?                   
-                veterinaries.add(allveterinaries);
+                    
+                treatments.add(alltreatments);
                 
             }               
         }catch (SQLException ex){
