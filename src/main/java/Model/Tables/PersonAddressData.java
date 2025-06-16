@@ -24,19 +24,6 @@ public class PersonAddressData {
                 
     }
 
-    public String getPersonaddressid() {
-        return personaddressid.get();
-    }
-
-    public String getPersonid() {
-        return personid.get();
-    }
-
-    public String getAddressid() {
-        return addressid.get();
-    }
-
-    
-       
+   //insert code getters
 
 }
