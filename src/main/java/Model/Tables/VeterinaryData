@@ -1,1 +1,31 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Model.Tables;
 
+import java.time.LocalDate;
+import javafx.beans.property.SimpleStringProperty;
+
+/**
+ *
+ * @author DjRed
+ */
+public class VeterinaryData {
+   
+    private SimpleStringProperty veterinaryid;
+    private SimpleStringProperty veterinaryname;
+    private SimpleStringProperty personaddressid;
+        
+        
+    public VeterinaryData(Integer veterinaryId, String veterinaryName, Integer personAddressId){
+        
+        this.veterinaryid = new SimpleStringProperty(String.valueOf(veterinaryId));
+        this.veterinaryname = new SimpleStringProperty(veterinaryName);        
+        this.personaddressid = new SimpleStringProperty(String.valueOf(personAddressId));
+        
+    }
+
+       
+   //insert code getters
+}
