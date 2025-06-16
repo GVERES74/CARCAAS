@@ -26,26 +26,6 @@ public class PersonData {
     }
 
         
-    public String getPersonid() {
-        return personid.get();
-    }
-
-           
-    public String getPersonFirstname() {
-        return personfirstname.get();
-    }
-
-public String getPersonLastname() {
-        return personlastname.get();
-    }
-  
-    public String getPersonphone() {
-        return personphone.get();
-    }
-
-    public String getPersonemail() {
-        return personemail.get();
-    }
-    
+    //insert code getters
        
 }
