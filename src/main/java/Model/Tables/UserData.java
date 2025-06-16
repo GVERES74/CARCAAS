@@ -13,7 +13,10 @@ import javafx.beans.property.SimpleStringProperty;
 public class UserData {
   
     
-    private final SimpleStringProperty userid, username, userpassword personid;
+    private final SimpleStringProperty userid;
+    private final SimpleStringProperty username; 
+    private final SimpleStringProperty userpassword; 
+    private final SimpleStringProperty personid;
     
     
     public UserData(Integer userId, String userName, String userPassword, Integer personId){
