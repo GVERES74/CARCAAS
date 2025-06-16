@@ -32,53 +32,6 @@ public class ReceiptData {
     }
 
        
-    
-    public String getReceiptid() {
-        return receiptid.get();
-    }
-
-    public void setReceiptid(SimpleStringProperty receiptid) {
-        this.receiptid = receiptid;
-    }
-
-    public String getAnimalid() {
-        return animalid.get();
-    }
-
-    public void setAnimalid(SimpleStringProperty animalid) {
-        this.animalid = animalid;
-    }
-
-    public String getPersonaddressid() {
-        return personaddressid.get();
-    }
-
-    public void setPersonaddressid(SimpleStringProperty personaddressid) {
-        this.personaddressid = personaddressid;
-    }
-
-    public String getReceiptdate() {
-        return receiptdate.get();
-    }
-
-    public void setReceiptdate(SimpleStringProperty receiptdate) {
-        this.receiptdate = receiptdate;
-    }
-
-    public String getShelterid() {
-        return shelterid.get();
-    }
-
-    public void setShelterid(SimpleStringProperty shelterid) {
-        this.shelterid = shelterid;
-    }
-
-   public String getReceiptlognumber() {
-        return receiptlognumber.get();
-    }
-
-    public void setReceiptlognumber(SimpleStringProperty receiptlognumber) {
-        this.receiptlognumber = receiptlognumber;
-    }
+   //insert code getters
    
 }
