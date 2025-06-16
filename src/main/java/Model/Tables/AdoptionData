@@ -32,53 +32,5 @@ public class AdoptionData {
     }
 
        
-    
-    public String getAdoptionid() {
-        return adoptionid.get();
-    }
-
-    public void setAdoptionid(SimpleStringProperty adoptionid) {
-        this.adoptionid = adoptionid;
-    }
-
-    public String getAnimalid() {
-        return animalid.get();
-    }
-
-    public void setAnimalid(SimpleStringProperty animalid) {
-        this.animalid = animalid;
-    }
-
-    public String getPersonaddressid() {
-        return personaddressid.get();
-    }
-
-    public void setPersonaddressid(SimpleStringProperty personaddressid) {
-        this.personaddressid = personaddressid;
-    }
-
-    public String getAdoptiondate() {
-        return adoptiondate.get();
-    }
-
-    public void setAdoptiondate(SimpleStringProperty adoptiondate) {
-        this.adoptiondate = adoptiondate;
-    }
-
-    public String getShelterid() {
-        return shelterid.get();
-    }
-
-    public void setShelterid(SimpleStringProperty shelterid) {
-        this.shelterid = shelterid;
-    }
-
-   public String getAdoptionlognumber() {
-        return adoptionlognumber.get();
-    }
-
-    public void setAdoptionlognumber(SimpleStringProperty adoptionlognumber) {
-        this.adoptionlognumber = adoptionlognumber;
-    }
-   
+   //insert code getters
 }
