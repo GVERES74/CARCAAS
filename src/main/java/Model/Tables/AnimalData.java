@@ -43,42 +43,6 @@ public class AnimalData {
         
     //Ha egy vagy több cella üresen jelenik meg, akkor ellenőrizni kell a getter-eket, vagy újra Insert Code -> Getter..
 
-    public String getAnimalid() {
-        return animalid.get();
-    }
-
-    public String getAnimalrace() {
-        return animalrace.get();
-    }
-
-    public String getAnimalspecies() {
-        return animalspecies.get();
-    }
-
-    public String getAnimalsex() {
-        return animalsex.get();
-    }
-
-    public String getAnimalname() {
-        return animalname.get();
-    }
-
-    public String getAnimalcolor() {
-        return animalcolor.get();
-    }
-
-    public String getAnimalbirthdate() {
-        return animalbirthdate.get();
-    }
-
-    public String getChipid() {
-        return chipid.get();
-    }
-    
-    public String getPhotoalbumid() {
-        return photoalbumid.get();
-    }
-
-       
+  //insert code getters
         
 }
