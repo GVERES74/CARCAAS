@@ -39,56 +39,5 @@ public class AddressData {
         this.addressnumber = new SimpleStringProperty(addressNumber);
     }
 
-    public String getAddressid() {
-        return addressid.get();
-    }
-
-    public String getAddresscountry() {
-        return addresscountry.get();
-    }
-
-    public String getAddresscounty() {
-        return addresscounty.get();
-    }
-
-    public String getAddresszipcode() {
-        return addresszipcode.get();
-    }
-
-    public String getAddresscity() {
-        return addresscity.get();
-    }
-
-    public String getAddressstreet() {
-        return addressstreet.get();
-    }
-
-    public String getAddressnumber() {
-        return addressnumber.get();
-    }
-
-    
-    public void setAddresscountry(String addressCountry){
-        addresscountry.set(addressCountry);
-    }
-    
-    public void setAddresscounty(String addressCounty){
-        addresscounty.set(addressCounty);
-    }
-    
-    public void setAddresszipcode(String addressZipcode){
-        addresszipcode.set(addressZipcode);
-    }
-    
-    public void setAddresscity(String addressCity){
-        addresscity.set(addressCity);
-    }
-    
-    public void setAddressstreet(String addressStreet){
-        addressstreet.set(addressStreet);
-    }
-    
-    public void setAddressnumber(String addressNumber){
-        addressnumber.set(addressNumber);
-    }
+    //insert code getters
 }
