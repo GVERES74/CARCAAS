@@ -13,7 +13,11 @@ import javafx.beans.property.SimpleStringProperty;
 public class PersonData {
   
     
-    private final SimpleStringProperty personid, personfirstname, personlastname,personphone, personemail;
+    private final SimpleStringProperty personid;
+    private final SimpleStringProperty personfirstname;
+    private final SimpleStringProperty personlastname; 
+    private final SimpleStringProperty personphone; 
+    private final SimpleStringProperty personemail;
     
     
     public PersonData(Integer personId, String personFirstName, String personLastName, String personPhone, String personEmail){
