@@ -16,14 +16,12 @@ import javafx.stage.Screen;
 public class App extends Application {
 
     private static Scene scene;
-    public Tools toolkit;
-    
+      
     
     
 
     @Override
     public void start(Stage stage) throws IOException {
-        toolkit = new Tools();
         scene = new Scene(loadFXML("CatMain"), Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
         stage.setScene(scene);
 	stage.setTitle("Catlantis - Animal Rescue, Care And Adoptation System");
