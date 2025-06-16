@@ -1,1 +1,39 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Model.Tables;
 
+import java.time.LocalDate;
+import javafx.beans.property.SimpleStringProperty;
+
+/**
+ *
+ * @author DjRed
+ */
+public class TreatmentData {
+   
+    private SimpleStringProperty treatmentid;
+    private SimpleStringProperty treatmenttype;
+    private SimpleStringProperty treatmentdate;
+    private SimpleStringProperty vetid;    
+    private SimpleStringProperty animalid;
+    private SimpleStringProperty invoiceid;
+    private SimpleStringProperty treatmentlognumber;
+    
+    public TreatmentData(Integer treatmentId, String treatmentType, Date treatmentDate, Integer vetId, Integer animalId, Integer invoiceId, Integer treatmentLogNumber){
+        
+        this.treatmentid = new SimpleStringProperty(String.valueOf(treatmentId));
+        this.treatmenttype = new SimpleStringProperty(treatmentType);        
+        this.treatmentdate = new SimpleStringProperty(String.valueOf(treatmentDate));        
+        this.vetid = new SimpleStringProperty(String.valueOf(vetId));
+        this.animalid = new SimpleStringProperty(String.valueOf(animalId));
+        this.invoiceid = new SimpleStringProperty(String.valueOf(invoiceId));
+        this.treatmentlognumber = new SimpleStringProperty(String.valueOf(treatmentLogNumber));
+        
+    }
+
+       
+   //insert code getters
+   
+}
