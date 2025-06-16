@@ -12,7 +12,13 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class InvoiceData {
     
-    private final SimpleStringProperty invoiceid, invoicenumber, invoicecost, invoicedate, paymentduedate, paymentpaiddate, invoicestatus;
+    private final SimpleStringProperty invoiceid;
+    private final SimpleStringProperty invoicenumber; 
+    private final SimpleStringProperty invoicecost; 
+    private final SimpleStringProperty invoicedate; 
+    private final SimpleStringProperty paymentduedate; 
+    private final SimpleStringProperty paymentpaiddate; 
+    private final SimpleStringProperty invoicestatus;
     
     
     public InvoiceData(Integer invoiceId, String invoiceNumber, Integer invoiceCost, Date invoiceDate, Date paymentDueDate, Date paymentPaidDate, String invoiceStatus){
