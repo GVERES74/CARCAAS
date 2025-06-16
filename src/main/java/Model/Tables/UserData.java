@@ -25,22 +25,7 @@ public class UserData {
         
     }
 
-    
-         
-    public String getUserid() {
-        return userid.get();
-    }
-
-    public String getUsername() {
-        return username.get();
-    }
-    
-    public String getUserpassword() {
-        return userpassword.get();
-    }
-
-    public String getPersonid() {
-        return personid.get();
-    }
+             
+   //insert code getters
   
 }
