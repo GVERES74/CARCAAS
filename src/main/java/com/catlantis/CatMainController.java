@@ -80,11 +80,12 @@ private ImageView splashImageView;
 private TreeMenuBuilder treeMenuBuilder = new TreeMenuBuilder();
 public CatDataBase catlantisdb;
 public String os_user_name = "";
-private final String RESCUED = "Állományban";
-private final String ADOPTED = "Örökbeadva";
-private final String DECEASED = "Elpusztult";
 
-
+private enum AnimalStatus{
+    "Állományban",
+    "Örökbeadva",
+    "Elpusztult"
+    }    
 
 @FXML
 private StackPane mainContentStackPane;
@@ -142,12 +143,18 @@ private DatePicker datePickerReceiptDate, datePickerBirthDate, datePickerRescueD
 @FXML
 private Button btnSaveNewReceipt;
 
-
-public final ObservableList<AnimalData> newanimaldata = FXCollections.observableArrayList();
-public final ObservableList<PersonData> newpersondata = FXCollections.observableArrayList();
-public final ObservableList<AddressData> newaddressdata = FXCollections.observableArrayList();
-public final ObservableList<ReceiptData> newreceiptdata = FXCollections.observableArrayList();
-public final ObservableList<PersonAddress> newpersonaddress = FXCollections.observableArrayList();
+public final ObservableList<AddressData> new_address_data = FXCollections.observableArrayList();
+public final ObservableList<AdoptionData> new_adoption_data = FXCollections.observableArrayList();
+public final ObservableList<AnimalConditionData> new_animalcondition_data = FXCollections.observableArrayList();
+public final ObservableList<AnimalData> new_animal_data = FXCollections.observableArrayList();
+public final ObservableList<InvoiceData> new_invoice_data = FXCollections.observableArrayList();
+public final ObservableList<PersonAddressData> new_personaddress_data = FXCollections.observableArrayList();
+public final ObservableList<PersonData> new_person_data = FXCollections.observableArrayList();
+public final ObservableList<ReceiptData> new_receipt_data = FXCollections.observableArrayList();
+public final ObservableList<ShelterData> new_shelter_data = FXCollections.observableArrayList();
+public final ObservableList<TreatmentData> new_treatment_data = FXCollections.observableArrayList();
+public final ObservableList<UserData> new_user_data = FXCollections.observableArrayList();
+public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.observableArrayList();
 
 
 //    @FXML
@@ -168,8 +175,8 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
     @FXML
     private void saveNewReceipt(){
         if (Dialogs.showConfirmAlert("Új befogadás mentése", null, "Biztosan mented az adatokat?") == true){
-            AnimalData newanimal = new AnimalData(
-                
+            
+            AnimalData new_animal = new AnimalData(
                 comboBoxSelectRace.getValue().toString(),
                 comboBoxSelectSpecies.getValue().toString(),
                 comboBoxSelectGender.getValue().toString(),
@@ -177,26 +184,26 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
                 comboBoxSelectColor.getValue().toString(),
                 datePickerBirthDate.getValue().toString(),
                 "PID_"+textFieldAnimalName.getText()+"_"+LocalDate.now(),
-                RESCUED    
+                AnimalStatus.RESCUED    
             );
-            catlantisdb.addNewAnimal(newanimal);
-            newanimaldata.addAll(newanimal);
-            tableViewNewAnimal.setItems(newanimaldata);
             
-            PersonData newperson = new PersonData(
-                    
-                    textFieldSaviorName.getText(),
+            catlantisdb.addNewAnimal(new_animal);
+            new_animal_data.addAll(new_animal);
+            tableViewNewAnimal.setItems(new_animal_data);
+            
+            PersonData new_person = new PersonData(
+                    textFieldSaviorFirstName.getText(),
+                    textFieldSaviorLastName.getText(),
                     textFieldSaviorPhone.getText(),
                     textFieldSaviorEmail.getText()
-            
             );
-            catlantisdb.addNewPerson(newperson);
-            newpersondata.addAll(newperson);
-            tableViewNewPerson.setItems(newpersondata);
+            
+            catlantisdb.addNewPerson(new_person);
+            new_person_data.addAll(new_person);
+            tableViewNewPerson.setItems(new_person_data);
             
             
-            AddressData newaddress = new AddressData(
-            
+            AddressData new_address = new AddressData(
                     textFieldSaviorAddressCountry.getText(),
                     textFieldSaviorAddressCounty.getText(),
                     textFieldSaviorAddressPostalCode.getText(),
@@ -204,24 +211,47 @@ public final ObservableList<PersonAddress> newpersonaddress = FXCollections.obse
                     textFieldSaviorAddressStreet.getText(),
                     textFieldSaviorAddressNum.getText()
             );
-            catlantisdb.addNewAddress(newaddress);
-            newaddressdata.addAll(newaddress);
-            tableViewNewAddress.setItems(newaddressdata);
             
-            ReceiptData newreceipt = new ReceiptData(
-                    
+            catlantisdb.addNewAddress(new_address);
+            new_address_data.addAll(new_address);
+            tableViewNewAddress.setItems(new_address_data);
+
+
+            PersonAddressData new_personaddress = new PersonAddressData(
+                    new_person_data.getPersonid();
+                    new_address_data.getAddressid();
+            );
+            
+            catlantisdb.addNewPersonAddress(new_personaddress);
+            new_personaddress_data.addAll(new_personaddress);
+            tableViewNewAddress.setItems(new_personaddress_data);
+
+            ReceiptData new_receipt = new ReceiptData(
+                    new_animal_data.getAnimalid(),
+                    new_personaddress_data.getPersonaddressid(),
+                    new_animal_data.getAnimalid(),
+                    datePickerReceiptDate.getValue().toString(),
+                    new_shelter_data.getShelterid(),
+                    "RESC_"+datePickerReceiptDate.getValue().toString()+"_"+new_receipt_data.getReceiptid()
+            );
+            
+            catlantisdb.addNewReceipt(new_receipt);
+            new_receipt_data.addAll(new_receipt);
+            tableViewNewReceipt.setItems(new_receipt_data);
+            
+            AnimalConditionData new_animalcondition = new AnimalConditionData(
                     rbGroupCastred.getSelectedToggle().toString(),
                     rbGroupInjured.getSelectedToggle().toString(),
                     textAreaInjuryDetails.getText(),
                     rbGroupHealth.getSelectedToggle().toString(),
                     textAreaSicknessDetails.getText(),
-                    textAreaAdditionalInfo.getText(),
-                    datePickerReceiptDate.getValue().toString()
-            
+                    textAreaAdditionalInfo.getText()
+                               
              );
-            catlantisdb.addNewReceipt(newreceipt);
-            newreceiptdata.addAll(newreceipt);
-            tableViewNewReceipt.setItems(newreceiptdata);
+            
+            catlantisdb.addNewAnimalCondition(new_animalcondition);
+            new_animalcondition_data.addAll(new_animalcondition);
+            tableViewNewAnimalCondition.setItems(new_animalcondition_data);
             
         }; 
         anchorPaneNewReceiptTable.getChildren().add(tableViewNewReceipt);
