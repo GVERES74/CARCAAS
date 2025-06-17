@@ -85,8 +85,53 @@ private enum AnimalStatus{
     "Állományban",
     "Örökbeadva",
     "Elpusztult"
-    }    
+}    
 
+private enum CatSpecies{
+    "Házimacska",
+    "Ragdoll",
+    "Sziámi",
+    "Maine Coon"
+}    
+
+private enum DogSpecies{
+    "Keverék",
+    "Tacskó",
+    "Foxterrier",
+    "Stafford",
+    "Labrador",
+    "Vizsla"
+}    
+
+private enum CatColor{
+    "Fehér",
+    "Fekete",
+    "Barna",
+    "Szürke",
+    "Cirmos",
+    "Tarka",
+    "Tricolor"
+}    
+
+private enum DogColor{
+    "Fehér",
+    "Fekete",
+    "Világosbarna",
+    "Sötétbarna",
+    "Tarka"
+}    
+
+private enum CatGender{
+    "Nőstény",
+    "Kandúr"
+}    
+
+private enum DogGender{
+    "Szuka",
+    "Kan"
+}    
+
+    
 @FXML
 private StackPane mainContentStackPane;
 
@@ -266,10 +311,8 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
     
     public void createCatlantisDataBaseConnection(){
         catlantisdb = new CatDataBase();
-        
     }
-    
-    
+        
     public void showAdminTabPanes(){
         hideActiveChildPanes();
         tabPaneAdmin.toFront();
@@ -289,14 +332,11 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
         deleteButton.setOnAction(e-> {
             catlantisdb.deleteTable(comboDataTables.getSelectionModel().getSelectedItem().toString());
         });
-            
     }
     
     
     public void showProgInfo(){
-        
-        Dialogs.showInfoAlert("Application Information", null, "DjRed Software Development Private - 2022");    
-        
+           Dialogs.showInfoAlert("Application Information", null, "DjRed Software Development Private - 2022-2025");    
     }
     
     public void showWebInfo(){
@@ -313,10 +353,8 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
         webInfoAlert.getDialogPane().setContent(vbox);
         webViewBrowser.prefHeightProperty().bind(mainContentStackPane.heightProperty());
         webViewBrowser.prefWidthProperty().bind(mainContentStackPane.widthProperty());
-        
         paneWebview = new Pane(webViewBrowser);
-        
-                
+                        
         link1.setOnAction(e-> {
             mainContentStackPane.getChildren().add(paneWebview);            
             paneWebview.toFront();
@@ -338,9 +376,7 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
     public void showSystemInfo(){
         String osname = System.getProperty("os.name");
         String osver = System.getProperty("os.version");
-        
         Dialogs.showInfoAlert("System Information", "Operating System: "+ osname + " (Version: "+ osver+")", "User: "+os_user_name);
-      
     }
     
     public void showBottomTitledPaneContent(){
@@ -355,9 +391,7 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
         gridPane.setVgap(10);
         gridPane.add(dateLabel, 0, 0, 1, 1);
         gridPane.add(userLabel, 1, 0, 1, 1);
-        
-        
-    }
+   }
     
         
     private void startUpScreen(){
@@ -397,9 +431,9 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
                         case "Nyilvántartás megtekintése": {viewAllRecords();} break;
                         
                     }
-                }});
+       }});
         
-        mainTreeViewFinancial.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+       mainTreeViewFinancial.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             TreeItem<String> selectedItem = (TreeItem<String>)newValue;
             String selectedMenuItem = selectedItem.getValue();
             labelModulePath.setText("/"+selectedItem.getParent().getValue()+"/"+selectedMenuItem);
@@ -409,9 +443,9 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
                         case "Beérkező számla szerkesztése": {} break;
                         case "Beérkező számla megtekintése": {} break;
                     }
-                }});
+       }});
         
-        mainTreeViewDonations.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+       mainTreeViewDonations.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             TreeItem<String> selectedItem = (TreeItem<String>)newValue;
             String selectedMenuItem = selectedItem.getValue();
             labelModulePath.setText("/"+selectedItem.getParent().getValue()+"/"+selectedMenuItem);
@@ -422,10 +456,10 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
                         case "Adomány szerkesztése": {} break;
                         case "Adományok megtekintése": {} break;
                     }
-                }});
+       }});
         
         
-        mainTreeViewActions.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+       mainTreeViewActions.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             TreeItem<String> selectedItem = (TreeItem<String>)newValue;
             String selectedMenuItem = selectedItem.getValue();
             labelModulePath.setText("/"+selectedItem.getParent().getValue()+"/"+selectedMenuItem);
@@ -436,7 +470,7 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
                         case "Ivartalanitások megtekintése": {} break;
                        
                     }
-                }});
+       }});
         
         mainTreeViewOrganization.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             TreeItem<String> selectedItem = (TreeItem<String>)newValue;
@@ -447,16 +481,14 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
                         case "Szervezeti felépítés megtekintése": {} break;
                         
                     }
-                }});
+       }});
         
         menuItemAdmin.setOnAction(e-> {
            showAdminTabPanes(); 
         });
         
-           
         
-        
-     }
+   }
     
     
     public void createNewReceipt() {
@@ -464,19 +496,27 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
         splitPaneCreateNewReceipt.toFront();
         splitPaneCreateNewReceipt.setVisible(true);
         
-       comboBoxSelectRace.getItems().addAll("Macska","Kutya","Hörcsög","Nyúl");
-       comboBoxSelectSpecies.getItems().addAll("Maine Coon", "Ragdoll", "Sziámi", "Házimacska", "Labrador");
-       comboBoxSelectColor.getItems().addAll("Fehér", "Fekete", "Barna", "Vörös", "Tricolor", "Cirmos", "Tarka", "Szürke");
-       comboBoxSelectGender.getItems().addAll("Hím", "Nőstény", "Kandúr", "Kan", "Szuka");
+       
+       String selectedRace = comboBoxSelectRace.getItems().getSelectedItem().getValue();
+       switch (selectedRace) {
+           case "Macska" : 
+               comboBoxSelectSpecies.getItems().addAll(CatSpecies.); 
+               comboBoxSelectColor.getItems().addAll(CatColor.);
+               comboBoxSelectGender.getItems().addAll(CatGender.);
+           break;
+           case "Kutya" : 
+               comboBoxSelectSpecies.getItems().addAll(DogSpecies.); 
+               comboBoxSelectColor.getItems().addAll(DogColor.);
+               comboBoxSelectGender.getItems().addAll(DogGender.);
+           break;
+       }
+       
        comboBoxSelectAge.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12);
        comboBoxSelectAge.setValue(comboBoxSelectAge.getItems().get(0));
        comboBoxSelectAgeYMW.getItems().addAll("nap", "hét", "hónap", "év");
        comboBoxSelectAgeYMW.setValue(comboBoxSelectAgeYMW.getItems().get(0));
-       
-       
         
-        
-        comboBoxSelectAgeYMW.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+       comboBoxSelectAgeYMW.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             String selectedListItem = comboBoxSelectAgeYMW.getSelectionModel().getSelectedItem().toString();
             switch (selectedListItem){
                 
