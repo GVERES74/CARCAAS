@@ -1,4 +1,4 @@
-ter/*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -20,11 +20,11 @@ public class ReceiptData {
     private SimpleStringProperty shelterid;
     private SimpleStringProperty receiptlognumber;
     
-    public ReceiptData(Integer receiptId, Integer animalId, Integer personAddressId, Date receiptDate, Integer shelterId, Integer receiptLogNumber){
+    public ReceiptData(Integer receiptId, Integer animalId, Integer personAddressId, LocalDate receiptDate, Integer shelterId, Integer receiptLogNumber){
         
         this.receiptid = new SimpleStringProperty(String.valueOf(receiptId));
         this.animalid = new SimpleStringProperty(String.valueOf(animalId));
-        this.personid = new SimpleStringProperty(String.valueOf(personAddressId));
+        this.personaddressid = new SimpleStringProperty(String.valueOf(personAddressId));
         this.receiptdate = new SimpleStringProperty(String.valueOf(receiptDate));
         this.shelterid = new SimpleStringProperty(String.valueOf(shelterId));
         this.receiptlognumber = new SimpleStringProperty(String.valueOf(receiptLogNumber));
@@ -33,5 +33,29 @@ public class ReceiptData {
 
        
    //insert code getters
+
+    public String getReceiptid() {
+        return receiptid.get();
+    }
+
+    public String getAnimalid() {
+        return animalid.get();
+    }
+
+    public String getPersonaddressid() {
+        return personaddressid.get();
+    }
+
+    public String getReceiptdate() {
+        return receiptdate.get();
+    }
+
+    public String getShelterid() {
+        return shelterid.get();
+    }
+
+    public String getReceiptlognumber() {
+        return receiptlognumber.get();
+    }
    
 }

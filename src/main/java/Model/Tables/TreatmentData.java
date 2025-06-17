@@ -21,7 +21,7 @@ public class TreatmentData {
     private SimpleStringProperty invoiceid;
     private SimpleStringProperty treatmentlognumber;
     
-    public TreatmentData(Integer treatmentId, String treatmentType, Date treatmentDate, Integer vetId, Integer animalId, Integer invoiceId, Integer treatmentLogNumber){
+    public TreatmentData(Integer treatmentId, String treatmentType, LocalDate treatmentDate, Integer vetId, Integer animalId, Integer invoiceId, Integer treatmentLogNumber){
         
         this.treatmentid = new SimpleStringProperty(String.valueOf(treatmentId));
         this.treatmenttype = new SimpleStringProperty(treatmentType);        
@@ -35,5 +35,33 @@ public class TreatmentData {
 
        
    //insert code getters
+
+    public String getTreatmentid() {
+        return treatmentid.get();
+    }
+
+    public String getTreatmenttype() {
+        return treatmenttype.get();
+    }
+
+    public String getTreatmentdate() {
+        return treatmentdate.get();
+    }
+
+    public String getVetid() {
+        return vetid.get();
+    }
+
+    public String getAnimalid() {
+        return animalid.get();
+    }
+
+    public String getInvoiceid() {
+        return invoiceid.get();
+    }
+
+    public String getTreatmentlognumber() {
+        return treatmentlognumber.get();
+    }
    
 }

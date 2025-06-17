@@ -28,4 +28,17 @@ public class VeterinaryData {
 
        
    //insert code getters
+
+    public String getVeterinaryid() {
+        return veterinaryid.get();
+    }
+
+    public String getVeterinaryname() {
+        return veterinaryname.get();
+    }
+
+    public String getPersonaddressid() {
+        return personaddressid.get();
+    }
+    
 }

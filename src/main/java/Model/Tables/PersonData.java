@@ -23,7 +23,8 @@ public class PersonData {
     public PersonData(Integer personId, String personFirstName, String personLastName, String personPhone, String personEmail){
         
         this.personid = new SimpleStringProperty(String.valueOf(personId));
-        this.personname = new SimpleStringProperty(personName);
+        this.personfirstname = new SimpleStringProperty(personFirstName);
+        this.personlastname = new SimpleStringProperty(personLastName);
         this.personphone = new SimpleStringProperty(personPhone);
         this.personemail = new SimpleStringProperty(personEmail);
         
@@ -31,5 +32,25 @@ public class PersonData {
 
         
     //insert code getters
+
+    public String getPersonid() {
+        return personid.get();
+    }
+
+    public String getPersonfirstname() {
+        return personfirstname.get();
+    }
+
+    public String getPersonlastname() {
+        return personlastname.get();
+    }
+
+    public String getPersonphone() {
+        return personphone.get();
+    }
+
+    public String getPersonemail() {
+        return personemail.get();
+    }
        
 }

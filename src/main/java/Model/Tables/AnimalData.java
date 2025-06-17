@@ -35,7 +35,7 @@ public class AnimalData {
         this.animalname = new SimpleStringProperty(animalName);
         this.animalcolor = new SimpleStringProperty(animalColor);
         this.animalbirthdate = new SimpleStringProperty(animalBirthdate);
-        this.animalstatus = new SimpleStringProperty(chipId);
+        this.chipid = new SimpleStringProperty(String.valueOf(chipId));
         this.photoalbumid = new SimpleStringProperty(photoAlbumId);
         
     }    
@@ -44,5 +44,42 @@ public class AnimalData {
     //Ha egy vagy több cella üresen jelenik meg, akkor ellenőrizni kell a getter-eket, vagy újra Insert Code -> Getter..
 
   //insert code getters
+
+    public String getAnimalid() {
+        return animalid.get();
+
+    }
+        
+    public String getAnimalrace() {
+        return animalrace.get();
+    }
+
+    public String getAnimalspecies() {
+        return animalspecies.get();
+    }
+
+    public String getAnimalsex() {
+        return animalsex.get();
+    }
+
+    public String getAnimalname() {
+        return animalname.get();
+    }
+
+    public String getAnimalcolor() {
+        return animalcolor.get();
+    }
+
+    public String getAnimalbirthdate() {
+        return animalbirthdate.get();
+    }
+
+    public String getChipid() {
+        return chipid.get();
+    }
+
+    public String getPhotoalbumid() {
+        return photoalbumid.get();
+    }
         
 }

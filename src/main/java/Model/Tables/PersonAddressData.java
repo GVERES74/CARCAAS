@@ -20,12 +20,24 @@ public class PersonAddressData {
     public PersonAddressData(Integer personAddressId, Integer personId, Integer addressId){
         
         this.personaddressid = new SimpleStringProperty(String.valueOf(personAddressId));
-        this.personid = new SimpleStringProperty(personId);
-        this.addressid = new SimpleStringProperty(addressId);
+        this.personid = new SimpleStringProperty(String.valueOf(personId));
+        this.addressid = new SimpleStringProperty(String.valueOf(addressId));
    
                 
     }
 
    //insert code getters
+
+    public String getPersonaddressid() {
+        return personaddressid.get();
+    }
+
+    public String getPersonid() {
+        return personid.get();
+    }
+
+    public String getAddressid() {
+        return addressid.get();
+    }
 
 }

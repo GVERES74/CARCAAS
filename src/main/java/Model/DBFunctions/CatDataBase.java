@@ -329,8 +329,7 @@ public class CatDataBase {
                     + "values (?,?,?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewperson);
-            
-            
+                       
             preparedStmt.setString(1, persondata.getPersonfirstname());
             preparedStmt.setString(2, persondata.getPersonlastname());
             preparedStmt.setString(3, persondata.getPersonphone());
@@ -342,8 +341,9 @@ public class CatDataBase {
                 (SQLException e){
                 Dialogs.showErrorAlert("Hiba!", "Új személy hozzáadása",persondata.getPersonemail()+" "+e);
            
-				}
-    
+        }
+    }   
+       
     public ArrayList<PersonData> getPersons(){
         
         String persongetquery = "SELECT * from PERSONS";
@@ -399,7 +399,7 @@ public class CatDataBase {
         } catch 
                 (SQLException e){
                 Dialogs.showErrorAlert("Hiba!", "Új cim hozzáadása",addressdata.getAddressstreet()+" "+e);
-           
+        }
     }    
 
     public ArrayList<AddressData> getAddresses(){
@@ -544,19 +544,19 @@ public class CatDataBase {
 		    + "db_adoption_log_number)"	
                     + "values (?,?,?,?,?)";
                     
-            PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewreceipt);
+            PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewadoption);
             
-            preparedStmt.setString(1, receiptdata.getAnimalid());
-            preparedStmt.setString(2, receiptdata.getPersonaddressid());
-            preparedStmt.setString(3, receiptdata.getReceiptdate());
-            preparedStmt.setString(4, receiptdata.getShelterid());
-            preparedStmt.setString(5, receiptdata.getAdoptionlognumber());
+            preparedStmt.setString(1, adoptiondata.getAnimalid());
+            preparedStmt.setString(2, adoptiondata.getPersonaddressid());
+            preparedStmt.setString(3, adoptiondata.getReceiptdate());
+            preparedStmt.setString(4, adoptiondata.getShelterid());
+            preparedStmt.setString(5, adoptiondata.getAdoptionlognumber());
             preparedStmt.execute();
             
-            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+receiptdata.getReceiptid()+" sikeresen hozzáadva!");     
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+adoptiondata.getAdoptionlognumber()+" sikeresen hozzáadva!");     
         } catch 
                 (SQLException e){
-                Dialogs.showErrorAlert("Figyelem!", "Új átvétel hozzáadása",receiptdata.getReceiptid()+" "+e);
+                Dialogs.showErrorAlert("Figyelem!", "Új örökbeadás hozzáadása",adoptiondata.getAdoptionlognumber()+" "+e);
        				}
     }
 
@@ -707,14 +707,12 @@ public void addNewVeterinary(VeterinaryData veterinarydata){
             String sqladdnewveterinary = "insert into VETERINARIES("
 //auto generated    + "db_vet_id,"
 		    + "db_vet_name,"
-//		    + "db_animal_id,"
 		    + "db_personaddress_id)"
                     + "values (?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewveterinary);
             
             preparedStmt.setString(1, veterinarydata.getVeterinaryname());
-            //preparedStmt.setString(2, veterinarydata.getAnimalid());
             preparedStmt.setString(2, veterinarydata.getPersonaddressid());
             preparedStmt.execute();
             
@@ -851,12 +849,12 @@ public void addNewInvoice(InvoiceData invoicedata){
                         rs.getInt("db_invoice_id"),
                         rs.getString("db_invoice_number"),
                         rs.getInt("db_invoice_cost"),
-			rs.getDate("db_invoice_date"),
+			rs.getString("db_invoice_date"),
 			rs.getDate("db_payment_duedate"),
 			rs.getDate("db_payment_paiddate"),
 			rs.getString("db_invoice_status"));
                     
-                treatments.add(alltreatments);
+                invoices.add(allinvoices);
                 
             }               
         }catch (SQLException ex){

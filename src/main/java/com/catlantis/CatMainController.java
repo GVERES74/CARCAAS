@@ -7,10 +7,17 @@ package com.catlantis;
 
 import Model.DBFunctions.CatDataBase;
 import Model.Tables.AddressData;
+import Model.Tables.AdoptionData;
+import Model.Tables.AnimalConditionData;
 import Model.Tables.AnimalData;
-import Model.Tables.PersonAddress;
+import Model.Tables.InvoiceData;
+import Model.Tables.PersonAddressData;
 import Model.Tables.PersonData;
 import Model.Tables.ReceiptData;
+import Model.Tables.ShelterData;
+import Model.Tables.TreatmentData;
+import Model.Tables.UserData;
+import Model.Tables.VeterinaryData;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -82,53 +89,53 @@ public CatDataBase catlantisdb;
 public String os_user_name = "";
 
 private enum AnimalStatus{
-    "Állományban",
-    "Örökbeadva",
-    "Elpusztult"
+    Állományban,
+    Örökbeadva,
+    Elpusztult
 }    
 
 private enum CatSpecies{
-    "Házimacska",
-    "Ragdoll",
-    "Sziámi",
-    "Maine Coon"
+    Házimacska,
+   Ragdoll,
+    Sziámi,
+    MaineCoon
 }    
 
 private enum DogSpecies{
-    "Keverék",
-    "Tacskó",
-    "Foxterrier",
-    "Stafford",
-    "Labrador",
-    "Vizsla"
+    Keverék,
+    Tacskó,
+    Foxterrier,
+    Stafford,
+    Labrador,
+    Vizsla
 }    
 
 private enum CatColor{
-    "Fehér",
-    "Fekete",
-    "Barna",
-    "Szürke",
-    "Cirmos",
-    "Tarka",
-    "Tricolor"
+    Fehér,
+    Fekete,
+    Barna,
+    Szürke,
+    Cirmos,
+    Tarka,
+    Tricolor
 }    
 
 private enum DogColor{
-    "Fehér",
-    "Fekete",
-    "Világosbarna",
-    "Sötétbarna",
-    "Tarka"
+    Fehér,
+    Fekete,
+    Világosbarna,
+    Sötétbarna,
+    Tarka
 }    
 
 private enum CatGender{
-    "Nőstény",
-    "Kandúr"
+    Nőstény,
+    Kandúr
 }    
 
 private enum DogGender{
-    "Szuka",
-    "Kan"
+    Szuka,
+    Kan
 }    
 
     
@@ -229,7 +236,7 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
                 comboBoxSelectColor.getValue().toString(),
                 datePickerBirthDate.getValue().toString(),
                 "PID_"+textFieldAnimalName.getText()+"_"+LocalDate.now(),
-                AnimalStatus.RESCUED    
+                AnimalStatus.Állományban    
             );
             
             catlantisdb.addNewAnimal(new_animal);
@@ -263,8 +270,8 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
 
 
             PersonAddressData new_personaddress = new PersonAddressData(
-                    new_person_data.getPersonid();
-                    new_address_data.getAddressid();
+                    new_person_data.getPersonid(),
+                    new_address_data.getAddressid()
             );
             
             catlantisdb.addNewPersonAddress(new_personaddress);
@@ -497,17 +504,17 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
         splitPaneCreateNewReceipt.setVisible(true);
         
        
-       String selectedRace = comboBoxSelectRace.getItems().getSelectedItem().getValue();
+       String selectedRace = comboBoxSelectRace.getSelectionModel().getSelectedItem().toString();
        switch (selectedRace) {
            case "Macska" : 
-               comboBoxSelectSpecies.getItems().addAll(CatSpecies.); 
-               comboBoxSelectColor.getItems().addAll(CatColor.);
-               comboBoxSelectGender.getItems().addAll(CatGender.);
+               comboBoxSelectSpecies.getItems().addAll(CatSpecies.values()); 
+               comboBoxSelectColor.getItems().addAll(CatColor.values());
+               comboBoxSelectGender.getItems().addAll(CatGender.values());
            break;
            case "Kutya" : 
-               comboBoxSelectSpecies.getItems().addAll(DogSpecies.); 
-               comboBoxSelectColor.getItems().addAll(DogColor.);
-               comboBoxSelectGender.getItems().addAll(DogGender.);
+               comboBoxSelectSpecies.getItems().addAll(DogSpecies.values()); 
+               comboBoxSelectColor.getItems().addAll(DogColor.values());
+               comboBoxSelectGender.getItems().addAll(DogGender.values());
            break;
        }
        
@@ -584,8 +591,8 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
         tableViewNewReceipt.getColumns().addAll(receiptIdCol, animalIdCol, personIdCol, addressIdCol, castredStatusCol, injuryStatusCol, injuryDescCol, healthStatuscCol, sicknessDescCol, remarksCol, receiptDateCol);
         tableViewNewReceipt.setEditable(true);
         anchorPaneViewReceiptTable.getChildren().add(tableViewNewReceipt);
-        newreceiptdata.addAll(catlantisdb.getReceipts());
-        tableViewNewReceipt.setItems(newreceiptdata);
+        new_receipt_data.addAll(catlantisdb.getReceipts());
+        tableViewNewReceipt.setItems(new_receipt_data);
     }   
     
        
@@ -605,8 +612,8 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
         tableViewBrowseAnimals.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol, animalStatusCol);
         tableViewBrowseAnimals.setEditable(true);
         anchorPaneViewAnimalTable.getChildren().add(tableViewBrowseAnimals);
-        newanimaldata.addAll(catlantisdb.getAnimals());
-        tableViewBrowseAnimals.setItems(newanimaldata);
+        new_animal_data.addAll(catlantisdb.getAnimals());
+        tableViewBrowseAnimals.setItems(new_animal_data);
     }    
         
          
@@ -618,8 +625,8 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
         tableViewNewPerson.getColumns().addAll(personIdCol, personNameCol, personPhoneCol, personEmailCol);
         tableViewNewPerson.setEditable(true);
         anchorPaneViewPersonTable.getChildren().add(tableViewNewPerson);
-        newpersondata.addAll(catlantisdb.getPersons());
-        tableViewNewPerson.setItems(newpersondata);
+        new_person_data.addAll(catlantisdb.getPersons());
+        tableViewNewPerson.setItems(new_person_data);
     }   
 
     public void setViewAddressTableColumns(){
@@ -634,12 +641,12 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
         tableViewNewAddress.getColumns().addAll(addressIdCol, countryCol, countyCol, zipcodeCol, cityCol, streetCol, addressnumberCol);
         tableViewNewAddress.setEditable(true);
         anchorPaneViewAddressTable.getChildren().add(tableViewNewAddress);
-        newaddressdata.addAll(catlantisdb.getAddresses());
-        tableViewNewAddress.setItems(newaddressdata);
+        new_address_data.addAll(catlantisdb.getAddresses());
+        tableViewNewAddress.setItems(new_address_data);
     }   
     
     public void setViewAllRecordsTableColumns(){
-        newanimaldata.clear();          
+        new_animal_data.clear();          
         TableColumn animalIdCol = createTableColumn("Azonosító", "animalid", 50);
         TableColumn animalRaceCol = createTableColumn("Faj", "animalrace", 50);
         TableColumn animalSpeciesCol = createTableColumn("Fajta", "animalspecies", 50);
@@ -654,8 +661,8 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
         tableViewAllRecords.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol, animalStatusCol, rescuedateCol, receiptIdCol);
         tableViewAllRecords.setEditable(true);
         anchorPaneAllRecordsTable.getChildren().addAll(tableViewAllRecords);
-        newanimaldata.addAll(catlantisdb.getAnimals());
-        tableViewAllRecords.setItems(newanimaldata);
+        new_animal-data.addAll(catlantisdb.getAnimals());
+        tableViewAllRecords.setItems(new_animal_data);
                       
     }    
     

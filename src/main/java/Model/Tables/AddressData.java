@@ -35,4 +35,36 @@ public class AddressData {
     
      
     //insert code getters
+
+    public String getAddressid() {
+        return addressid.get();
+    }
+
+    public String getAddresscountry() {
+        return addresscountry.get();
+    }
+
+    public String getAddresscounty() {
+        return addresscounty.get();
+    }
+
+    public String getAddresszipcode() {
+        return addresszipcode.get();
+    }
+
+    public String getAddresscity() {
+        return addresscity.get();
+    }
+
+    public String getAddressstreet() {
+        return addressstreet.get();
+    }
+
+    public String getAddressnumber() {
+        return addressnumber.get();
+    }
+    
+    
 }
+
+

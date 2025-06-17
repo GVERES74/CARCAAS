@@ -30,4 +30,21 @@ public class ShelterData {
 
        
    //insert code getters
+
+    public String getShelterid() {
+        return shelterid.get();
+    }
+
+    public String getSheltername() {
+        return sheltername.get();
+    }
+
+    public String getAnimalid() {
+        return animalid.get();
+    }
+
+    public String getPersonaddressid() {
+        return personaddressid.get();
+    }
+    
 }

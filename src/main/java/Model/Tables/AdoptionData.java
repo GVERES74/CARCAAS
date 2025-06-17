@@ -20,11 +20,11 @@ public class AdoptionData {
     private SimpleStringProperty shelterid;
     private SimpleStringProperty adoptionlognumber;
     
-    public AdoptionData(Integer adoptionId, Integer animalId, Integer personAddressId, Date adoptionDate, Integer shelterId, Integer adoptionLogNumber){
+    public AdoptionData(Integer adoptionId, Integer animalId, Integer personAddressId, LocalDate adoptionDate, Integer shelterId, Integer adoptionLogNumber){
         
         this.adoptionid = new SimpleStringProperty(String.valueOf(adoptionId));
         this.animalid = new SimpleStringProperty(String.valueOf(animalId));
-        this.personid = new SimpleStringProperty(String.valueOf(personAddressId));
+        this.personaddressid = new SimpleStringProperty(String.valueOf(personAddressId));
         this.adoptiondate = new SimpleStringProperty(String.valueOf(adoptionDate));
         this.shelterid = new SimpleStringProperty(String.valueOf(shelterId));
         this.adoptionlognumber = new SimpleStringProperty(String.valueOf(adoptionLogNumber));
@@ -33,4 +33,29 @@ public class AdoptionData {
 
        
    //insert code getters
+
+    public String getAdoptionid() {
+        return adoptionid.get();
+    }
+
+    public String getAnimalid() {
+        return animalid.get();
+    }
+
+    public String getPersonaddressid() {
+        return personaddressid.get();
+    }
+
+    public String getAdoptiondate() {
+        return adoptiondate.get();
+    }
+
+    public String getShelterid() {
+        return shelterid.get();
+    }
+
+    public String getAdoptionlognumber() {
+        return adoptionlognumber.get();
+    }
+    
 }

@@ -24,11 +24,27 @@ public class UserData {
         this.userid = new SimpleStringProperty(String.valueOf(userId));
         this.username = new SimpleStringProperty(userName);
         this.userpassword = new SimpleStringProperty(userPassword);
-        this.personid = new SimpleStringProperty(personId);
+        this.personid = new SimpleStringProperty(String.valueOf(personId));
         
     }
 
              
    //insert code getters
+
+    public String getUserid() {
+        return userid.get();
+    }
+
+    public String getUsername() {
+        return username.get();
+    }
+
+    public String getUserpassword() {
+        return userpassword.get();
+    }
+
+    public String getPersonid() {
+        return personid.get();
+    }
   
 }

@@ -23,9 +23,9 @@ public class AnimalConditionData {
     private SimpleStringProperty remarks;
         
     
-    public AnimalConditionData(Integer animalConditionId, Integer receiptId, String castredStatus, String injuryStatus, String injuryDesc, String healthStatus, String sicknessDesc, String reMarks{
+    public AnimalConditionData(Integer animalConditionId, Integer receiptId, String castredStatus, String injuryStatus, String injuryDesc, String healthStatus, String sicknessDesc, String reMarks){
         
-        this.animalconditionid = new SimpleStringProperty(animalConditionId);
+        this.animalconditionid = new SimpleStringProperty(String.valueOf(animalConditionId));
         this.receiptid = new SimpleStringProperty(String.valueOf(receiptId));
         this.castredstatus = new SimpleStringProperty(castredStatus);
         this.injurystatus = new SimpleStringProperty(injuryStatus);
@@ -38,6 +38,38 @@ public class AnimalConditionData {
 
    
   //insert code getters
+
+    public String getAnimalconditionid() {
+        return animalconditionid.get();
+    }
+
+    public String getReceiptid() {
+        return receiptid.get();
+    }
+
+    public String getCastredstatus() {
+        return castredstatus.get();
+    }
+
+    public String getInjurystatus() {
+        return injurystatus.get();
+    }
+
+    public String getInjurydesc() {
+        return injurydesc.get();
+    }
+
+    public String getHealthstatus() {
+        return healthstatus.get();
+    }
+
+    public String getSicknessdesc() {
+        return sicknessdesc.get();
+    }
+
+    public String getRemarks() {
+        return remarks.get();
+    }
   
    
 }
