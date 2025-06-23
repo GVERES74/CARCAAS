@@ -26,7 +26,7 @@ public class AnimalData {
     
     
     
-    public AnimalData(Integer animalId, String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, Integer chipId, String photoAlbumId){
+    public AnimalData(Integer animalId, String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, String chipId, String photoAlbumId){
         
         this.animalid = new SimpleStringProperty(String.valueOf(animalId));
         this.animalrace = new SimpleStringProperty(animalRace);
@@ -35,12 +35,24 @@ public class AnimalData {
         this.animalname = new SimpleStringProperty(animalName);
         this.animalcolor = new SimpleStringProperty(animalColor);
         this.animalbirthdate = new SimpleStringProperty(animalBirthdate);
-        this.chipid = new SimpleStringProperty(String.valueOf(chipId));
+        this.chipid = new SimpleStringProperty(chipId);
         this.photoalbumid = new SimpleStringProperty(photoAlbumId);
         
     }    
     
+    public AnimalData(String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, String chipId, String photoAlbumId){
         
+        this.animalid = new SimpleStringProperty("");
+        this.animalrace = new SimpleStringProperty(animalRace);
+        this.animalspecies = new SimpleStringProperty(animalSpecies);
+        this.animalsex = new SimpleStringProperty(animalSex);
+        this.animalname = new SimpleStringProperty(animalName);
+        this.animalcolor = new SimpleStringProperty(animalColor);
+        this.animalbirthdate = new SimpleStringProperty(animalBirthdate);
+        this.chipid = new SimpleStringProperty(chipId);
+        this.photoalbumid = new SimpleStringProperty(photoAlbumId);
+        
+    }        
     //Ha egy vagy több cella üresen jelenik meg, akkor ellenőrizni kell a getter-eket, vagy újra Insert Code -> Getter..
 
   //insert code getters

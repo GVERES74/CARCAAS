@@ -26,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import Utils.Calendar;
 import Utils.Dialogs;
+import java.io.File;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import javafx.collections.FXCollections;
@@ -37,7 +38,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -61,6 +61,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 
 
 
@@ -87,6 +93,21 @@ private ImageView splashImageView;
 private TreeMenuBuilder treeMenuBuilder = new TreeMenuBuilder();
 public CatDataBase catlantisdb;
 public String os_user_name = "";
+private String animalimage_path = "";
+private String animal_photo_dbase;
+
+public final ObservableList<AddressData> new_address_data = FXCollections.observableArrayList();
+public final ObservableList<AdoptionData> new_adoption_data = FXCollections.observableArrayList();
+public final ObservableList<AnimalConditionData> new_animalcondition_data = FXCollections.observableArrayList();
+public final ObservableList<AnimalData> new_animal_data = FXCollections.observableArrayList();
+public final ObservableList<InvoiceData> new_invoice_data = FXCollections.observableArrayList();
+public final ObservableList<PersonAddressData> new_personaddress_data = FXCollections.observableArrayList();
+public final ObservableList<PersonData> new_person_data = FXCollections.observableArrayList();
+public final ObservableList<ReceiptData> new_receipt_data = FXCollections.observableArrayList();
+public final ObservableList<ShelterData> new_shelter_data = FXCollections.observableArrayList();
+public final ObservableList<TreatmentData> new_treatment_data = FXCollections.observableArrayList();
+public final ObservableList<UserData> new_user_data = FXCollections.observableArrayList();
+public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.observableArrayList();
 
 private enum AnimalStatus{
     Állományban,
@@ -155,7 +176,7 @@ private Label dateLabel, labelModulePath;
 private MenuItem menuItemAdmin;
 
 @FXML
-private TextField textFieldAnimalName;
+private TextField textFieldAnimalName, textFieldChipId;
 
 @FXML
 private TextField textFieldSaviorName, textFieldSaviorPhone, textFieldSaviorEmail;
@@ -193,20 +214,15 @@ private ComboBox comboBoxSelectRace, comboBoxSelectSpecies, comboBoxSelectGender
 private DatePicker datePickerReceiptDate, datePickerBirthDate, datePickerRescueDate;
 
 @FXML
-private Button btnSaveNewReceipt;
+private VBox vBoxNewAnimal;
 
-public final ObservableList<AddressData> new_address_data = FXCollections.observableArrayList();
-public final ObservableList<AdoptionData> new_adoption_data = FXCollections.observableArrayList();
-public final ObservableList<AnimalConditionData> new_animalcondition_data = FXCollections.observableArrayList();
-public final ObservableList<AnimalData> new_animal_data = FXCollections.observableArrayList();
-public final ObservableList<InvoiceData> new_invoice_data = FXCollections.observableArrayList();
-public final ObservableList<PersonAddressData> new_personaddress_data = FXCollections.observableArrayList();
-public final ObservableList<PersonData> new_person_data = FXCollections.observableArrayList();
-public final ObservableList<ReceiptData> new_receipt_data = FXCollections.observableArrayList();
-public final ObservableList<ShelterData> new_shelter_data = FXCollections.observableArrayList();
-public final ObservableList<TreatmentData> new_treatment_data = FXCollections.observableArrayList();
-public final ObservableList<UserData> new_user_data = FXCollections.observableArrayList();
-public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.observableArrayList();
+@FXML
+private Button btnSaveNewReceipt, btnUploadPhoto;
+
+@FXML
+private ImageView imgViewAnimalAvatar;
+
+
 
 
 //    @FXML
@@ -228,6 +244,8 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
     private void saveNewReceipt(){
         if (Dialogs.showConfirmAlert("Új befogadás mentése", null, "Biztosan mented az adatokat?") == true){
             
+            animalimage_path = "PID_"+textFieldAnimalName.getText()+"_"+LocalDate.now().toString();
+            
             AnimalData new_animal = new AnimalData(
                 comboBoxSelectRace.getValue().toString(),
                 comboBoxSelectSpecies.getValue().toString(),
@@ -235,8 +253,9 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
                 textFieldAnimalName.getText(),
                 comboBoxSelectColor.getValue().toString(),
                 datePickerBirthDate.getValue().toString(),
-                "PID_"+textFieldAnimalName.getText()+"_"+LocalDate.now(),
-                AnimalStatus.Állományban    
+                textFieldChipId.getText(),
+                animalimage_path
+                   
             );
             
             catlantisdb.addNewAnimal(new_animal);
@@ -490,12 +509,53 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
                     }
        }});
         
+        
+        btnUploadPhoto.setOnAction(e -> {
+            uploadAnimalPhoto();
+        });
+        
         menuItemAdmin.setOnAction(e-> {
            showAdminTabPanes(); 
         });
         
         
-   }
+    }
+    
+    public void uploadAnimalPhoto(){
+       Stage openFileWindow = new Stage();
+       FileChooser photoFileChooser = new FileChooser();
+       File selectedPhotoFile = photoFileChooser.showOpenDialog(openFileWindow);
+       Image animalphoto = new Image(selectedPhotoFile.toURI().toString());
+       BufferedImage image = null;
+       File sourcefile = null;
+       File outfile = null;
+       
+       //reading source file
+       try{
+           sourcefile = new File(selectedPhotoFile.getAbsolutePath());
+           image = ImageIO.read(sourcefile);
+       } catch (IOException ex){
+           Dialogs.showErrorAlert("Képfájl beolvasása", "Fájlnév: "+sourcefile.toString(),"");
+       }
+       
+       //writing output file
+       try{
+           outfile = new File("C:/CATLANTISAPP/Animaldata/Images/"+animalimage_path+"/"+animalphoto.hashCode()+".jpg");
+           ImageIO.write(image, "jpg", outfile);
+       } catch (IOException ex){ 
+           Dialogs.showErrorAlert("Új képfájl mentése", "Fájlnév: "+outfile.toString(),"");
+       }
+       
+       animal_photo_dbase = outfile.toURI().toString();
+       imgViewAnimalAvatar.setImage(animalphoto);
+               
+       openFileWindow.setTitle("Új kép feltöltése");
+              
+       photoFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Képfájlok, *.jpg, *.png", "*.jpg", "*.png"));
+      
+    }
+    
+    
     
     
     public void createNewReceipt() {
@@ -661,7 +721,7 @@ public final ObservableList<VeterinaryData> new_veterinary_data = FXCollections.
         tableViewAllRecords.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol, animalStatusCol, rescuedateCol, receiptIdCol);
         tableViewAllRecords.setEditable(true);
         anchorPaneAllRecordsTable.getChildren().addAll(tableViewAllRecords);
-        new_animal-data.addAll(catlantisdb.getAnimals());
+        new_animal_data.addAll(catlantisdb.getAnimals());
         tableViewAllRecords.setItems(new_animal_data);
                       
     }    

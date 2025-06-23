@@ -25,7 +25,7 @@ public class CreateTables {
             + "db_animal_name varchar(30) NOT NULL UNIQUE,"
             + "db_animal_color varchar (30),"
             + "db_animal_birthdate varchar (30),"
-            + "db_chip_id INT UNIQUE,"
+            + "db_chip_id varchar (20) UNIQUE,"
             + "db_photoalbum_id varchar (50))";
     
 

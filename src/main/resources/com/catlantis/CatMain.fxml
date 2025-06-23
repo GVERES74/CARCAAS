@@ -171,7 +171,7 @@
                                        <children>
                                           <HBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <VBox fillWidth="false" spacing="10.0" style="-fx-border-color: #a9a9a9;" HBox.hgrow="ALWAYS">
+                                                <VBox id="vBoxNewAnimal" fx:id="vBoxNewAnimal" fillWidth="false" spacing="10.0" style="-fx-border-color: #a9a9a9;" HBox.hgrow="ALWAYS">
                                                    <children>
                                                       <Label text="Állat adatai">
                                                          <font>
@@ -238,6 +238,18 @@
                                                          </font>
                                                       </Label>
                                                       <DatePicker id="datePickerBirthDate" fx:id="datePickerBirthDate" />
+                                                      <Label text="Chip azonositó">
+                                                         <font>
+                                                            <Font name="Calibri Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField id="textFieldChipId" fx:id="textFieldChipId" />
+                                                      <Button id="btnUploadPhoto" fx:id="btnUploadPhoto" mnemonicParsing="false" text="Kép feltöltése">
+                                                         <padding>
+                                                            <Insets top="10.0" />
+                                                         </padding>
+                                                      </Button>
+                                                      <ImageView id="imgViewAnimalAvatar" fx:id="imgViewAnimalAvatar" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                                                    </children>
                                                    <padding>
                                                       <Insets left="10.0" />

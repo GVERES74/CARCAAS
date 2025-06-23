@@ -4,6 +4,7 @@ module com.catlantis {
     requires javafx.web;
     requires javafx.graphics;
     requires java.sql;
+    requires java.desktop;
     
 
     opens com.catlantis to javafx.fxml;

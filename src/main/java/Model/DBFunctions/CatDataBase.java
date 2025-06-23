@@ -306,7 +306,7 @@ public class CatDataBase {
                         rs.getString("db_animal_name"),
                         rs.getString("db_animal_color"),
                         rs.getString("db_animal_birthdate"),
-                        rs.getInt("db_chip_id"),
+                        rs.getString("db_chip_id"),
                         rs.getString("db_photoalbum_id"));
                     
                 animals.add(allanimals);
@@ -548,7 +548,7 @@ public class CatDataBase {
             
             preparedStmt.setString(1, adoptiondata.getAnimalid());
             preparedStmt.setString(2, adoptiondata.getPersonaddressid());
-            preparedStmt.setString(3, adoptiondata.getReceiptdate());
+            preparedStmt.setString(3, adoptiondata.getAdoptiondate());
             preparedStmt.setString(4, adoptiondata.getShelterid());
             preparedStmt.setString(5, adoptiondata.getAdoptionlognumber());
             preparedStmt.execute();
