@@ -32,7 +32,16 @@ public class AddressData {
         this.addressnumber = new SimpleStringProperty(addressNumber);
     }
     
-    
+     public AddressData(String addressCountry, String addressCounty, String addressZipcode, String addressCity, String addressStreet, String addressNumber){
+        
+        this.addressid = new SimpleStringProperty("");
+        this.addresscountry = new SimpleStringProperty(addressCountry);
+        this.addresscounty = new SimpleStringProperty(addressCounty);
+        this.addresszipcode = new SimpleStringProperty(addressZipcode);
+        this.addresscity = new SimpleStringProperty(addressCity);
+        this.addressstreet = new SimpleStringProperty(addressStreet);
+        this.addressnumber = new SimpleStringProperty(addressNumber);
+    }
      
     //insert code getters
 

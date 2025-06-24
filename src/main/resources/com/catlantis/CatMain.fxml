@@ -173,7 +173,7 @@
                                              <children>
                                                 <VBox id="vBoxNewAnimal" fx:id="vBoxNewAnimal" fillWidth="false" spacing="10.0" style="-fx-border-color: #a9a9a9;" HBox.hgrow="ALWAYS">
                                                    <children>
-                                                      <Label text="Állat adatai">
+                                                      <Label prefHeight="27.0" prefWidth="225.0" style="-fx-background-color: #ee6;" text="Állat adatai" textAlignment="CENTER">
                                                          <font>
                                                             <Font name="Arial Black" size="18.0" />
                                                          </font>
@@ -244,10 +244,10 @@
                                                          </font>
                                                       </Label>
                                                       <TextField id="textFieldChipId" fx:id="textFieldChipId" />
-                                                      <Button id="btnUploadPhoto" fx:id="btnUploadPhoto" mnemonicParsing="false" text="Kép feltöltése">
-                                                         <padding>
-                                                            <Insets top="10.0" />
-                                                         </padding>
+                                                      <Button id="btnUploadPhoto" fx:id="btnUploadPhoto" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Kép feltöltése" textAlignment="CENTER">
+                                                         <VBox.margin>
+                                                            <Insets top="50.0" />
+                                                         </VBox.margin>
                                                       </Button>
                                                       <ImageView id="imgViewAnimalAvatar" fx:id="imgViewAnimalAvatar" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                                                    </children>
@@ -373,109 +373,26 @@
                                                    <children>
                                                       <Label text="Megtalálás körülményei" textFill="GREY">
                                                          <font>
-                                                            <Font name="Calibri Bold" size="18.0" />
+                                                            <Font name="Arial Black" size="18.0" />
                                                          </font>
                                                          <padding>
                                                             <Insets left="5.0" />
                                                          </padding>
                                                       </Label>
-                                                      <HBox prefHeight="30.0" prefWidth="297.0" spacing="20.0">
-                                                         <children>
-                                                            <Label text="Dátum">
-                                                               <padding>
-                                                                  <Insets top="5.0" />
-                                                               </padding>
-                                                            </Label>
-                                                            <DatePicker id="datePickerRescueDate" fx:id="datePickerRescueDate" promptText="Mentés dátuma" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" />
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="30.0" prefWidth="350.0" spacing="20.0">
-                                                         <children>
-                                                            <Label text="Ország">
-                                                               <padding>
-                                                                  <Insets top="5.0" />
-                                                               </padding>
-                                                            </Label>
-                                                            <TextField id="textFieldRescueAddressCountry" fx:id="textFieldRescueAddressCountry" prefHeight="30.0" prefWidth="200.0" promptText="Ország" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;">
-                                                               <padding>
-                                                                  <Insets left="5.0" />
-                                                               </padding>
-                                                            </TextField>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="30.0" prefWidth="350.0" spacing="20.0">
-                                                         <children>
-                                                            <Label text="Megye">
-                                                               <padding>
-                                                                  <Insets top="5.0" />
-                                                               </padding>
-                                                            </Label>
-                                                            <TextField id="textFieldRescueAddressCounty" fx:id="textFieldRescueAddressCounty" prefHeight="30.0" prefWidth="200.0" promptText="Megye" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;">
-                                                               <padding>
-                                                                  <Insets left="5.0" />
-                                                               </padding>
-                                                            </TextField>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="30.0" prefWidth="350.0" spacing="20.0">
-                                                         <children>
-                                                            <Label text="Irányítószám">
-                                                               <padding>
-                                                                  <Insets top="5.0" />
-                                                               </padding>
-                                                            </Label>
-                                                            <TextField id="textFieldRescueAddressPostalCode" fx:id="textFieldRescueAddressPostalCode" prefHeight="30.0" prefWidth="100.0" promptText="Irányítószám" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;">
-                                                               <padding>
-                                                                  <Insets left="5.0" />
-                                                               </padding>
-                                                            </TextField>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="30.0" prefWidth="350.0" spacing="20.0">
-                                                         <children>
-                                                            <Label text="Település">
-                                                               <padding>
-                                                                  <Insets top="5.0" />
-                                                               </padding>
-                                                            </Label>
-                                                            <TextField id="textFieldRescueAddressCity" fx:id="textFieldRescueAddressCity" prefHeight="30.0" prefWidth="250.0" promptText="Város" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;">
-                                                               <padding>
-                                                                  <Insets left="5.0" />
-                                                               </padding>
-                                                            </TextField>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="30.0" prefWidth="350.0" spacing="20.0">
-                                                         <children>
-                                                            <Label text="Közterület">
-                                                               <padding>
-                                                                  <Insets top="5.0" />
-                                                               </padding>
-                                                            </Label>
-                                                            <TextField id="textFieldRescueAddressStreet" fx:id="textFieldRescueAddressStreet" prefHeight="30.0" prefWidth="150.0" promptText="Utca / Tér" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;">
-                                                               <padding>
-                                                                  <Insets left="5.0" />
-                                                               </padding>
-                                                            </TextField>
-                                                            <TextField id="textFieldRescueAddressNum" fx:id="textFieldRescueAddressNum" prefHeight="30.0" prefWidth="70.0" promptText="Házszám" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;">
-                                                               <padding>
-                                                                  <Insets left="5.0" />
-                                                               </padding>
-                                                            </TextField>
-                                                         </children>
-                                                      </HBox>
                                                       <Label text="Megtaláló neve" textFill="GREY">
                                                          <font>
                                                             <Font name="Calibri Bold" size="18.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField id="textFieldSaviorName" fx:id="textFieldSaviorName" prefHeight="30.0" prefWidth="250.0" promptText="Név" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" />
+                                                      <TextField id="textFieldSaviorFirstName" fx:id="textFieldSaviorFirstName" prefHeight="40.0" prefWidth="250.0" promptText="Vezetéknév" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" />
+                                                      <TextField id="textFieldSaviorLastName" fx:id="textFieldSaviorLastName" prefHeight="40.0" prefWidth="250.0" promptText="Keresztnév" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" />
+                                                      <HBox spacing="5.0" />
                                                       <Label text="Megtaláló telefonszáma" textFill="GREY">
                                                          <font>
                                                             <Font name="Calibri Bold" size="18.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField id="textFieldSaviorPhone" fx:id="textFieldSaviorPhone" prefHeight="30.0" prefWidth="250.0" promptText="Mobil- vagy vezetékes telefonszám" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" />
+                                                      <TextField id="textFieldSaviorPhone" fx:id="textFieldSaviorPhone" prefHeight="41.0" prefWidth="316.0" promptText="Mobil- vagy vezetékes telefonszám" style="-fx-background-color: #f8f8ff; -fx-border-color: #add8e6;" />
                                                       <Label text="Megtaláló e-mail címe" textFill="GREY">
                                                          <font>
                                                             <Font name="Calibri Bold" size="18.0" />
@@ -571,21 +488,20 @@
                                                             </TextField>
                                                          </children>
                                                       </HBox>
+                                                      <Button id="btnSaveNewReceipt" fx:id="btnSaveNewReceipt" mnemonicParsing="false" onAction="#saveNewReceipt" prefHeight="39.0" prefWidth="201.0" style="-fx-border-color: #cc3;" text="Mentés">
+                                                         <VBox.margin>
+                                                            <Insets top="50.0" />
+                                                         </VBox.margin></Button>
                                                    </children>
                                                    <padding>
                                                       <Insets left="10.0" />
                                                    </padding>
                                                 </VBox>
-                                                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
-                                                   <children>
-                                                      <Button id="btnSaveNewReceipt" fx:id="btnSaveNewReceipt" mnemonicParsing="false" onAction="#saveNewReceipt" text="Mentés" />
-                                                   </children>
-                                                </VBox>
                                              </children>
                                           </HBox>
                                        </children>
                                     </AnchorPane>
-                                  <AnchorPane id="anchorPaneNewReceiptTable" fx:id="anchorPaneNewReceiptTable" minHeight="100.0">
+                                  <AnchorPane id="anchorPaneNewReceiptTable" fx:id="anchorPaneNewReceiptTable" minHeight="50.0">
                                        <padding>
                                           <Insets top="5.0" />
                                        </padding>
@@ -607,6 +523,11 @@
                                                 <Tab text="Állat adatok">
                                                   <content>
                                                     <AnchorPane id="anchorPaneViewAnimalTable" fx:id="anchorPaneViewAnimalTable" minHeight="100.0" minWidth="500.0" prefHeight="180.0" prefWidth="500.0" />
+                                                  </content>
+                                                </Tab>
+                                                <Tab text="Állapot">
+                                                  <content>
+                                                    <AnchorPane id="anchorPaneViewConditionTable" fx:id="anchorPaneViewConditionTable" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                                   </content>
                                                 </Tab>
                                               <Tab text="Személy adatok">
@@ -631,7 +552,7 @@
                   </AnchorPane>
               </items>
             </SplitPane>
-            <TitledPane text="Általános Információk">
+            <TitledPane minHeight="50.0" text="Általános Információk">
               <content>
                 <AnchorPane id="anchorPaneGeneralInfo" fx:id="anchorPaneGeneralInfo" minHeight="100.0">
                      <rotationAxis>

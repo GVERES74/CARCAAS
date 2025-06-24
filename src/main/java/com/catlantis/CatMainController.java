@@ -65,6 +65,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.time.Period;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.Node;
 import javax.imageio.ImageIO;
 
 
@@ -85,7 +90,10 @@ private TableView tableViewNewPerson = new TableView();
 private TableView tableViewNewAddress = new TableView();
 private TableView tableViewBrowseAnimals = new TableView();
 private TableView tableViewNewCastration = new TableView();
+private TableView tableViewNewAnimalCondition = new TableView();
 private TableView tableViewAllRecords = new TableView();
+private TableView tableViewBrowseAnimalsInShelter = new TableView();
+
 private Pane splashPane;
 private Pane paneWebview;
 private Button deleteButton;
@@ -179,13 +187,10 @@ private MenuItem menuItemAdmin;
 private TextField textFieldAnimalName, textFieldChipId;
 
 @FXML
-private TextField textFieldSaviorName, textFieldSaviorPhone, textFieldSaviorEmail;
+private TextField textFieldSaviorFirstName, textFieldSaviorLastName, textFieldSaviorPhone, textFieldSaviorEmail;
 
 @FXML
 private TextField textFieldSaviorAddressPostalCode, textFieldSaviorAddressCity, textFieldSaviorAddressStreet, textFieldSaviorAddressNum, textFieldSaviorAddressCountry, textFieldSaviorAddressCounty;
-
-@FXML
-private TextField textFieldRescueAddressCountry, textFieldRescueAddressCounty, textFieldRescueAddressCity, textFieldRescueAddressStreet, textFieldRescueAddressNum, textFieldRescueAddressPostalCode;
 
 @FXML
 private RadioButton radioButtonNotCastred, radioButtonCastred, radioButtonInjured, radioButtonNotInjured, radioButtonHealthy, radioButtonSick; 
@@ -205,13 +210,13 @@ private SplitPane splitPaneViewReceipt, splitPaneCreateNewReceipt, splitPaneNewC
 private AnchorPane anchorPaneGeneralInfo, anchorPaneNewReceiptTable, anchorPaneViewReceiptTable, anchorPaneViewAnimalTable, anchorPaneNewCastrationTable, anchorPaneViewPersonTable, anchorPaneViewAddressTable, anchorPaneAdminTables;
 
 @FXML
-private AnchorPane anchorPaneAllRecordsSearch, anchorPaneAllRecordsTable;
+private AnchorPane anchorPaneAllRecordsSearch, anchorPaneAllRecordsTable, anchorPaneViewConditionTable;
 
 @FXML
 private ComboBox comboBoxSelectRace, comboBoxSelectSpecies, comboBoxSelectGender, comboBoxSelectColor, comboBoxSelectAge, comboBoxSelectAgeYMW;
 
 @FXML
-private DatePicker datePickerReceiptDate, datePickerBirthDate, datePickerRescueDate;
+private DatePicker datePickerReceiptDate, datePickerBirthDate;
 
 @FXML
 private VBox vBoxNewAnimal;
@@ -244,8 +249,6 @@ private ImageView imgViewAnimalAvatar;
     private void saveNewReceipt(){
         if (Dialogs.showConfirmAlert("Új befogadás mentése", null, "Biztosan mented az adatokat?") == true){
             
-            animalimage_path = "PID_"+textFieldAnimalName.getText()+"_"+LocalDate.now().toString();
-            
             AnimalData new_animal = new AnimalData(
                 comboBoxSelectRace.getValue().toString(),
                 comboBoxSelectSpecies.getValue().toString(),
@@ -253,6 +256,7 @@ private ImageView imgViewAnimalAvatar;
                 textFieldAnimalName.getText(),
                 comboBoxSelectColor.getValue().toString(),
                 datePickerBirthDate.getValue().toString(),
+                Period.between(datePickerBirthDate.getValue(), LocalDate.now()).getYears(), //calculating the age of animal in year
                 textFieldChipId.getText(),
                 animalimage_path
                    
@@ -288,29 +292,32 @@ private ImageView imgViewAnimalAvatar;
             tableViewNewAddress.setItems(new_address_data);
 
 
-            PersonAddressData new_personaddress = new PersonAddressData(
-                    new_person_data.getPersonid(),
-                    new_address_data.getAddressid()
-            );
-            
-            catlantisdb.addNewPersonAddress(new_personaddress);
-            new_personaddress_data.addAll(new_personaddress);
-            tableViewNewAddress.setItems(new_personaddress_data);
-
-            ReceiptData new_receipt = new ReceiptData(
-                    new_animal_data.getAnimalid(),
-                    new_personaddress_data.getPersonaddressid(),
-                    new_animal_data.getAnimalid(),
-                    datePickerReceiptDate.getValue().toString(),
-                    new_shelter_data.getShelterid(),
-                    "RESC_"+datePickerReceiptDate.getValue().toString()+"_"+new_receipt_data.getReceiptid()
-            );
-            
-            catlantisdb.addNewReceipt(new_receipt);
-            new_receipt_data.addAll(new_receipt);
-            tableViewNewReceipt.setItems(new_receipt_data);
+//            PersonAddressData new_personaddress = new PersonAddressData(
+//                    222,333
+////                    Integer.parseInt(new_personaddress.getPersonid()),
+////                    Integer.parseInt(new_personaddress.getAddressid())
+//            );
+//            
+//            catlantisdb.addNewPersonAddress(new_personaddress);
+//            new_personaddress_data.addAll(new_personaddress);
+//            tableViewNewAddress.setItems(new_personaddress_data);
+//
+//            ReceiptData new_receipt = new ReceiptData(
+//                    444, 555,
+////                    Integer.parseInt(new_receipt.getAnimalid()),
+////                    Integer.parseInt(new_receipt.getPersonaddressid()),
+//                    datePickerReceiptDate.getValue().toString(),
+////                    Integer.parseInt(new_receipt.getShelterid()),
+//                    666,
+//                    "RESC_"+datePickerReceiptDate.getValue().toString()
+//            );
+//            
+//            catlantisdb.addNewReceipt(new_receipt);
+//            new_receipt_data.addAll(new_receipt);
+//            tableViewNewReceipt.setItems(new_receipt_data);
             
             AnimalConditionData new_animalcondition = new AnimalConditionData(
+                    
                     rbGroupCastred.getSelectedToggle().toString(),
                     rbGroupInjured.getSelectedToggle().toString(),
                     textAreaInjuryDetails.getText(),
@@ -324,7 +331,7 @@ private ImageView imgViewAnimalAvatar;
             new_animalcondition_data.addAll(new_animalcondition);
             tableViewNewAnimalCondition.setItems(new_animalcondition_data);
             
-        }; 
+        } 
         anchorPaneNewReceiptTable.getChildren().add(tableViewNewReceipt);
     }
     
@@ -337,22 +344,36 @@ private ImageView imgViewAnimalAvatar;
     
     public void createCatlantisDataBaseConnection(){
         catlantisdb = new CatDataBase();
+//        try{
+//        catlantisdb.connection.createStatement().execute("DROP DATABASE catlantisdb");
+//        }catch (SQLException e){
+//            Dialogs.showInfoAlert("Adatbázis törlése", "FIGYELEM! BIZTOSAN TÖRÖLNI AKARJA AZ ADATBÁZIST?", "Kivétel: "+e);
+//        }
     }
         
-    public void showAdminTabPanes(){
-        hideActiveChildPanes();
+    public void showAdminTabPanes() throws SQLException{
+        setActivePaneOn();
         tabPaneAdmin.toFront();
         tabPaneAdmin.setVisible(true);
+        
         GridPane gridpane = new GridPane();
         gridpane.setVgap(10);
         gridpane.setHgap(10);
+        TableView tblwDataTables = new TableView();
         
         ComboBox comboDataTables = new ComboBox();
-        comboDataTables.getItems().addAll("animals", "persons", "receipts", "addresses", "users");
         deleteButton = new Button("Törlés");
         
         gridpane.add(comboDataTables, 0, 0);
         gridpane.add(deleteButton, 0, 1);
+        gridpane.add(tblwDataTables, 0, 2);
+        
+        
+        ResultSet tables = catlantisdb.connection.getMetaData().getTables(null, null, null, new String[]{"TABLE"});
+            while (tables.next()){
+                comboDataTables.getItems().add(tables.getString("TABLE_NAME"));    
+            }
+    
         anchorPaneAdminTables.getChildren().addAll(gridpane);
         
         deleteButton.setOnAction(e-> {
@@ -421,7 +442,8 @@ private ImageView imgViewAnimalAvatar;
     
         
     private void startUpScreen(){
-        hideActiveChildPanes();
+        setActivePaneOn();
+                
         splashImageView = new ImageView();
         splashPane = new Pane(splashImageView);
         splashPane.setMaxHeight(mainContentStackPane.getMaxHeight());
@@ -431,7 +453,8 @@ private ImageView imgViewAnimalAvatar;
         splashImageView.setPreserveRatio(true);
         splashImageView.setImage(new Image(getClass().getResourceAsStream("kitty.jpg")));
         mainContentStackPane.getChildren().add(splashPane);
-        splashPane.toFront();
+        splashPane.setVisible(true);
+       
     }
     
     private void setTreeViewRoots(){
@@ -515,7 +538,11 @@ private ImageView imgViewAnimalAvatar;
         });
         
         menuItemAdmin.setOnAction(e-> {
-           showAdminTabPanes(); 
+            try { 
+                showAdminTabPanes();
+            } catch (SQLException ex) {
+                Logger.getLogger(CatMainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         
         
@@ -524,11 +551,16 @@ private ImageView imgViewAnimalAvatar;
     public void uploadAnimalPhoto(){
        Stage openFileWindow = new Stage();
        FileChooser photoFileChooser = new FileChooser();
+       openFileWindow.setTitle("Új kép feltöltése");
+       photoFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Képfájlok, *.jpg, *.png", "*.jpg", "*.png"));
+       
        File selectedPhotoFile = photoFileChooser.showOpenDialog(openFileWindow);
        Image animalphoto = new Image(selectedPhotoFile.toURI().toString());
        BufferedImage image = null;
        File sourcefile = null;
        File outfile = null;
+       animalimage_path = "PID_"+textFieldAnimalName.getText()+"_"+datePickerReceiptDate.getValue().toString();
+       System.out.println(animalimage_path);
        
        //reading source file
        try{
@@ -540,50 +572,55 @@ private ImageView imgViewAnimalAvatar;
        
        //writing output file
        try{
-           outfile = new File("C:/CATLANTISAPP/Animaldata/Images/"+animalimage_path+"/"+animalphoto.hashCode()+".jpg");
+           outfile = new File("C:/CATLANTISAPP/Animaldata/"+animalimage_path+"/Images/"+animalphoto.hashCode()+".jpg");
            ImageIO.write(image, "jpg", outfile);
        } catch (IOException ex){ 
-           Dialogs.showErrorAlert("Új képfájl mentése", "Fájlnév: "+outfile.toString(),"");
+           Dialogs.showErrorAlert("HIBA!", "Hiba a fájl mentésekor: "+outfile.toString(),"Hibakód: "+ex);
        }
        
        animal_photo_dbase = outfile.toURI().toString();
        imgViewAnimalAvatar.setImage(animalphoto);
                
-       openFileWindow.setTitle("Új kép feltöltése");
-              
-       photoFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Képfájlok, *.jpg, *.png", "*.jpg", "*.png"));
-      
+            
     }
     
     
     
     
     public void createNewReceipt() {
-        hideActiveChildPanes();
+        setActivePaneOn();
         splitPaneCreateNewReceipt.toFront();
         splitPaneCreateNewReceipt.setVisible(true);
+                
+        comboBoxSelectAge.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12);
+        comboBoxSelectAge.setValue(comboBoxSelectAge.getItems().get(0));
+        comboBoxSelectAgeYMW.getItems().addAll("nap", "hét", "hónap", "év");
+        comboBoxSelectAgeYMW.setValue(comboBoxSelectAgeYMW.getItems().get(0));
+        comboBoxSelectRace.getItems().addAll("Macska", "Kutya");
         
-       
-       String selectedRace = comboBoxSelectRace.getSelectionModel().getSelectedItem().toString();
-       switch (selectedRace) {
-           case "Macska" : 
-               comboBoxSelectSpecies.getItems().addAll(CatSpecies.values()); 
-               comboBoxSelectColor.getItems().addAll(CatColor.values());
-               comboBoxSelectGender.getItems().addAll(CatGender.values());
-           break;
-           case "Kutya" : 
-               comboBoxSelectSpecies.getItems().addAll(DogSpecies.values()); 
-               comboBoxSelectColor.getItems().addAll(DogColor.values());
-               comboBoxSelectGender.getItems().addAll(DogGender.values());
-           break;
-       }
-       
-       comboBoxSelectAge.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12);
-       comboBoxSelectAge.setValue(comboBoxSelectAge.getItems().get(0));
-       comboBoxSelectAgeYMW.getItems().addAll("nap", "hét", "hónap", "év");
-       comboBoxSelectAgeYMW.setValue(comboBoxSelectAgeYMW.getItems().get(0));
+        comboBoxSelectRace.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            comboBoxSelectSpecies.getItems().clear();
+            comboBoxSelectColor.getItems().clear();
+            comboBoxSelectGender.getItems().clear();
         
-       comboBoxSelectAgeYMW.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            String selectedRace = comboBoxSelectRace.getSelectionModel().getSelectedItem().toString();
+            switch (selectedRace) {
+                case "Macska" : 
+                    comboBoxSelectSpecies.getItems().addAll(CatSpecies.values()); 
+                    comboBoxSelectColor.getItems().addAll(CatColor.values());
+                    comboBoxSelectGender.getItems().addAll(CatGender.values());
+                 break;
+                case "Kutya" : 
+                    comboBoxSelectSpecies.getItems().addAll(DogSpecies.values()); 
+                    comboBoxSelectColor.getItems().addAll(DogColor.values());
+                    comboBoxSelectGender.getItems().addAll(DogGender.values());
+                break;
+            }            
+            
+        });    
+        
+        
+        comboBoxSelectAgeYMW.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             String selectedListItem = comboBoxSelectAgeYMW.getSelectionModel().getSelectedItem().toString();
             switch (selectedListItem){
                 
@@ -597,45 +634,34 @@ private ImageView imgViewAnimalAvatar;
         });
     
         comboBoxSelectAge.setOnAction(e -> {
-            
             datePickerBirthDate.setValue(LocalDate.now());
-           
         });
    
     }
            
     public void viewNewReceipt(){
-        hideActiveChildPanes();
+        setActivePaneOn();
         splitPaneViewReceipt.toFront();
         splitPaneViewReceipt.setVisible(true);
-       
         //Ha hibaüzenetet kapsz (Modul elérési hiba, pl. Model, akkor a module-info.java-ba fel kell venni: opens Model to javafx.fxml; és exports Model;   
-
     }
     
     public void viewAllRecords(){
-        hideActiveChildPanes();
+        setActivePaneOn();
         splitPaneAllRecords.toFront();
         splitPaneAllRecords.setVisible(true);
-       
         //Ha hibaüzenetet kapsz (Modul elérési hiba, pl. Model, akkor a module-info.java-ba fel kell venni: opens Model to javafx.fxml; és exports Model;   
-        
-        
-        
-        
     }
     
     public void createNewCastration(){
-        hideActiveChildPanes();
+        setActivePaneOn();
         splitPaneNewCastration.toFront();
         splitPaneNewCastration.setVisible(true);
-        
-        
     }
     
    
 //SET TABLE COLUMNS    
-    public void setNewReceiptTableColumns(){
+    public void setNewReceiptTableColumns(){ //Data of a new receipt
         TableColumn receiptIdCol = createTableColumn("Mentés azonosító", "receiptid", 50);
         TableColumn animalIdCol = createTableColumn("Állat azonosító", "animnalid", 50);
         TableColumn personIdCol = createTableColumn("Mentő azonosító", "personid", 50);
@@ -657,7 +683,7 @@ private ImageView imgViewAnimalAvatar;
     
        
     
-    public void setViewAnimalTableColumns(){
+    public void setViewAnimalTableColumns(){ //Animals just received in the shelter
                   
         TableColumn animalIdCol = createTableColumn("Azonosító", "animalid", 50);
         TableColumn animalRaceCol = createTableColumn("Faj", "animalrace", 50);
@@ -666,12 +692,15 @@ private ImageView imgViewAnimalAvatar;
         TableColumn animalNameCol = createTableColumn("Név", "animalname", 50);
         TableColumn animalColorCol = createTableColumn("Szin", "animalcolor", 50);
         TableColumn animalBirthdateCol = createTableColumn("Születési dátum", "animalbirthdate", 50);
+        TableColumn animalAgeCol = createTableColumn("Életkor", "animalage", 50);
+        TableColumn animalChipIdCol = createTableColumn("Chip azonositó", "chipid", 50);
         TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 50);
-        TableColumn animalStatusCol = createTableColumn("Státusz", "animalstatus", 50);
         
-        tableViewBrowseAnimals.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol, animalStatusCol);
+        
+        tableViewBrowseAnimals.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol, animalAgeCol, animalChipIdCol, animalPhotoalbumIDCol);
         tableViewBrowseAnimals.setEditable(true);
         anchorPaneViewAnimalTable.getChildren().add(tableViewBrowseAnimals);
+        
         new_animal_data.addAll(catlantisdb.getAnimals());
         tableViewBrowseAnimals.setItems(new_animal_data);
     }    
@@ -679,10 +708,11 @@ private ImageView imgViewAnimalAvatar;
          
     public void setViewPersonTableColumns(){
         TableColumn personIdCol = createTableColumn("Azonosító", "personid", 30);
-        TableColumn personNameCol = createTableColumn("Név", "personname", 50);
+        TableColumn personFirstNameCol = createTableColumn("Vezetéknév", "personfirstname", 50);
+        TableColumn personLastNameCol = createTableColumn("Keresztnév", "personlastname", 50);
         TableColumn personPhoneCol = createTableColumn("Telefonszám", "personphone", 20);
         TableColumn personEmailCol = createTableColumn("E-mail", "personemail", 100);
-        tableViewNewPerson.getColumns().addAll(personIdCol, personNameCol, personPhoneCol, personEmailCol);
+        tableViewNewPerson.getColumns().addAll(personIdCol, personFirstNameCol, personLastNameCol, personPhoneCol, personEmailCol);
         tableViewNewPerson.setEditable(true);
         anchorPaneViewPersonTable.getChildren().add(tableViewNewPerson);
         new_person_data.addAll(catlantisdb.getPersons());
@@ -705,8 +735,28 @@ private ImageView imgViewAnimalAvatar;
         tableViewNewAddress.setItems(new_address_data);
     }   
     
-    public void setViewAllRecordsTableColumns(){
-        new_animal_data.clear();          
+    public void setViewAnimalConditionTableColumns(){ //Receipt conditions
+                 
+        TableColumn animalConditionIdCol = createTableColumn("Azonosító", "animalconditionid", 50);
+        TableColumn animalReceiptIdCol = createTableColumn("Befogadás azonositó", "receiptid", 50);
+        TableColumn animalCastredStatusCol = createTableColumn("Nemzőképesség", "castredstatus", 50);
+        TableColumn animalInjuryStatusCol = createTableColumn("Sérülés", "injurystatus", 150);
+        TableColumn animalInjuryDescCol = createTableColumn("Sérülés leirása", "injurydesc", 250);
+        TableColumn animalHealthStatusCol = createTableColumn("Egészségi állapot", "healthstatus", 150);
+        TableColumn animalSicknessDescCol = createTableColumn("Betegség leirása", "sicknessdesc", 250);
+        TableColumn remarksCol = createTableColumn("Megjegyzések", "remarks", 250);
+        
+        tableViewNewAnimalCondition.getColumns().addAll(animalConditionIdCol, animalReceiptIdCol, animalCastredStatusCol, animalInjuryStatusCol, animalInjuryDescCol, animalHealthStatusCol, animalSicknessDescCol, remarksCol);
+        tableViewNewAnimalCondition.setEditable(true);
+        anchorPaneViewConditionTable.getChildren().addAll(tableViewNewAnimalCondition);
+        new_animalcondition_data.addAll(catlantisdb.getAnimalconditions());
+        tableViewNewAnimalCondition.setItems(new_animalcondition_data);
+                      
+    }    
+    
+    
+     public void setViewAnimalsInShelterColumns(){ //Animals in the shelter
+                  
         TableColumn animalIdCol = createTableColumn("Azonosító", "animalid", 50);
         TableColumn animalRaceCol = createTableColumn("Faj", "animalrace", 50);
         TableColumn animalSpeciesCol = createTableColumn("Fajta", "animalspecies", 50);
@@ -714,17 +764,20 @@ private ImageView imgViewAnimalAvatar;
         TableColumn animalNameCol = createTableColumn("Név", "animalname", 50);
         TableColumn animalColorCol = createTableColumn("Szin", "animalcolor", 50);
         TableColumn animalBirthdateCol = createTableColumn("Születési dátum", "animalbirthdate", 50);
+        TableColumn animalAgeCol = createTableColumn("Életkor", "animalage", 50);
+        TableColumn animalChipIdCol = createTableColumn("Chip azonositó", "chipid", 50);
         TableColumn animalPhotoalbumIDCol = createTableColumn("Fényképalbum", "photoalbumid", 50);
-        TableColumn animalStatusCol = createTableColumn("Státusz", "animalstatus", 50);
-        TableColumn rescuedateCol = createTableColumn("Befogadás dátuma", "receiptdate", 50);
-        TableColumn receiptIdCol = createTableColumn("Befogadás naplószám", "receiptid", 50);
-        tableViewAllRecords.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol,animalPhotoalbumIDCol, animalStatusCol, rescuedateCol, receiptIdCol);
-        tableViewAllRecords.setEditable(true);
-        anchorPaneAllRecordsTable.getChildren().addAll(tableViewAllRecords);
-        new_animal_data.addAll(catlantisdb.getAnimals());
-        tableViewAllRecords.setItems(new_animal_data);
-                      
+        
+        
+        tableViewBrowseAnimalsInShelter.getColumns().addAll(animalIdCol,animalRaceCol,animalSpeciesCol,animalSexCol,animalNameCol,animalColorCol,animalBirthdateCol, animalAgeCol, animalChipIdCol, animalPhotoalbumIDCol);
+        tableViewBrowseAnimalsInShelter.setEditable(true);
+        anchorPaneAllRecordsTable.getChildren().add(tableViewBrowseAnimalsInShelter);
+//        new_animal_data.addAll(catlantisdb.getAnimals());
+        tableViewBrowseAnimalsInShelter.setItems(new_animal_data);
     }    
+    
+    
+    
     
 //    public void setNewCastrationTableColumns(){
 //        TableColumn animalIdCol = createTableColumn("Azonosító", "animalid", 50);
@@ -746,8 +799,9 @@ private ImageView imgViewAnimalAvatar;
      
      
 //FUNCTIONS-----------------------------------------------------------------------------------------------------------------------------
-    public void hideActiveChildPanes(){
+    public void setActivePaneOn(){
         mainContentStackPane.getChildren().forEach(childrenPanes -> childrenPanes.setVisible(false)); //All children Panes set to invisible
+        
     }
     
                 
@@ -773,6 +827,8 @@ private ImageView imgViewAnimalAvatar;
         setViewPersonTableColumns();
         setViewAddressTableColumns();
 //        setNewCastrationTableColumns();
-        setViewAllRecordsTableColumns();
+        setViewAnimalConditionTableColumns();
+        setViewAnimalsInShelterColumns();
+        
     }
 }  

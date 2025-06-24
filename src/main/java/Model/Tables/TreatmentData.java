@@ -4,7 +4,7 @@
  */
 package Model.Tables;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -21,7 +21,7 @@ public class TreatmentData {
     private SimpleStringProperty invoiceid;
     private SimpleStringProperty treatmentlognumber;
     
-    public TreatmentData(Integer treatmentId, String treatmentType, LocalDate treatmentDate, Integer vetId, Integer animalId, Integer invoiceId, Integer treatmentLogNumber){
+    public TreatmentData(Integer treatmentId, String treatmentType, Date treatmentDate, Integer vetId, Integer animalId, Integer invoiceId, Integer treatmentLogNumber){
         
         this.treatmentid = new SimpleStringProperty(String.valueOf(treatmentId));
         this.treatmenttype = new SimpleStringProperty(treatmentType);        

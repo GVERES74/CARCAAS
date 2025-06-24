@@ -4,7 +4,7 @@
  */
 package Model.Tables;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -20,18 +20,29 @@ public class ReceiptData {
     private SimpleStringProperty shelterid;
     private SimpleStringProperty receiptlognumber;
     
-    public ReceiptData(Integer receiptId, Integer animalId, Integer personAddressId, LocalDate receiptDate, Integer shelterId, Integer receiptLogNumber){
+    public ReceiptData(Integer receiptId, Integer animalId, Integer personAddressId, String receiptDate, Integer shelterId, String receiptLogNumber){
         
         this.receiptid = new SimpleStringProperty(String.valueOf(receiptId));
         this.animalid = new SimpleStringProperty(String.valueOf(animalId));
         this.personaddressid = new SimpleStringProperty(String.valueOf(personAddressId));
-        this.receiptdate = new SimpleStringProperty(String.valueOf(receiptDate));
+        this.receiptdate = new SimpleStringProperty(receiptDate);
         this.shelterid = new SimpleStringProperty(String.valueOf(shelterId));
-        this.receiptlognumber = new SimpleStringProperty(String.valueOf(receiptLogNumber));
+        this.receiptlognumber = new SimpleStringProperty(receiptLogNumber);
         
     }
 
-       
+     public ReceiptData(Integer animalId, Integer personAddressId, String receiptDate, Integer shelterId, String receiptLogNumber){
+        
+        this.receiptid = new SimpleStringProperty("");
+        this.animalid = new SimpleStringProperty(String.valueOf(animalId));
+        this.personaddressid = new SimpleStringProperty(String.valueOf(personAddressId));
+        this.receiptdate = new SimpleStringProperty(receiptDate);
+        this.shelterid = new SimpleStringProperty(String.valueOf(shelterId));
+        this.receiptlognumber = new SimpleStringProperty(receiptLogNumber);
+        
+    }
+     
+     
    //insert code getters
 
     public String getReceiptid() {

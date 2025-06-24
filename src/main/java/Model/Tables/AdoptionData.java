@@ -4,7 +4,7 @@
  */
 package Model.Tables;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -20,7 +20,7 @@ public class AdoptionData {
     private SimpleStringProperty shelterid;
     private SimpleStringProperty adoptionlognumber;
     
-    public AdoptionData(Integer adoptionId, Integer animalId, Integer personAddressId, LocalDate adoptionDate, Integer shelterId, Integer adoptionLogNumber){
+    public AdoptionData(Integer adoptionId, Integer animalId, Integer personAddressId, Date adoptionDate, Integer shelterId, Integer adoptionLogNumber){
         
         this.adoptionid = new SimpleStringProperty(String.valueOf(adoptionId));
         this.animalid = new SimpleStringProperty(String.valueOf(animalId));

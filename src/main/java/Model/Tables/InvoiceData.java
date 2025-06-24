@@ -4,7 +4,7 @@
  */
 package Model.Tables;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -22,7 +22,7 @@ public class InvoiceData {
     private final SimpleStringProperty invoicestatus;
     
     
-    public InvoiceData(Integer invoiceId, String invoiceNumber, Integer invoiceCost, LocalDate invoiceDate, LocalDate paymentDueDate, LocalDate paymentPaidDate, String invoiceStatus){
+    public InvoiceData(Integer invoiceId, String invoiceNumber, Integer invoiceCost, Date invoiceDate, Date paymentDueDate, Date paymentPaidDate, String invoiceStatus){
         
         this.invoiceid = new SimpleStringProperty(String.valueOf(invoiceId));
         this.invoicenumber = new SimpleStringProperty(invoiceNumber);

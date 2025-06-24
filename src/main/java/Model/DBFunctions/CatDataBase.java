@@ -39,14 +39,14 @@ import java.util.logging.Logger;
  */
 public class CatDataBase {
     final String JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-    final String LOCALURL = "jdbc:derby:CatMainDBase;create=true";
+    final String LOCALURL = "jdbc:derby:CatlantisDBase;create=true";
     final String USERNAME = "Catlantis";
     final String PASSWORD = "zebracica";
     public Connection connection = null;
     Statement createStatement = null;
     DatabaseMetaData dbMetaData = null;
     
-        
+       
     public CatDataBase(){
         
                 
@@ -115,7 +115,7 @@ public class CatDataBase {
             } 
                                  
 	    try {     
-            ResultSet resultSetPersonAddress = dbMetaData.getTables(null, "APP", "PERSONADDRESSES", null);
+            ResultSet resultSetPersonAddress = dbMetaData.getTables(null, "APP", "PERSONADDRESS", null);
                 if (!resultSetPersonAddress.next()){
                     createStatement.execute(CreateTables.CreateTablePersonAddress); 
                 }
@@ -265,9 +265,10 @@ public class CatDataBase {
                     + "db_animal_name,"
                     + "db_animal_color,"
                     + "db_animal_birthdate,"
+                    + "db_animal_age,"
                     + "db_chip_id,"
 		    + "db_photoalbum_id)"
-                    + "values (?,?,?,?,?,?,?,?)";
+                    + "values (?,?,?,?,?,?,?,?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewanimal);
             
@@ -277,8 +278,9 @@ public class CatDataBase {
             preparedStmt.setString(4, animaldata.getAnimalname());
             preparedStmt.setString(5, animaldata.getAnimalcolor());
             preparedStmt.setString(6, animaldata.getAnimalbirthdate());
-            preparedStmt.setString(7, animaldata.getChipid());
-            preparedStmt.setString(8, animaldata.getPhotoalbumid());
+            preparedStmt.setString(7, animaldata.getAnimalage());
+            preparedStmt.setString(8, animaldata.getChipid());
+            preparedStmt.setString(9, animaldata.getPhotoalbumid());
             preparedStmt.execute();
             
             Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+animaldata.getAnimalname()+" sikeresen hozzáadva!");     
@@ -306,6 +308,7 @@ public class CatDataBase {
                         rs.getString("db_animal_name"),
                         rs.getString("db_animal_color"),
                         rs.getString("db_animal_birthdate"),
+                        rs.getInt("db_animal_age"),
                         rs.getString("db_chip_id"),
                         rs.getString("db_photoalbum_id"));
                     
@@ -321,7 +324,7 @@ public class CatDataBase {
     public void addNewPerson(PersonData persondata){
        try{
             String sqladdnewperson = "insert into PERSONS("
-//auto generated    + "db_person_id,"	
+//                    + "db_person_id,"	
                     + "db_person_first_name,"
                     + "db_person_last_name,"
                     + "db_person_phone,"
@@ -336,7 +339,7 @@ public class CatDataBase {
             preparedStmt.setString(4, persondata.getPersonemail());
             preparedStmt.execute();
             
-            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+persondata.getPersonemail()+" sikeresen hozzáadva!");     
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+persondata.getPersonfirstname()+" "+persondata.getPersonlastname()+" sikeresen hozzáadva!");     
         } catch 
                 (SQLException e){
                 Dialogs.showErrorAlert("Hiba!", "Új személy hozzáadása",persondata.getPersonemail()+" "+e);
@@ -518,9 +521,9 @@ public class CatDataBase {
                         rs.getInt("db_receipt_id"),
                         rs.getInt("db_animal_id"),
                         rs.getInt("db_personaddress_id"),    
-                        rs.getDate("db_receipt_date"),
+                        rs.getString("db_receipt_date"),
                         rs.getInt("db_shelter_id"),
-			rs.getInt("db_receipt_log_number"));    
+			rs.getString("db_receipt_log_number"));    
                         
                 receipts.add(allreceipts);
                 
@@ -593,15 +596,15 @@ public void addNewAnimalCondition(AnimalConditionData animalconditiondata){
         
         try{
             String sqladdnewanimalcondition = "insert into ANIMALCONDITIONS("
-//auto generated    + "db_animalcondition_id,"	
-                    + "db_receipt_id,"
+	
+//                    + "db_receipt_id,"
                     + "db_castred_status,"
                     + "db_injury_status,"
                     + "db_injury_desc,"
                     + "db_health_status,"
                     + "db_sickness_desc,"
 		    + "db_remarks)"	
-                    + "values (?,?,?,?,?,?,?)";
+                    + "values (?,?,?,?,?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewanimalcondition);
             
@@ -849,7 +852,7 @@ public void addNewInvoice(InvoiceData invoicedata){
                         rs.getInt("db_invoice_id"),
                         rs.getString("db_invoice_number"),
                         rs.getInt("db_invoice_cost"),
-			rs.getString("db_invoice_date"),
+			rs.getDate("db_invoice_date"),
 			rs.getDate("db_payment_duedate"),
 			rs.getDate("db_payment_paiddate"),
 			rs.getString("db_invoice_status"));
@@ -870,7 +873,7 @@ public void deleteTable(String tableName){
             createStatement.execute("drop table "+tableName);
             Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Tábla "+tableName+" sikeresen törölve!");
         } catch (SQLException ex) {
-            Logger.getLogger(CatDataBase.class.getName()).log(Level.SEVERE, null, ex);
+            Dialogs.showErrorAlert("Hiba az adattábla törléskor!", "Táblanév: "+tableName, "Hibakód: "+ex);
         }
 }
 

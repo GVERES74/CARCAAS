@@ -22,9 +22,17 @@ public class PersonAddressData {
         this.personaddressid = new SimpleStringProperty(String.valueOf(personAddressId));
         this.personid = new SimpleStringProperty(String.valueOf(personId));
         this.addressid = new SimpleStringProperty(String.valueOf(addressId));
-   
-                
+                   
     }
+    
+    public PersonAddressData(Integer personId, Integer addressId){
+        
+        this.personaddressid = new SimpleStringProperty(String.valueOf(""));
+        this.personid = new SimpleStringProperty(String.valueOf(personId));
+        this.addressid = new SimpleStringProperty(String.valueOf(addressId));
+                   
+    }
+     
 
    //insert code getters
 

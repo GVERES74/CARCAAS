@@ -4,7 +4,6 @@
  */
 package Model.Tables;
 
-import java.time.LocalDate;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -20,13 +19,14 @@ public class AnimalData {
     private final SimpleStringProperty animalname;
     private final SimpleStringProperty animalcolor;
     private final SimpleStringProperty animalbirthdate;
+    private final SimpleStringProperty animalage;
     private final SimpleStringProperty chipid;
     private final SimpleStringProperty photoalbumid;
      
     
     
     
-    public AnimalData(Integer animalId, String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, String chipId, String photoAlbumId){
+    public AnimalData(Integer animalId, String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, Integer animalAge, String chipId, String photoAlbumId){
         
         this.animalid = new SimpleStringProperty(String.valueOf(animalId));
         this.animalrace = new SimpleStringProperty(animalRace);
@@ -35,12 +35,13 @@ public class AnimalData {
         this.animalname = new SimpleStringProperty(animalName);
         this.animalcolor = new SimpleStringProperty(animalColor);
         this.animalbirthdate = new SimpleStringProperty(animalBirthdate);
+        this.animalage= new SimpleStringProperty(String.valueOf(animalAge));
         this.chipid = new SimpleStringProperty(chipId);
         this.photoalbumid = new SimpleStringProperty(photoAlbumId);
         
     }    
     
-    public AnimalData(String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, String chipId, String photoAlbumId){
+    public AnimalData(String animalRace, String animalSpecies, String animalSex, String animalName, String animalColor, String animalBirthdate, Integer animalAge, String chipId, String photoAlbumId){
         
         this.animalid = new SimpleStringProperty("");
         this.animalrace = new SimpleStringProperty(animalRace);
@@ -49,6 +50,7 @@ public class AnimalData {
         this.animalname = new SimpleStringProperty(animalName);
         this.animalcolor = new SimpleStringProperty(animalColor);
         this.animalbirthdate = new SimpleStringProperty(animalBirthdate);
+        this.animalage= new SimpleStringProperty(String.valueOf(animalAge));
         this.chipid = new SimpleStringProperty(chipId);
         this.photoalbumid = new SimpleStringProperty(photoAlbumId);
         
@@ -86,6 +88,10 @@ public class AnimalData {
         return animalbirthdate.get();
     }
 
+    public String getAnimalage() {
+        return animalage.get();
+    }
+    
     public String getChipid() {
         return chipid.get();
     }

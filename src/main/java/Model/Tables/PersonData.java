@@ -30,7 +30,17 @@ public class PersonData {
         
     }
 
+    public PersonData(String personFirstName, String personLastName, String personPhone, String personEmail){
         
+        this.personid = new SimpleStringProperty("");
+        this.personfirstname = new SimpleStringProperty(personFirstName);
+        this.personlastname = new SimpleStringProperty(personLastName);
+        this.personphone = new SimpleStringProperty(personPhone);
+        this.personemail = new SimpleStringProperty(personEmail);
+        
+    }
+
+    
     //insert code getters
 
     public String getPersonid() {
@@ -52,5 +62,7 @@ public class PersonData {
     public String getPersonemail() {
         return personemail.get();
     }
+
+    
        
 }

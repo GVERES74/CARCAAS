@@ -36,7 +36,20 @@ public class AnimalConditionData {
         
     }
 
-   
+    public AnimalConditionData(String castredStatus, String injuryStatus, String injuryDesc, String healthStatus, String sicknessDesc, String reMarks){
+        
+        this.animalconditionid = new SimpleStringProperty(String.valueOf(""));
+        this.receiptid = new SimpleStringProperty(String.valueOf(""));
+        this.castredstatus = new SimpleStringProperty(castredStatus);
+        this.injurystatus = new SimpleStringProperty(injuryStatus);
+        this.injurydesc = new SimpleStringProperty(injuryDesc);
+        this.healthstatus = new SimpleStringProperty(healthStatus);
+        this.sicknessdesc = new SimpleStringProperty(sicknessDesc);
+        this.remarks = new SimpleStringProperty(reMarks);
+        
+    }
+    
+    
   //insert code getters
 
     public String getAnimalconditionid() {
@@ -70,7 +83,8 @@ public class AnimalConditionData {
     public String getRemarks() {
         return remarks.get();
     }
-  
+
+    
    
 }
 
