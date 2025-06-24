@@ -450,7 +450,7 @@ public class CatDataBase {
             Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+personaddressdata.getPersonaddressid()+" sikeresen hozzáadva!");     
         } catch 
                 (SQLException e){
-                Dialogs.showErrorAlert("Hiba!", "Új Személy+Cím hozzáadása:",personaddressdata.getPersonaddressid()+" Hibakód: "+e);
+                Dialogs.showErrorAlert("Hiba!", "Új Személy+Cím hozzáadása:",personaddressdata.getPersonid()+" Hibakód: "+e);
 				}
     }    
 
@@ -500,7 +500,7 @@ public class CatDataBase {
             preparedStmt.setString(5, receiptdata.getReceiptlognumber());
             preparedStmt.execute();
             
-            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+receiptdata.getReceiptid()+" sikeresen hozzáadva!");     
+            Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+receiptdata.getReceiptlognumber()+" sikeresen hozzáadva!");     
         } catch 
                 (SQLException e){
                 Dialogs.showErrorAlert("Figyelem!", "Új átvétel hozzáadása",receiptdata.getReceiptid()+" "+e);
@@ -595,9 +595,9 @@ public class CatDataBase {
 public void addNewAnimalCondition(AnimalConditionData animalconditiondata){
         
         try{
-            String sqladdnewanimalcondition = "insert into ANIMALCONDITIONS("
+            String sqladdnewanimalcondition = "insert into ANIMALCONDITIONS(" 
 	
-//                    + "db_receipt_id,"
+                    + "db_receipt_id,"
                     + "db_castred_status,"
                     + "db_injury_status,"
                     + "db_injury_desc,"

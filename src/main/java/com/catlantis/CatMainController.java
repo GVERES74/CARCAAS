@@ -324,6 +324,7 @@ private ImageView imgViewAnimalAvatar;
                     rbGroupHealth.getSelectedToggle().toString(),
                     textAreaSicknessDetails.getText(),
                     textAreaAdditionalInfo.getText()
+                    
                                
              );
             

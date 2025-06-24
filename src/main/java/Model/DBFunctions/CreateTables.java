@@ -88,10 +88,10 @@ public class CreateTables {
 	public static String CreateTableAnimalConditions = "create table ANIMALCONDITIONS("
            + "db_animalcondition_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
            + "db_receipt_id INT,"
-           + "db_castred_status varchar (50),"
-	   + "db_injury_status varchar (50),"
+           + "db_castred_status varchar (150),"
+	   + "db_injury_status varchar (150),"
 	   + "db_injury_desc varchar (250),"
-           + "db_health_status varchar (50),"
+           + "db_health_status varchar (150),"
 	   + "db_sickness_desc varchar (250),"
 	   + "db_remarks varchar (250),"
            + "FOREIGN KEY (db_receipt_id) REFERENCES RECEIPTS)";
