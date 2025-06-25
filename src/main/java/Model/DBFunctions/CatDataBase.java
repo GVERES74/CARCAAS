@@ -489,7 +489,8 @@ public class CatDataBase {
                     + "db_receipt_date,"
                     + "db_shelter_id,"
 		    + "db_receipt_log_number)"
-                    + "values (?,?,?,?,?)";
+                   // + "values (?,?,?,?,?)";
+		    + "values ("REC1","REC2","REC3","REC4","REC5")";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewreceipt);
             
@@ -604,7 +605,8 @@ public void addNewAnimalCondition(AnimalConditionData animalconditiondata){
                     + "db_health_status,"
                     + "db_sickness_desc,"
 		    + "db_remarks)"	
-                    + "values (?,?,?,?,?,?)";
+                    //+ "values (?,?,?,?,?,?,?)";
+		    + "values ("AC1","AC2","AC3","AC4","AC5","AC6","AC7")";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewanimalcondition);
             
