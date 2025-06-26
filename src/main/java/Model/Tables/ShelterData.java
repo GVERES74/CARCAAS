@@ -25,8 +25,8 @@ public class ShelterData {
         
         this.shelterid = new SimpleStringProperty(String.valueOf(shelterId));
         this.sheltername = new SimpleStringProperty(shelterName);        
-        this.sheltername = new SimpleStringProperty(shelterTaxnumber);        
-        this.sheltername = new SimpleStringProperty(shelterBankaccountnumber);        
+        this.sheltertaxnumber = new SimpleStringProperty(shelterTaxnumber);        
+        this.shelterbankaccountnumber = new SimpleStringProperty(shelterBankaccountnumber);        
         this.animalid = new SimpleStringProperty(String.valueOf(animalId));
         this.personaddressid = new SimpleStringProperty(String.valueOf(personAddressId));
         
