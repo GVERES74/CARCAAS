@@ -208,10 +208,10 @@ public class CatDataBase {
     public void addNewUser(UserData userdata){
        try{
             String sqladdnewuser = "insert into USERS("
-//auto generated    + "db_user_id,"
+//auto generated PK + "db_user_id,"
                     + "db_user_name,"
                     + "db_user_password,"
-		    + "db_person_id)"
+		    + "db_person_id)" //FK from table PERSONS
                     + "values (?,?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewuser);
@@ -258,7 +258,7 @@ public class CatDataBase {
     public void addNewAnimal(AnimalData animaldata){
        try{
             String sqladdnewanimal = "insert into ANIMALS("
-//auto generated    + "db_animal_id,"
+//auto generated PK + "db_animal_id,"
                     + "db_animal_race,"
                     + "db_animal_species,"
                     + "db_animal_sex,"
@@ -324,7 +324,7 @@ public class CatDataBase {
     public void addNewPerson(PersonData persondata){
        try{
             String sqladdnewperson = "insert into PERSONS("
-//                    + "db_person_id,"	
+//auto generated PK + "db_person_id,"	
                     + "db_person_first_name,"
                     + "db_person_last_name,"
                     + "db_person_phone,"
@@ -377,7 +377,7 @@ public class CatDataBase {
     public void addNewAddress(AddressData addressdata){
        try{
             String sqladdnewaddress = "insert into ADDRESSES("
-//auto generated    + "db_address_id,"	                                        
+//auto generated PK + "db_address_id,"	                                        
                     + "db_address_country,"
                     + "db_address_county,"
                     + "db_address_zipcode,"
@@ -387,7 +387,6 @@ public class CatDataBase {
                     + "values (?,?,?,?,?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewaddress);
-            
             
             preparedStmt.setString(1, addressdata.getAddresscountry());
             preparedStmt.setString(2, addressdata.getAddresscounty());
@@ -436,9 +435,9 @@ public class CatDataBase {
     public void addNewPersonAddress(PersonAddressData personaddressdata){
        try{
             String sqladdnewpersonaddress = "insert into PERSONADDRESSES("
-//auto generated    + "db_personaddress_id,"
-		    + "db_person_id,"
-		    + "db_address_id)"
+//auto generated PK + "db_personaddress_id,"
+		    + "db_person_id," //FK from table PERSONS
+		    + "db_address_id)" //FK from table ADDRESSES
                     + "values (?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewpersonaddress);
@@ -483,11 +482,11 @@ public class CatDataBase {
         
         try{
             String sqladdnewreceipt = "insert into RECEIPTS("
-//auto generated    + "db_receipt_id,"	
-                    + "db_animal_id,"
-                    + "db_personaddress_id,"
+//auto generated PK + "db_receipt_id,"	
+                    + "db_animal_id," //FK from table ANIMALS
+                    + "db_personaddress_id," //FK from table PERSONADDRESS
                     + "db_receipt_date,"
-                    + "db_shelter_id,"
+                    + "db_shelter_id," //FK from table SHELTERS
 		    + "db_receipt_log_number)"
                    // + "values (?,?,?,?,?)";
 		    + "values ("REC1","REC2","REC3","REC4","REC5")";
@@ -540,11 +539,11 @@ public class CatDataBase {
         
         try{
             String sqladdnewadoption = "insert into ADOPTIONS("
-//auto generated    + "db_adoption_id,"	
-                    + "db_animal_id,"
-                    + "db_personaddress_id,"
+//auto generated PK + "db_adoption_id,"	
+                    + "db_animal_id," //FK from table ANIMALS
+                    + "db_personaddress_id," //FK from table PERSONADDRESS
                     + "db_adoption_date,"
-                    + "db_shelter_id,"
+                    + "db_shelter_id," //FK from table SHELTERS
 		    + "db_adoption_log_number)"	
                     + "values (?,?,?,?,?)";
                     
@@ -597,8 +596,8 @@ public void addNewAnimalCondition(AnimalConditionData animalconditiondata){
         
         try{
             String sqladdnewanimalcondition = "insert into ANIMALCONDITIONS(" 
-	
-                    + "db_receipt_id,"
+//auto generated PK + "db_animalcondition_id",
+                    + "db_receipt_id," //FK from table RECEIPTS
                     + "db_castred_status,"
                     + "db_injury_status,"
                     + "db_injury_desc,"
@@ -660,17 +659,21 @@ public void addNewAnimalCondition(AnimalConditionData animalconditiondata){
     public void addNewShelter(ShelterData shelterdata){
        try{
             String sqladdnewshelter = "insert into SHELTERS("
-//auto generated    + "db_shelter_id,"
+//auto generated PK + "db_shelter_id,"
 		    + "db_shelter_name,"
-		    + "db_animal_id,"
-		    + "db_personaddress_id)"
-                    + "values (?,?,?)";
+		    + "db_shelter_taxnumber,"
+		    + "db_shelter_bankaccount_number,"
+		    + "db_animal_id," //FK from table ANIMALS
+		    + "db_personaddress_id)" //FK from table PERSONADDRESS
+                    + "values (?,?,?,?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewshelter);
             
             preparedStmt.setString(1, shelterdata.getSheltername());
-            preparedStmt.setString(2, shelterdata.getAnimalid());
-            preparedStmt.setString(3, shelterdata.getPersonaddressid());
+	    preparedStmt.setString(2, shelterdata.getSheltertaxnumber());
+	    preparedStmt.setString(3, shelterdata.getShelterbankaccountnumber());
+            preparedStmt.setString(4, shelterdata.getAnimalid());
+            preparedStmt.setString(5, shelterdata.getPersonaddressid());
             preparedStmt.execute();
             
             Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+shelterdata.getSheltername()+" sikeresen hozzáadva!");     
@@ -693,6 +696,8 @@ public void addNewAnimalCondition(AnimalConditionData animalconditiondata){
                         
                         rs.getInt("db_shelter_id"),
                         rs.getString("db_shelter_name"),
+			rs.getString("db_shelter_taxnumber"),
+			rs.getString("db_shelter_bankaccount_number"),
                         rs.getInt("db_animal_id"),
                         rs.getInt("db_personaddress_id"));
                     
@@ -710,15 +715,19 @@ public void addNewAnimalCondition(AnimalConditionData animalconditiondata){
 public void addNewVeterinary(VeterinaryData veterinarydata){
        try{
             String sqladdnewveterinary = "insert into VETERINARIES("
-//auto generated    + "db_vet_id,"
+//auto generated PK + "db_vet_id,"
 		    + "db_vet_name,"
-		    + "db_personaddress_id)"
-                    + "values (?,?)";
+		    + "db_vet_taxnumber,"
+		    + "db_vet_bankaccount_number,"
+		    + "db_personaddress_id)" //FK from table PERSONADDRESS
+                    + "values (?,?,?,?)";
                     
             PreparedStatement preparedStmt = connection.prepareStatement(sqladdnewveterinary);
             
             preparedStmt.setString(1, veterinarydata.getVeterinaryname());
-            preparedStmt.setString(2, veterinarydata.getPersonaddressid());
+	    preparedStmt.setString(2, veterinarydata.getVeterinarytaxnumber());
+	    preparedStmt.setString(3, veterinarydata.getVeterinarybankaccountnumber());   
+            preparedStmt.setString(4, veterinarydata.getPersonaddressid());
             preparedStmt.execute();
             
             Dialogs.showInfoAlert("Information", CatDataBase.class.getName(), "Rekord "+veterinarydata.getVeterinaryname()+" sikeresen hozzáadva!");     
@@ -741,6 +750,8 @@ public void addNewVeterinary(VeterinaryData veterinarydata){
                         
                         rs.getInt("db_vet_id"),
                         rs.getString("db_vet_name"),
+			rs.getString("db_vet_taxnumber"),
+			rs.getString("db_vet_bankaccount_number"),
                         rs.getInt("db_personaddress_id"));
  //db_animal_id kell?                   
                 veterinaries.add(allveterinaries);
@@ -756,12 +767,12 @@ public void addNewVeterinary(VeterinaryData veterinarydata){
 public void addNewTreatment(TreatmentData treatmentdata){
        try{
             String sqladdnewtreatment = "insert into TREATMENTS("
-//auto generated    + "db_treatment_id,"
+//auto generated PK + "db_treatment_id,"
 		    + "db_treatment_type,"
 		    + "db_treatment_date,"
-		    + "db_vet_id,"
-		    + "db_animal_id,"
-		    + "db_invoice_id,"
+		    + "db_vet_id," //FK from table VETERINARIES
+		    + "db_animal_id," //FK from table ANIMALS
+		    + "db_invoice_id," //FK from table INVOICES
 		    + "db_treatment_log_number)"
                     + "values (?,?,?,?,?,?)";
                     
@@ -814,7 +825,7 @@ public void addNewTreatment(TreatmentData treatmentdata){
 public void addNewInvoice(InvoiceData invoicedata){
        try{
             String sqladdnewinvoice = "insert into INVOICES("
-//auto generated    + "db_invoice_id,"
+//auto generated PK + "db_invoice_id,"
 		    + "db_invoice_number,"
 		    + "db_invoice_cost,"
 		    + "db_invoice_date,"
