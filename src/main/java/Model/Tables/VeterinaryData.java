@@ -40,8 +40,13 @@ public class VeterinaryData {
         return veterinaryname.get();
     }
 
-//insert code getters for taxnumber and bankaccount number
+    public String getVeterinarytaxnumber() {
+        return veterinarytaxnumber.get();
+    }
 
+    public String getVeterinarybankaccountnumber() {
+        return veterinarybankaccountnumber.get();
+    }
 
    
     public String getPersonaddressid() {

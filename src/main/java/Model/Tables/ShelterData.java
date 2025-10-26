@@ -42,9 +42,14 @@ public class ShelterData {
     }
 
 
-//insert code getters for taxnumber and bankaccountnumber
+    public String getSheltertaxnumber() {
+        return sheltertaxnumber.get();
+    }
 
-
+    public String getShelterbankaccountnumber() {
+        return shelterbankaccountnumber.get();
+    }
+    
    
     public String getAnimalid() {
         return animalid.get();
